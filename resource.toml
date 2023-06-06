@@ -1,4 +1,4 @@
 type = 'csharp'
 client-files = [ 'Client/*' ]
-client-main = 'Client/dist/startup.js'
+client-main = 'Client/dist/client.js'
 main = 'Server/MainResource/MainResource.dll'
