@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "tGYfRr/Vpp2QJk+u1AtkJz73jeTELa8qpslG2MDlsfejUB4PvK7zgyF3diuiDhaStVhqmqpBLKCtWHLjTTxSSQ==",
+  "success": true,
+  "projectFilePath": "H:\\AltV Dev\\altv-project\\AltV-Project\\MainResource\\MainResource.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\x5201\\.nuget\\packages\\altv.net\\15.0.87-dev\\altv.net.15.0.87-dev.nupkg.sha512",
+    "C:\\Users\\x5201\\.nuget\\packages\\altv.net.capi\\15.0.87-dev\\altv.net.capi.15.0.87-dev.nupkg.sha512",
+    "C:\\Users\\x5201\\.nuget\\packages\\altv.net.shared\\15.0.87-dev\\altv.net.shared.15.0.87-dev.nupkg.sha512"
+  ],
+  "logs": []
+}

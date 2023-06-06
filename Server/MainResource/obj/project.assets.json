@@ -1,0 +1,158 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "AltV.Net/15.0.87-dev": {
+        "type": "package",
+        "dependencies": {
+          "AltV.Net.Shared": "15.0.87-dev"
+        },
+        "compile": {
+          "lib/net6.0/AltV.Net.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/AltV.Net.dll": {}
+        }
+      },
+      "AltV.Net.CApi/15.0.87-dev": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/AltV.Net.CApi.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/AltV.Net.CApi.dll": {}
+        }
+      },
+      "AltV.Net.Shared/15.0.87-dev": {
+        "type": "package",
+        "dependencies": {
+          "AltV.Net.CApi": "15.0.87-dev"
+        },
+        "compile": {
+          "lib/net6.0/AltV.Net.Shared.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/AltV.Net.Shared.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "AltV.Net/15.0.87-dev": {
+      "sha512": "pyaeZF0Gq9TcFES7TLrrGEUhb/mO67CfGBB+VVGforFb4nhqzPLQSNX3qj8RoNTfusfmAW3WfXDwnxNuxmL35w==",
+      "type": "package",
+      "path": "altv.net/15.0.87-dev",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "altv.net.15.0.87-dev.nupkg.sha512",
+        "altv.net.nuspec",
+        "icon.png",
+        "lib/net6.0/AltV.Net.dll",
+        "license.txt"
+      ]
+    },
+    "AltV.Net.CApi/15.0.87-dev": {
+      "sha512": "SNiiWIPNkuuZDxSE3NbZiVCdT/HMcYSFhDJuUEnLCBp1mHivR8sGtXlazJE58dQ6HH4wixh3AAVH0wgUnLDYSA==",
+      "type": "package",
+      "path": "altv.net.capi/15.0.87-dev",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "altv.net.capi.15.0.87-dev.nupkg.sha512",
+        "altv.net.capi.nuspec",
+        "icon.png",
+        "lib/net6.0/AltV.Net.CApi.dll",
+        "license.txt"
+      ]
+    },
+    "AltV.Net.Shared/15.0.87-dev": {
+      "sha512": "Vm/2cJvNn01Qjaz/3nQO4TZC1fPWLftxQ3HORwDQcikpUZnOdxzRUIg+DFdXcA/6ZX/LRHwKX253KCnSPeEosg==",
+      "type": "package",
+      "path": "altv.net.shared/15.0.87-dev",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "altv.net.shared.15.0.87-dev.nupkg.sha512",
+        "altv.net.shared.nuspec",
+        "icon.png",
+        "lib/net6.0/AltV.Net.Shared.dll",
+        "license.txt"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "AltV.Net >= 15.0.87-dev"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\x5201\\.nuget\\packages\\": {},
+    "F:\\VS SDK\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "H:\\AltV Dev\\altv-project\\AltV-Project\\MainResource\\MainResource.csproj",
+      "projectName": "MainResource",
+      "projectPath": "H:\\AltV Dev\\altv-project\\AltV-Project\\MainResource\\MainResource.csproj",
+      "packagesPath": "C:\\Users\\x5201\\.nuget\\packages\\",
+      "outputPath": "H:\\AltV Dev\\altv-project\\AltV-Project\\MainResource\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "F:\\VS SDK\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\x5201\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "dependencies": {
+          "AltV.Net": {
+            "target": "Package",
+            "version": "[15.0.87-dev, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.408\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

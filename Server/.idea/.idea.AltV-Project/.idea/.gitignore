@@ -1,0 +1,20 @@
+﻿# 默认忽略的文件
+/shelf/
+/obj/
+/bin/
+/workspace.xml
+/.idea/
+Server/.idea
+Server/MainResource/obj
+Server/Model/obj
+Server/Repository/obj
+# Rider 忽略的文件
+/projectSettingsUpdater.xml
+/.idea.AltV-Project.iml
+/contentModel.xml
+/modules.xml
+# 基于编辑器的 HTTP 客户端请求
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
