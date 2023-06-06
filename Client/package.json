@@ -1,0 +1,19 @@
+{
+  "name": "altv-project",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "watch-client": "node --es-module-specifier-resolution=node watch-client.js",
+    "watch": "concurrently npm:watch-*"
+  },
+  "dependencies": {
+    "@altv/types-client": "latest",
+    "@altv/types-natives": "latest",
+    "@altv/types-server": "latest",
+    "@altv/types-shared": "latest",
+    "altv-esbuild": "latest",
+    "concurrently": "^7.0.0",
+    "esbuild": "^0.17.10"
+  },
+  "type": "module"
+}
