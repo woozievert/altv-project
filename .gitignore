@@ -1,8 +1,0 @@
-﻿*.log
-bin/
-obj/
-.idea/
-Server/.idea/
-Server/MainResource/obj/
-Server/Model/obj/
-Server/Repository/obj/
