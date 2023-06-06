@@ -7,7 +7,7 @@ namespace MainResource.Factory.Player;
 /// </summary>
 public class IPlayer : AltV.Net.Elements.Entities.Player
 {
-    public IPlayer(ICore core, IntPtr nativePointer, uint id) : base(core, nativePointer, id)
+    public IPlayer(ICore core, IntPtr nativePointer, ushort id) : base(core, nativePointer, id)
     {
     }
 
