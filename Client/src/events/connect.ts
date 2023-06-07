@@ -4,9 +4,12 @@ import langPack from "../shared/locale/main";
 
 alt.on('playerConnect', onClientConnect);
 
-function onClientConnect(player: alt.Player) {
-    player.spawn(813, -279, 66);
+alt.onServer('TestClientside', (playerName: string) => {
+    const joinMessage = langPack["zh-CN"].join_server(playerName);
+    alt.log(joinMessage);
+});
 
+function onClientConnect(player: alt.Player) {
     alt.log('test');
     const joinMessage = langPack["zh-CN"].join_server(player.name);
     alt.log(joinMessage);

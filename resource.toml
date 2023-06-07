@@ -1,5 +1,7 @@
 type = 'csharp'
 client-type = "js"
-client-files = [ 'Client/*' ]
+client-files = [
+    'Client/dist/client.js'
+]
 client-main = 'Client/dist/client.js'
-main = 'Server/MainResource/MainResource.dll'
+main = 'Server/MainResource/bin/Debug/net6.0/MainResource.dll'
