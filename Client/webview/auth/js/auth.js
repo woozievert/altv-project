@@ -1,5 +1,4 @@
 let langPack = undefined;
-
 document.addEventListener('DOMContentLoaded', (event) => {
     if ('alt' in window) {
         console.log("alt加载完成");
@@ -14,13 +13,19 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         registerButton.addEventListener("click", function() {
             if (regUser.value.toString() != null && regPassword.value.toString() != null && regEmail.value.toString() != null) {
-                if (!isValidUsername(regUser.value.toString())) return regNotify(langPack.invalid_username);
+                if (!isValidUsername(regUser.value.toString())) return regNotify('用户名有误(4-16字符,可含字母，数字，下划线，减号)');
                 else if (!isValidPassword(regPassword.value.toString())) return regNotify('密码有误(6-20字符,包含至少1个大、小写字母、数字)');
                 else if (!isValidEmail(regEmail.value.toString())) return regNotify('邮箱格式有误！');
                 alt.emit('auth:client:tryRegister', regUser.value.toString(), regPassword.value.toString(), regEmail.value.toString());
             }
         });
-        alt.on('auth:webview:importLangPack', importLangPack);
+        // alt.on('auth:webview:importLangPack', importLangPack);
+        // function importLangPack(data) {
+        //     console.log('已加载')
+        //     langPack = data;
+        //     console.log(langPack);
+        // }
+
         alt.on('auth:webview:wrongAuth', loginNotify);
         alt.on('auth:webview:alreadyExist', regNotify);
         alt.on('auth:webview:finishReg', regNotify);
@@ -41,9 +46,4 @@ function isValidUsername(username) {
 function isValidPassword(password) {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     return passwordRegex.test(password);
-}
-
-function importLangPack(data) {
-    langPack = JSON.parse(data);
-    console.log(langPack);
 }

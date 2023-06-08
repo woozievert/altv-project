@@ -21,7 +21,7 @@ export let playerTempVar = {
 alt.onServer('auth:client:show', _showAuthPage);
 function _showAuthPage() {
     setPageState(authPage, true, true, false);
-    alt.emit('auth:webview:importLangPack', langPack['zh-CN']);
+    // alt.emit('auth:webview:importLangPack', langPack['zh-CN']);
 }
 
 // 关闭并取消聚焦authPage页面，同时关闭光标和启用游戏控制。
