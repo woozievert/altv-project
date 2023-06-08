@@ -38,3 +38,8 @@ alt.onServer('auth:client:wrongAuth', _wrongAuth);
 function _wrongAuth() {
     alt.emit('auth:webview:wrongAuth', langPack["zh-CN"].wrong_auth);
 }
+
+authPage.on('auth:client:tryRegister', _tryRegister);
+function _tryRegister(username: string, password: string, email: string) {
+    alt.emitServer('auth:server:tryRegister', alt.Player.local, username, password, email);
+}
