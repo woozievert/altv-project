@@ -7,6 +7,30 @@ document.addEventListener('DOMContentLoaded', (event) => {
         loginNotify('');
         regNotify('');
 
+        loginInputType.addEventListener("click",function(){
+            if(loginPassword.type === "password") loginPassword.type = "text";
+            else loginPassword.type = "password";
+        });
+
+        regInputType.addEventListener("click",function(){
+            if(regPassword.type === "password") regPassword.type = "text";
+            else regPassword.type = "password";
+        });
+
+        toggleReg.addEventListener("click", function() {
+            loginForm.style.display = "none";
+            registerForm.style.display = "block";
+            formTitle.textContent = "注册窗口";
+            toggleLogin.textContent = "返回登录";
+        });
+
+        toggleLogin.addEventListener("click", function() {
+            loginForm.style.display = "block";
+            registerForm.style.display = "none";
+            formTitle.textContent = "登录窗口";
+            toggleReg.textContent = "创建一个账号";
+        });
+
         loginButton.addEventListener("click", function() {
             if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
                 alt.emit('auth:client:tryLogin', loginUser.value.toString(), loginPassword.value.toString());
@@ -42,11 +66,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         // }
 
         alt.on('auth:webview:getLocalAuth', _getLocalAuth);
-        function _getLocalAuth(username, password) {
-            loginUser.value = username;
-            loginPassword.value = password;
-        }
-
         alt.on('auth:webview:wrongAuth', loginNotify);
         alt.on('auth:webview:alreadyExist', regNotify);
         alt.on('auth:webview:finishReg', regNotify);
@@ -67,4 +86,10 @@ function isValidUsername(username) {
 function isValidPassword(password) {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     return passwordRegex.test(password);
+}
+
+function _getLocalAuth(username, password) {
+    loginUser.value = username;
+    loginPassword.value = password;
+    checkBox.checked = true;
 }

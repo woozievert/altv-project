@@ -14,27 +14,3 @@ const regEmail = document.querySelector('#regEmailInput');
 const registerButton = document.querySelector(".reg-button");
 const checkBox = document.querySelector(".save-info");
 
-loginInputType.addEventListener("click",function(){
-    if(document.querySelector("#passwordInput").type === "password") document.querySelector("#passwordInput").type = "text";
-    else document.querySelector("#passwordInput").type = "password";
-});
-
-regInputType.addEventListener("click",function(){
-    if(document.querySelector("#regPasswordInput").type === "password") document.querySelector("#regPasswordInput").type = "text";
-    else document.querySelector("#regPasswordInput").type = "password";
-});
-
-toggleReg.addEventListener("click", function() {
-    loginForm.style.display = "none";
-    registerForm.style.display = "block";
-    formTitle.textContent = "注册窗口";
-    toggleLogin.textContent = "返回登录";
-});
-
-toggleLogin.addEventListener("click", function() {
-    loginForm.style.display = "block";
-    registerForm.style.display = "none";
-    formTitle.textContent = "登录窗口";
-    toggleReg.textContent = "创建一个账号";
-});
-
