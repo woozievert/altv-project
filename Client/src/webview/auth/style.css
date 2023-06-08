@@ -87,7 +87,7 @@ body{
     padding-top: 12px;
 }
 
-.show-password-btn{
+.login-password-btn, .reg-password-btn{
     position: absolute;
     right: 20px;
     top: 50%;
