@@ -32,3 +32,9 @@ authPage.on('auth:client:tryLogin', _tryLogin);
 function _tryLogin(username: string, password: string) {
     alt.emitServer('auth:server:tryLogin', alt.Player.local, username, password);
 }
+
+// 接收客户端错误密码事件
+alt.onServer('auth:client:wrongAuth', _wrongAuth);
+function _wrongAuth() {
+    alt.emit('auth:webview:wrongAuth');
+}
