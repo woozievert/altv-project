@@ -5,6 +5,8 @@ import langPack from "../../shared/locale/main";
 import * as logger from "../../log/logger";
 
 const authPage = webViews.authPage;
+const localUsername = alt.LocalStorage.get('username');
+const localPassword = alt.LocalStorage.get('password');
 
 /*
     在登录页面的临时登录状态，导出为验证是否登录使用。
@@ -21,7 +23,9 @@ export let playerTempVar = {
 alt.onServer('auth:client:show', _showAuthPage);
 function _showAuthPage() {
     setPageState(authPage, true, true, false);
-    // alt.emit('auth:webview:importLangPack', langPack['zh-CN']);
+    if (localUsername != null && localPassword != null) {
+        alt.emit('auth:webview:getLocalAuth', localUsername, localPassword);
+    }
 }
 
 // 关闭并取消聚焦authPage页面，同时关闭光标和启用游戏控制。
@@ -34,6 +38,20 @@ function _destroyAuthPage() {
 authPage.on('auth:client:tryLogin', _tryLogin);
 function _tryLogin(username: string, password: string) {
     alt.emitServer('auth:server:tryLogin', alt.Player.local, username, password);
+}
+
+authPage.on('auth:client:saveLocalAuth', _saveLocalAuth);
+function _saveLocalAuth(username: string, password: string) {
+    alt.LocalStorage.set("username", username); // 设置本地存储键值
+    alt.LocalStorage.set("password", password);
+    alt.LocalStorage.save(); // 保存本地存储
+}
+
+authPage.on('auth:client:deleteLocalAuth', _deleteLocalAuth);
+function _deleteLocalAuth() {
+    alt.LocalStorage.delete("username"); // 设置本地存储键值
+    alt.LocalStorage.delete("password");
+    alt.LocalStorage.save(); // 保存本地存储
 }
 
 // 接收客户端错误密码事件

@@ -1,14 +1,14 @@
 let langPack = undefined;
 
+let localUsername = undefined;
+let localPassword = undefined;
+
 document.addEventListener('DOMContentLoaded', (event) => {
     if ('alt' in window) {
         console.log("alt加载完成");
 
         loginNotify('');
         regNotify('');
-
-        const localUsername = alt.LocalStorage.get('username');
-        const localPassword = alt.LocalStorage.get('password');
 
         if (localUsername != null && localPassword != null) {
             loginUser.value = localUsername;
@@ -33,14 +33,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         checkBox.addEventListener("change", function () {
             if (this.checked) {
                 if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
-                    alt.LocalStorage.set("username", loginUser.value.toString()); // 设置本地存储键值
-                    alt.LocalStorage.set("password", loginPassword.value.toString());
-                    alt.LocalStorage.save(); // 保存本地存储
+                    alt.emit('auth:client:saveLocalAuth', loginUser.value.toString(), loginPassword.value.toString());
                 }
             } else {
-                alt.LocalStorage.delete("username"); // 删除键值
-                alt.LocalStorage.delete("password"); // 删除键值
-                alt.LocalStorage.save(); // 保存本地存储
+                alt.emit('auth:client:deleteLocalAuth');
             }
         });
 
@@ -50,6 +46,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
         //     langPack = data;
         //     console.log(langPack);
         // }
+
+        alt.on('auth:webview:getLocalAuth', _getLocalAuth);
+        function _getLocalAuth(username, password) {
+            localUsername = username;
+            localPassword = password;
+        }
 
         alt.on('auth:webview:wrongAuth', loginNotify);
         alt.on('auth:webview:alreadyExist', regNotify);
