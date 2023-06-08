@@ -98,17 +98,19 @@
             console.log('test')
         });
 
-        const toggleReg = document.getElementById("toggle-reg");
-        const toggleLogin = document.getElementById("toggle-login");
-        const loginForm = document.getElementById("login-form");
-        const registerForm = document.getElementById("reg-form");
-        const formTitle = document.getElementById("form-title");
+        const toggleReg = document.querySelector("#toggle-reg");
+        const toggleLogin = document.querySelector("#toggle-login");
+        const loginForm = document.querySelector("#login-form");
+        const registerForm = document.querySelector("#reg-form");
+        const formTitle = document.querySelector("#form-title");
 
         toggleReg.addEventListener("click", function() {
             loginForm.style.display = "none";
             registerForm.style.display = "block";
             formTitle.textContent = "注册窗口";
             toggleLogin.textContent = "返回登录";
+
+            console.log(document.querySelector(".show-password-btn"));
         });
 
         toggleLogin.addEventListener("click", function() {
