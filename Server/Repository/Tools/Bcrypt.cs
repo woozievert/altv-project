@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AltvTutorial
+namespace Repository.Repository
 {
     // Copyright (c) 2006 Damien Miller <djm@mindrot.org>
     // Copyright (c) 2007 Derek Slager
@@ -21,6 +21,9 @@ namespace AltvTutorial
     // ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
     // OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+    /// <summary>
+    /// 密码加密类
+    /// </summary>
     public class BCrypt
     {
         private const int GENSALT_DEFAULT_LOG2_ROUNDS = 10;
