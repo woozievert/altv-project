@@ -5,12 +5,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
         loginButton.addEventListener("click", function() {
             if (loginUser != null && loginPassword != null) {
                 alt.emit('auth:client:tryLogin', loginUser.value.toString(), loginPassword.value.toString());
-                console.log("发送登录请求");
             }
         });
-        alt.on('auth:webview:wrongAuth', _wrongAuth);
-        function _wrongAuth() {
-            document.querySelector(".notify").textContent = '输入的密码有误！';
-        }
+        registerButton.addEventListener("click", function() {
+            if (regUser != null && regPassword != null && regEmail != null) {
+                if (isValidEmail(regEmail.toString())) return regNotify('输入的邮箱有误！');
+                alt.emit('auth:client:tryRegister', regUser.value.toString(), regPassword.value.toString(), regEmail.value.toString());
+            }
+        });
+        alt.on('auth:webview:wrongAuth', loginNotify);
     }
 });
+
+function isValidEmail(email) {
+    // 邮箱正则表达式
+    const emailRegex = /^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/;
+    return emailRegex.test(email);
+}

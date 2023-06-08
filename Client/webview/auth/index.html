@@ -27,7 +27,7 @@
                     <span>记住密码</span>
                 </label>
                 <div class="forgot-signin-container">
-                    <p class="notify">${content}</p>
+                    <p class="login-notify">${content}</p>
                     <input type="button" class="login-button" value="登录">
                 </div>
             </form>
@@ -68,11 +68,11 @@
                     </i>
                 </div>
                 <div class="txtb">
-                    <input type="text" placeholder=" ">
+                    <input type="text" id="regEmailInput" placeholder=" ">
                     <span class="placeholder">邮箱</span>
                 </div>
                 <div class="forgot-signin-container">
-                    <p class="notify">${content}</p>
+                    <p class="reg-notify">${content}</p>
                     <input type="button" class="reg-button" value="注册">
                 </div>
             </form>
@@ -90,6 +90,7 @@
         &copy; 2023
     </div>
 
+    <script src="./js/notify.js"></script>
     <script src="./js/index.js"></script>
     <script src="./js/auth.js"></script>
 </body>

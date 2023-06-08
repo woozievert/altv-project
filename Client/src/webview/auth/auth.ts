@@ -1,7 +1,7 @@
 import * as alt from "alt-client"
 import webViews from "../webviews"
 import setPageState from "../function";
-import * as logger from "../../log/logger";
+import langPack from "../../shared/locale/main";
 
 const authPage = webViews.authPage;
 
@@ -36,5 +36,5 @@ function _tryLogin(username: string, password: string) {
 // 接收客户端错误密码事件
 alt.onServer('auth:client:wrongAuth', _wrongAuth);
 function _wrongAuth() {
-    alt.emit('auth:webview:wrongAuth');
+    alt.emit('auth:webview:wrongAuth', langPack["zh-CN"].wrong_auth);
 }
