@@ -24,7 +24,7 @@ alt.onServer('auth:client:show', _showAuthPage);
 function _showAuthPage() {
     setPageState(authPage, true, true, false);
     if (localUsername != null && localPassword != null) {
-        alt.emit('auth:webview:getLocalAuth', localUsername, localPassword);
+        authPage.emit('auth:webview:getLocalAuth', localUsername, localPassword);
     }
 }
 
