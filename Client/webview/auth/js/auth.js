@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     if ('alt' in window) {
         console.log("alt加载完成");
-        document.querySelector(".notify").textContent = '密码错误';
-        
+
         loginButton.addEventListener("click", function() {
             if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
                 alt.emit('auth:client:tryLogin', loginUser.value.toString(), loginPassword.value.toString());
