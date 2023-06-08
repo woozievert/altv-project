@@ -10,7 +10,7 @@ public class MainDbContext : DbContext
     {
         base.OnConfiguring(optionsBuilder);
         // 这里填写数据库连接字符串
-        optionsBuilder.UseSqlServer("");
+        optionsBuilder.UseSqlServer("Server=.;Database=AltV;Trusted_Connection=True;TrustServerCertificate=True;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
