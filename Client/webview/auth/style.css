@@ -10,7 +10,7 @@
 }
 
 body{
-    background-image: url(images/bg.png);
+    background-image: url(./images/bg.png);
     background-size: 256px;
     min-height: 100vh;
     display: grid;
@@ -30,7 +30,7 @@ body{
 }
 
 .logo{
-    background-image: url(images/logo.svg);
+    background-image: url(./images/logo.svg);
     width: 290px;
     height: 82px;
     margin: 40px auto;

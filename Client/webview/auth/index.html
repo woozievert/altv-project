@@ -13,7 +13,7 @@
             <h1 id="form-title">登录窗口</h1>
             <form action="">
                 <div class="txtb">
-                    <input type="text" placeholder=" ">
+                    <input type="text" id="usernameInput" placeholder=" ">
                     <span class="placeholder">用户名</span>
                 </div>
                 <div class="txtb">
@@ -29,7 +29,7 @@
                 </label>
                 <div class="forgot-signin-container">
                     <a href="#" class="link">忘记密码了?</a>
-                    <input type="button" value="登录">
+                    <input type="button" class="login-button" value="登录">
                 </div>
             </form>
         </div>
@@ -55,7 +55,7 @@
             <h1>注册窗口</h1>
             <form action="">
                 <div class="txtb">
-                    <input type="text" placeholder=" ">
+                    <input type="text" id="regUsernameInput" placeholder=" ">
                     <span class="placeholder">用户名</span>
                 </div>
                 <div class="txtb">
@@ -71,7 +71,7 @@
                 </div>
                 <div class="forgot-signin-container">
                     阅读协议
-                    <input type="button" value="注册">
+                    <input type="button" class="reg-button" value="注册">
                 </div>
             </form>
         </div>
@@ -85,39 +85,6 @@
         &copy; 2023
     </div>
 
-    <script>
-        const loginInputType = document.querySelector(".login-password-btn");
-        const regInputType = document.querySelector(".reg-password-btn");
-
-        loginInputType.addEventListener("click",function(){
-            if(document.querySelector("#passwordInput").type === "password") document.querySelector("#passwordInput").type = "text";
-            else document.querySelector("#passwordInput").type = "password";
-        });
-
-        regInputType.addEventListener("click",function(){
-            if(document.querySelector("#regPasswordInput").type === "password") document.querySelector("#regPasswordInput").type = "text";
-            else document.querySelector("#regPasswordInput").type = "password";
-        });
-
-        const toggleReg = document.querySelector("#toggle-reg"); // 切换至注册
-        const toggleLogin = document.querySelector("#toggle-login"); // 切换至登录
-        const loginForm = document.querySelector("#login-form"); // 登录窗口
-        const registerForm = document.querySelector("#reg-form"); // 注册窗口
-        const formTitle = document.querySelector("#form-title"); // 窗口标题
-
-        toggleReg.addEventListener("click", function() {
-            loginForm.style.display = "none";
-            registerForm.style.display = "block";
-            formTitle.textContent = "注册窗口";
-            toggleLogin.textContent = "返回登录";
-        });
-
-        toggleLogin.addEventListener("click", function() {
-            loginForm.style.display = "block";
-            registerForm.style.display = "none";
-            formTitle.textContent = "登录窗口";
-            toggleReg.textContent = "创建一个账号";
-        });
-    </script>
+    <script src="js/index.js"></script>
 </body>
 </html>
