@@ -1,10 +1,20 @@
 let langPack = undefined;
+
 document.addEventListener('DOMContentLoaded', (event) => {
     if ('alt' in window) {
         console.log("alt加载完成");
 
         loginNotify('');
         regNotify('');
+
+        const localUsername = alt.LocalStorage.get('username');
+        const localPassword = alt.LocalStorage.get('password');
+
+        if (localUsername != null && localPassword != null) {
+            loginUser.value = localUsername;
+            loginPassword.value = localPassword;
+        }
+
         loginButton.addEventListener("click", function() {
             if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
                 alt.emit('auth:client:tryLogin', loginUser.value.toString(), loginPassword.value.toString());
@@ -19,6 +29,21 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 alt.emit('auth:client:tryRegister', regUser.value.toString(), regPassword.value.toString(), regEmail.value.toString());
             }
         });
+
+        checkBox.addEventListener("change", function () {
+            if (this.checked) {
+                if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
+                    alt.LocalStorage.set("username", loginUser.value.toString()); // 设置本地存储键值
+                    alt.LocalStorage.set("password", loginPassword.value.toString());
+                    alt.LocalStorage.save(); // 保存本地存储
+                }
+            } else {
+                alt.LocalStorage.delete("username"); // 删除键值
+                alt.LocalStorage.delete("password"); // 删除键值
+                alt.LocalStorage.save(); // 保存本地存储
+            }
+        });
+
         // alt.on('auth:webview:importLangPack', importLangPack);
         // function importLangPack(data) {
         //     console.log('已加载')

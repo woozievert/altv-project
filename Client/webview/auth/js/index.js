@@ -12,6 +12,7 @@ const regUser = document.querySelector('#regUsernameInput');
 const regPassword = document.querySelector('#regPasswordInput');
 const regEmail = document.querySelector('#regEmailInput');
 const registerButton = document.querySelector(".reg-button");
+const checkBox = document.querySelector(".save-info");
 
 loginInputType.addEventListener("click",function(){
     if(document.querySelector("#passwordInput").type === "password") document.querySelector("#passwordInput").type = "text";
