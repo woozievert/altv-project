@@ -2,6 +2,7 @@ import * as alt from "alt-client"
 import webViews from "../webviews"
 import setPageState from "../function";
 import langPack from "../../shared/locale/main";
+import * as logger from "../../log/logger";
 
 const authPage = webViews.authPage;
 
@@ -20,12 +21,14 @@ export let playerTempVar = {
 alt.onServer('auth:client:show', _showAuthPage);
 function _showAuthPage() {
     setPageState(authPage, true, true, false);
+    alt.emit('auth:webview:importLangPack', langPack['zh-CN']);
 }
 
 // 关闭并取消聚焦authPage页面，同时关闭光标和启用游戏控制。
 alt.onServer('auth:client:close', _destroyAuthPage);
 function _destroyAuthPage() {
-    setPageState(authPage, false, false, true);
+    playerTempVar.setLogged(true);
+    //todo 需要添加一个参数，用以验证是否是登录完成，但暂时是给予了登录状态。并且更换名称为finishLogin
 }
 
 authPage.on('auth:client:tryLogin', _tryLogin);
@@ -42,4 +45,14 @@ function _wrongAuth() {
 authPage.on('auth:client:tryRegister', _tryRegister);
 function _tryRegister(username: string, password: string, email: string) {
     alt.emitServer('auth:server:tryRegister', alt.Player.local, username, password, email);
+}
+
+alt.onServer('auth:client:alreadyExist', _alreadyExist);
+function _alreadyExist() {
+    alt.emit('auth:webview:alreadyExist', langPack["zh-CN"].already_exist);
+}
+
+alt.onServer('auth:client:finishReg', _finishReg);
+function _finishReg() {
+    alt.emit('auth:webview:finishReg', langPack["zh-CN"].finish_reg);
 }

@@ -17,7 +17,7 @@ export default function setPageState(page: alt.WebView, state: boolean, cursor: 
 
 function setPageFocus(page: alt.WebView, state: boolean) {
     if (DEV_MODE) {
-        const debug_msg = 'page: ' + page + ', - focus_state -> ' + state;
+        const debug_msg = 'page: ' + page + ' - focus_state -> ' + state;
         logger.debug(debug_msg);
     }
     if (state) page.focus();
