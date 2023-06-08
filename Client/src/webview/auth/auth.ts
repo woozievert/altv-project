@@ -16,12 +16,19 @@ export let playerTempVar = {
     }
 }
 
-alt.onServer('auth:client:show', _showAuthPage);
 // 显示并聚焦authPage页面，同时启用光标和关闭游戏控制。
+alt.onServer('auth:client:show', _showAuthPage);
 function _showAuthPage() {
     setPageState(authPage, true, true, false);
 }
 
-authPage.on('auth:client:tryLogin', (username: string, password: string) => {
-    alt.emitServer('auth:server:tryLogin', username, password);
-});
+// 关闭并取消聚焦authPage页面，同时关闭光标和启用游戏控制。
+alt.onServer('auth:client:close', _destroyAuthPage);
+function _destroyAuthPage() {
+    setPageState(authPage, false, false, true);
+}
+
+authPage.on('auth:client:tryLogin', _tryLogin);
+function _tryLogin(username: string, password: string) {
+    alt.emitServer('auth:server:tryLogin', alt.Player.local, username, password);
+}

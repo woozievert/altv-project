@@ -34,10 +34,3 @@ toggleLogin.addEventListener("click", function() {
 const loginUser = document.querySelector('#usernameInput');
 const loginPassword = document.querySelector('#passwordInput');
 const loginButton = document.querySelector('.login-button');
-
-loginButton.addEventListener("click", function() {
-    if (loginUser != null && loginPassword != null) {
-        alt.emit('auth:client:tryLogin', loginUser.value, loginPassword.value);
-        console.log("发送登录请求");
-    }
-});

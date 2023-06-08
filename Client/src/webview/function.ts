@@ -7,17 +7,17 @@ import DEV_MODE from "../config";
 */
 export default function setPageState(page: alt.WebView, state: boolean, cursor: boolean, control: boolean) {
     if (DEV_MODE) {
-        const debug_msg = 'page: ' + page + ' - state -> ' + state + ' cursor -> ' + cursor + ' control -> ' + control;
+        const debug_msg = 'page: ' + page + ' - state -> ' + state + ', cursor -> ' + cursor + ', control -> ' + control;
         logger.debug(debug_msg);
     }
     setPageFocus(page, state); // 聚焦/摧毁页面
-    alt.showCursor(state); // 页面显示鼠标光标(state);
-    alt.toggleGameControls(state); // 页面时游戏控制(state);
+    alt.showCursor(cursor); // 页面显示鼠标光标(state);
+    alt.toggleGameControls(control); // 页面时游戏控制(state);
 }
 
 function setPageFocus(page: alt.WebView, state: boolean) {
     if (DEV_MODE) {
-        const debug_msg = 'page: ' + page + ' - focus_state -> ' + state;
+        const debug_msg = 'page: ' + page + ', - focus_state -> ' + state;
         logger.debug(debug_msg);
     }
     if (state) page.focus();
