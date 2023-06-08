@@ -49,13 +49,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
         checkBox.addEventListener("change", function () {
             if (this.checked) {
                 if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
-                    console.log('保存');
                     alt.emit('auth:client:saveLocalAuth', loginUser.value.toString(), loginPassword.value.toString());
                 }
-            } else {
-                console.log('删除');
-                alt.emit('auth:client:deleteLocalAuth');
             }
+            else alt.emit('auth:client:deleteLocalAuth');
         });
 
         // alt.on('auth:webview:importLangPack', importLangPack);
