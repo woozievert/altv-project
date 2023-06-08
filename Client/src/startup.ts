@@ -4,3 +4,7 @@ import './log/handler'
 import './events/connect'
 import './events/disconnect'
 import './events/onStart'
+// 网页
+import './webview/webviews'
+import './webview/function'
+import './webview/index'

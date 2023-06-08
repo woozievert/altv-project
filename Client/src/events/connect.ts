@@ -1,17 +1,8 @@
 import * as alt from "alt-client"
-import * as native from "natives"
-import langPack from "../shared/locale/main";
-
-alt.on('playerConnect', onClientConnect);
+import langPack from "../shared/locale/main"
+import * as logger from "../log/logger";
 
 alt.onServer('TestClientside', (playerName: string) => {
     const joinMessage = langPack["zh-CN"].join_server(playerName);
-    alt.log(joinMessage);
+    logger.info(joinMessage);
 });
-
-function onClientConnect(player: alt.Player) {
-    alt.log('test');
-    const joinMessage = langPack["zh-CN"].join_server(player.name);
-    alt.log(joinMessage);
-    console.log(joinMessage);
-}
