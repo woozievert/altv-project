@@ -5,7 +5,7 @@ interface langPack {
     [key: string]: any;
 }
 
-const langPack: langPack = {
+const languages: langPack = {
     "zh-CN": hansLocale,
     "zh-TW": hantLocale,
 };
