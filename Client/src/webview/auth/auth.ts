@@ -1,8 +1,7 @@
 import * as alt from "alt-client"
 import webViews from "../webviews"
 import setPageState from "../function";
-import langPack from "../../shared/locale/main";
-import * as logger from "../../log/logger";
+// import langPack from "../../shared/locale/main";
 
 const authPage = webViews.authPage;
 const localUsername = alt.LocalStorage.get('username');
@@ -57,7 +56,7 @@ function _deleteLocalAuth() {
 // 接收客户端错误密码事件
 alt.onServer('auth:client:wrongAuth', _wrongAuth);
 function _wrongAuth() {
-    alt.emit('auth:webview:wrongAuth', langPack["zh-CN"].wrong_auth);
+    // alt.emit('auth:webview:wrongAuth', langPack["zh-CN"].wrong_auth);
 }
 
 authPage.on('auth:client:tryRegister', _tryRegister);
@@ -67,10 +66,10 @@ function _tryRegister(username: string, password: string, email: string) {
 
 alt.onServer('auth:client:alreadyExist', _alreadyExist);
 function _alreadyExist() {
-    alt.emit('auth:webview:alreadyExist', langPack["zh-CN"].already_exist);
+    // alt.emit('auth:webview:alreadyExist', langPack["zh-CN"].already_exist);
 }
 
 alt.onServer('auth:client:finishReg', _finishReg);
 function _finishReg() {
-    alt.emit('auth:webview:finishReg', langPack["zh-CN"].finish_reg);
+    // alt.emit('auth:webview:finishReg', langPack["zh-CN"].finish_reg);
 }

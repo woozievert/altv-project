@@ -1,3 +1,5 @@
+// 语言文件
+import './shared/locale/langService'
 // 日志
 import './log/handler'
 // 事件
