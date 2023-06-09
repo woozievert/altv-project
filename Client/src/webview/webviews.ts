@@ -4,7 +4,7 @@
 
 import alt from "alt-client";
 
-export const webViews = {
+const webViews = {
     authPage: new alt.WebView('http://resource/Client/webview/auth/index.html')
 }
 export default webViews;
