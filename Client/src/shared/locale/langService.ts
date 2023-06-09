@@ -1,19 +1,29 @@
 import * as alt from "alt-client"
-import * as langPack from './languages/zh-Hans.json' assert { type: 'json' }
+import * as logger from "../../log/logger";
+// import clientLang from "./lang";
 
-alt.log(langPack["login.wrong_pass"]);
-console.log(langPack["login.wrong_pass"]);
+/*
+    let filePath = '/Client/locales/zh_hans.json';
+    if (clientLang == 'zh-CN') filePath = '/Client/locales/zh_hans.json';
+    else filePath = '/Client/locales/zh_hant.json';
+*/
 
-// const path = './languages/';
-//
-// interface languageType {
-//     [key: string]: string;
-// }
-//
-// function getTranslation(file: alt.File, language: string): languageType {
-//     if (file.exists )
-//     const translation = JSON.parse(fileContent);
-//     return translation;
-// }
+const hans_filePath = '/Client/locales/zh_hans.json';
+const hant_filePath = '/Client/locales/zh_hans.json';
 
-// export default getTranslation;
+const isFileExist = alt.File.exists(hans_filePath);
+export let langPack = JSON.parse(alt.File.read(hans_filePath));
+if (isFileExist) langPack = JSON.parse(alt.File.read(hans_filePath));
+
+logger.debug(JSON.stringify(langPack));
+
+// logger.debug(langPack['server.connect']);
+
+function LangPack(lang: string) {
+    if (lang == 'zh-CN') {
+        if (alt.File.exists(hans_filePath)) {
+            console.log('/Client/locales/zh_hans.json : true');
+            logger.debug(JSON.parse(langPack));
+        }
+    }
+}

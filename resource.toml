@@ -1,6 +1,8 @@
 type = 'csharp'
 client-type = "js"
 client-files = [
+    'Client/locales/zh_hans.json',
+    'Client/locales/zh_hant.json',
     'Client/webview/*',
     'Client/dist/client.js'
 ]
