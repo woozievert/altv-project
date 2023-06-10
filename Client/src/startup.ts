@@ -11,4 +11,4 @@ import './webview/webviews'
 import './webview/function'
 import './webview/index'
 // 名称标签
-import './nametag/main'
+import './nametag/nametag'

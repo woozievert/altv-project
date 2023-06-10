@@ -9,7 +9,7 @@ const nameTags = new Map();
 let tickHandle: number = -1;
 
 alt.on("gameEntityCreate", (entity) => {
-    console.log('gameEntityCreate');
+    console.log('test:gameEntityCreate');
     const rmlElement = document.createElement("button");
     rmlElement.rmlId = entity.id.toString();
     rmlElement.addClass("nametag");
@@ -45,7 +45,7 @@ alt.on("gameEntityDestroy", (entity) => {
 alt.on("keyup", (key) => {
     console.log('keyup');
     if (key !== 46) return;
-
+    console.log('keyup E');
     const currentState = alt.rmlControlsEnabled();
     if (currentState) {
         alt.toggleGameControls(true);
