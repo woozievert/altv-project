@@ -5,18 +5,19 @@
             body, #nametag-container {
                 font-family: 'Microsoft YaHei', sans-serif;
                 font-weight: bold;
+                font-style: normal;
                 width: 100%;
                 height: 100%;
             }
 
             .nametag {
                 position: absolute;
+                font-effect: outline(1px black);
                 color: #FFFFFFFF;
                 width: auto;
                 height: auto;
                 text-align: center;
                 font-size: 20dp;
-                text-shadow: rgb(0, 0, 0) 2dp 0dp 0dp, rgb(0, 0, 0) 1.75517dp 0.958851dp 0dp, rgb(0, 0, 0) 1.0806dp 1.68294dp 0dp, rgb(0, 0, 0) 0.141474dp 1.99499dp 0dp, rgb(0, 0, 0) -0.832294dp 1.81859dp 0dp, rgb(0, 0, 0) -1.60229dp 1.19694dp 0dp, rgb(0, 0, 0) -1.97998dp 0.28224dp 0dp, rgb(0, 0, 0) -1.87291dp -0.701566dp 0dp, rgb(0, 0, 0) -1.30729dp -1.5136dp 0dp, rgb(0, 0, 0) -0.421592dp -1.95506dp 0dp, rgb(0, 0, 0) 0.567324dp -1.91785dp 0dp, rgb(0, 0, 0) 1.41734dp -1.41108dp 0dp, rgb(0, 0, 0) 1.92034dp -0.558831dp 0dp;
             }
 
             .hide {

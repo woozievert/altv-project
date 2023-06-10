@@ -20,15 +20,14 @@ public class Connect : IScript
     public void TryLogin(IPlayer player, string username, string password)
     {
         if (player == null) return;
-        if (UserRepository.instance.Login(player,username,password))
-        {
-            player.Spawn(new Vector3((float)-1291.71, (float)83.43, (float)54.89)); // 生成 player
-            player.Model = 0xB8D69E3;
-        
-            player.Emit("auth:client:close");
-        
-            player.Emit("client:Console", "登录成功 - 已生成");
-        }
-        
+        // if (UserRepository.instance.Login(player, username, password))
+        // {
+        player.Spawn(new Vector3((float)-1291.71, (float)83.43, (float)54.89)); // 生成 player
+        player.Model = 0xB8D69E3;
+
+        player.Emit("auth:client:close");
+
+        player.Emit("client:Console", "登录成功 - 已生成");
+        // }
     }
 }
