@@ -3,7 +3,7 @@
         <title>Demo</title>
         <style>
             body, #nametag-container {
-                font-family: 'Microsoft YaHei', sans-serif;
+                font-family: microsoft;
                 font-weight: bold;
                 font-style: normal;
                 width: 100%;

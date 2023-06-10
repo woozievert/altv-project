@@ -2,7 +2,7 @@ import * as alt from "alt-client";
 import * as native from "natives";
 // ---------------- Script ----------------
 
-alt.loadRmlFont("/Client/nametag/Microsoft Yahei.ttf", "Microsoft Yahei", false, true);
+alt.loadRmlFont("/Client/nametag/microsoft.ttf", "microsoft", false, true);
 const document = new alt.RmlDocument("/Client/nametag/index.rml");
 const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
