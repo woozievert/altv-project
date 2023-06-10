@@ -1,5 +1,6 @@
 import * as alt from "alt-client";
 import * as native from "natives";
+import {TextLabel} from "alt-client";
 // ---------------- Script ----------------
 
 alt.loadRmlFont("/Client/nametag/microsoft.ttf", "microsoft", false, true);
@@ -7,7 +8,6 @@ const document = new alt.RmlDocument("/Client/nametag/index.rml");
 const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
 let tickHandle: number = -1;
-
 alt.on("spawned", () => {
     const rmlElement = document.createElement("button");
     rmlElement.rmlId = alt.Player.local.id.toString();
@@ -60,8 +60,8 @@ function printCoordinates(rmlElement: alt.RmlElement) {
 }
 
 function drawMarkers() {
-    nameTags.forEach((rmlElement, entity) => {
-        const {x, y, z} = entity.pos;
+    nameTags.forEach((rmlElement, player) => {
+        const {x, y, z} = player.pos;
 
         if (!native.isSphereVisible(x, y, z, 0.0099999998)) {
             if (!rmlElement.shown) return;
@@ -74,7 +74,7 @@ function drawMarkers() {
                 rmlElement.shown = true;
             }
 
-            const {x: screenX, y: screenY} = alt.worldToScreen(x, y, z + 2);
+            const {x: screenX, y: screenY} = alt.worldToScreen(x, y, z + 0.5);
             rmlElement.style["left"] = `${screenX}px`;
             rmlElement.style["top"] = `${screenY}px`;
         }

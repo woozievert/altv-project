@@ -18,6 +18,8 @@
                 height: auto;
                 text-align: center;
                 font-size: 20dp;
+                border: solid #f00;
+                border-width: 5px;
             }
 
             .hide {
