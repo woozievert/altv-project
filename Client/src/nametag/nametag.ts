@@ -8,20 +8,15 @@ const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
 let tickHandle: number = -1;
 
-alt.on("gameEntityCreate", (entity) => {
-    console.log('test:gameEntityCreate');
+alt.on("spawned", () => {
     const rmlElement = document.createElement("button");
-    rmlElement.rmlId = entity.id.toString();
+    rmlElement.rmlId = alt.Player.local.id.toString();
     rmlElement.addClass("nametag");
     rmlElement.addClass("hide");
+    rmlElement.innerRML = `测试${alt.Player.local.id}号`;
+    console.log(`测试${alt.Player.local.id}号`);
 
-    if (entity instanceof alt.Player) {
-        rmlElement.innerRML = `测试${entity.id}号`;
-        console.log(`测试${entity.id}号`);
-        return;
-    }
-
-    nameTags.set(entity, rmlElement);
+    nameTags.set(alt.Player.local, rmlElement);
     // @ts-ignore
     container.appendChild(rmlElement);
     rmlElement.on("click", printCoordinates);
@@ -30,8 +25,8 @@ alt.on("gameEntityCreate", (entity) => {
     tickHandle = alt.everyTick(drawMarkers);
 });
 
-alt.on("gameEntityDestroy", (entity) => {
-    const rmlElement = nameTags.get(entity);
+alt.on("disconnect", () => {
+    const rmlElement = nameTags.get(alt.Player.local);
     if (rmlElement === undefined) return;
     // @ts-ignore
     container.removeChild(rmlElement);
@@ -59,9 +54,9 @@ alt.on("keyup", (key) => {
 });
 
 function printCoordinates(rmlElement: alt.RmlElement) {
-    const entity = alt.Entity.getByID(parseInt(rmlElement.rmlId));
+    const player = alt.Player.getByID(parseInt(rmlElement.rmlId));
     // @ts-ignore
-    alt.log("Entity Position", "X", entity.pos.x, "Y", entity.pos.y, "Z", entity.pos.z);
+    alt.log("Player Position", "X", player.pos.x, "Y", player.pos.y, "Z", player.pos.z);
 }
 
 function drawMarkers() {
