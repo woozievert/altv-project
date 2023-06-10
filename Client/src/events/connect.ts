@@ -3,6 +3,6 @@ import {langPack} from "../shared/locale/langService";
 import * as logger from "../log/logger";
 
 alt.onServer('TestClientside', (playerName: string) => {
-    const joinMessage = langPack['server.connect'] + playerName;
+    const joinMessage = langPack['server.connect'].replace("{name}");
     logger.info(joinMessage);
 });
