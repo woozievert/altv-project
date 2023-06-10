@@ -2,8 +2,8 @@ import * as alt from "alt-client";
 import * as native from "natives";
 // ---------------- Script ----------------
 
-alt.loadRmlFont("/nametag/Microsoft Yahei.ttf", "Microsoft Yahei", false, true);
-const document = new alt.RmlDocument("/nametag/index.rml");
+alt.loadRmlFont("/Client/nametag/Microsoft Yahei.ttf", "Microsoft Yahei", false, true);
+const document = new alt.RmlDocument("/Client/nametag/index.rml");
 const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
 let tickHandle: number = -1;
