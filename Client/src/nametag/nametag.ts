@@ -69,11 +69,11 @@ function printCoordinates(rmlElement: alt.RmlElement) {
 
 function drawMarkers() {
     nameTags.forEach((rmlElement, entity) => {
-        const {x, y, z} = entity.pos;
+        let {x, y, z} = entity.pos;
         if (distance2d(new alt.Vector3(entity.pos), alt.Player.local.pos) > 20)
             return;
 
-        if (!native.isSphereVisible(x, y, z, 0.0099999998)) {
+        if (!native.isSphereVisible(x, y, z, 0.0099999998) || (!native.hasEntityClearLosToEntity(alt.Player.local, entity, 17))) {
             if (!rmlElement.shown) return;
 
             rmlElement.addClass("hide");
@@ -83,14 +83,18 @@ function drawMarkers() {
                 rmlElement.removeClass("hide");
                 rmlElement.shown = true;
             }
-
-            const {x: screenX, y: screenY} = alt.worldToScreen(x, y, z + 2);
-            rmlElement.style["left"] = `${screenX}px`;
-            rmlElement.style["top"] = `${screenY}px`;
-
-            const fontSizeModificator = Math.min(entity.pos.distanceTo(alt.Player.local.pos) / 100, 1);
-            const fontSize = (1 - fontSizeModificator) * 50;
-            rmlElement.style["font-size"] = `${fontSize}dp`;
+            
+            if (entity instanceof alt.Player) {
+                let pos = { ...native.getPedBoneCoords(entity.scriptID, 12844, 0, 0, 0) };
+                const {x: screenX, y: screenY} = alt.worldToScreen(pos.x, pos.y, pos.z + 0.75);
+                rmlElement.style["left"] = `${screenX}px`;
+                rmlElement.style["top"] = `${screenY}px`;
+            }
+            else {
+                const {x: screenX, y: screenY} = alt.worldToScreen(x, y, z + 0.75);
+                rmlElement.style["left"] = `${screenX}px`;
+                rmlElement.style["top"] = `${screenY}px`;
+            }
         }
     });
 }
