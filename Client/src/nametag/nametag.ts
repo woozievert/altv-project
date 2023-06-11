@@ -1,52 +1,52 @@
 import * as alt from "alt-client";
 import * as native from "natives";
-// ---------------- Script ----------------
 
-let drawDistance = 20;
-
-alt.loadRmlFont("/Client/nametag/microsoft.ttf", "microsoft", false, true);
+const controlKey = 79;
 const document = new alt.RmlDocument("/Client/nametag/index.rml");
 const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
 let tickHandle: number;
 
-alt.onServer("nametag:client:setup", (playerID: number, playerName: string) => {
+alt.on("gameEntityCreate", (entity) => {
+    if (container == null) return;
+
     const rmlElement = document.createElement("button");
-    rmlElement.rmlId = playerID.toString();
-    rmlElement.innerRML = playerName;
+    rmlElement.rmlId = entity.id.toString();
     rmlElement.addClass("nametag");
     rmlElement.addClass("hide");
 
-    let player: alt.Player | null = alt.Player.getByID(playerID);
-    if (!player) return;
-    if (!player.valid) return;
-    nameTags.set(player, rmlElement);
-    // @ts-ignore
+    if (entity instanceof alt.Player) {
+        rmlElement.innerRML = `玩家: ${entity.id}号`;
+    } else if (entity instanceof alt.Vehicle)
+        rmlElement.innerRML = `车辆ID: ${entity.id}`;
+    else {
+        rmlElement.destroy();
+        return;
+    }
+
+    nameTags.set(entity, rmlElement);
     container.appendChild(rmlElement);
     rmlElement.on("click", printCoordinates);
+
     if (tickHandle !== undefined) return;
-    tickHandle = alt.everyTick(() => {
-        drawMarkers(player);
-    });
+    tickHandle = alt.everyTick(drawMarkers);
 });
 
-alt.onServer("nametag:client:disconnect", (playerID: number) => {
-    let player = alt.Player.getByID(playerID);
-    const rmlElement = nameTags.get(player);
+alt.on("gameEntityDestroy", (entity) => {
+    if (container == null) return;
+    const rmlElement = nameTags.get(entity);
     if (rmlElement === undefined) return;
-
-    // @ts-ignore
     container.removeChild(rmlElement);
     rmlElement.destroy();
+    nameTags.delete(entity);
 
     if (tickHandle === undefined || nameTags.size > 0) return;
     alt.clearEveryTick(tickHandle);
 });
 
 alt.on("keyup", (key) => {
-    console.log('keyup');
-    if (key !== 46) return;
-    console.log('keyup E');
+    if (key !== controlKey) return;
+
     const currentState = alt.rmlControlsEnabled();
     if (currentState) {
         alt.toggleGameControls(true);
@@ -60,26 +60,19 @@ alt.on("keyup", (key) => {
 });
 
 function printCoordinates(rmlElement: alt.RmlElement) {
-    const player = alt.Player.getByID(parseInt(rmlElement.rmlId));
-    // @ts-ignore
-    alt.log("Player Position", "X", player.pos.x, "Y", player.pos.y, "Z", player.pos.z);
+    const entity = alt.Entity.getByID(parseInt(rmlElement.rmlId));
+    if (entity == null) return;
+    alt.log("实体坐标", "X", entity.pos.x, "Y", entity.pos.y, "Z", entity.pos.z);
 }
 
-function drawMarkers(player: alt.Player | null) {
-    if (player == null) return;
+function drawMarkers() {
+    nameTags.forEach((rmlElement, entity) => {
+        const {x, y, z} = entity.pos;
 
-    const nativePos: alt.IVector3 = { ...native.getPedBoneCoords(player.scriptID, 12844, 0, 0, 0) };
-    let pos = nativePos;
+        if (distance2d(new alt.Vector3(entity.pos), alt.Player.local.pos) > 20)
+            return;
 
-    nameTags.forEach((rmlElement, player) => {
-        if (!player.valid) return;
-        // if (player.scriptID === alt.Player.local.scriptID) return;
-        const name = player.getSyncedMeta('playerName');
-        if (!name) return;
-        let dist = distance2d(player.pos, alt.Player.local.pos);
-        if (dist > drawDistance) return;
-
-        if (!native.isSphereVisible(pos.x, pos.y, pos.z, 0.0099999998)) {
+        if (!native.isSphereVisible(x, y, z, 0.0099999998)) {
             if (!rmlElement.shown) return;
 
             rmlElement.addClass("hide");
@@ -90,9 +83,13 @@ function drawMarkers(player: alt.Player | null) {
                 rmlElement.shown = true;
             }
 
-            const {x: screenX, y: screenY} = alt.worldToScreen(pos.x, pos.y, pos.z + 0.75);
+            const {x: screenX, y: screenY} = alt.worldToScreen(x, y, z + 2);
             rmlElement.style["left"] = `${screenX}px`;
             rmlElement.style["top"] = `${screenY}px`;
+
+            const fontSizeModificator = Math.min(entity.pos.distanceTo(alt.Player.local.pos) / 100, 1);
+            const fontSize = (1 - fontSizeModificator) * 50;
+            rmlElement.style["font-size"] = `${fontSize}dp`;
         }
     });
 }
