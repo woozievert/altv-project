@@ -1,8 +1,11 @@
 type = 'csharp'
 client-type = "js"
 client-files = [
+    'Client/locales/zh_hans.json',
+    'Client/locales/zh_hant.json',
     'Client/webview/*',
-    'Client/dist/client.js'
+    'Client/dist/client.js',
+    'Client/nametag/*'
 ]
 client-main = 'Client/dist/client.js'
 main = 'Server/MainResource/bin/Debug/net6.0/MainResource.dll'
