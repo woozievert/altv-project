@@ -10,28 +10,15 @@ const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
 let tickHandle: number = -1;
 
-alt.onServer("nametag:client:createEntity", (playerID: number) => {
-    const player = alt.Player.getByID(playerID);
-    alt.Entity.bind(player);
-});
-
-alt.on("gameEntityCreate", (entity) => {
-    console.log('gameEntityCreate');
-
+alt.onServer("nametag:client:setup", (playerID: number, playerName: string) => {
     const rmlElement = document.createElement("button");
-    rmlElement.rmlId = entity.id.toString();
+    rmlElement.rmlId = playerID.toString();
+    rmlElement.innerRML = playerName;
     rmlElement.addClass("nametag");
     rmlElement.addClass("hide");
 
-    if (entity instanceof alt.Player) {
-        rmlElement.innerRML = `测试${rmlElement.rmlId}号`;
-    }
-    else {
-        rmlElement.destroy();
-        return;
-    }
-
-    nameTags.set(entity, rmlElement);
+    let player = alt.Player.getByID(playerID);
+    nameTags.set(player, rmlElement);
     // @ts-ignore
     container.appendChild(rmlElement);
     rmlElement.on("click", printCoordinates);
@@ -39,15 +26,16 @@ alt.on("gameEntityCreate", (entity) => {
     tickHandle = alt.everyTick(drawMarkers);
 });
 
-alt.on("gameEntityDestroy", (entity) => {
-    const rmlElement = nameTags.get(entity);
+alt.onServer("nametag:client:disconnect", (playerID: number) => {
+    let player = alt.Player.getByID(playerID);
+    const rmlElement = nameTags.get(player);
     if (rmlElement === undefined) return;
+
     // @ts-ignore
     container.removeChild(rmlElement);
     rmlElement.destroy();
-    nameTags.delete(entity);
 
-    if (tickHandle === undefined || nameTags.size > 0) return;
+    if (tickHandle === -1 || nameTags.size > 0) return;
     alt.clearEveryTick(tickHandle);
     tickHandle = -1;
 });
@@ -74,64 +62,21 @@ function printCoordinates(rmlElement: alt.RmlElement) {
     alt.log("Player Position", "X", player.pos.x, "Y", player.pos.y, "Z", player.pos.z);
 }
 
-// function drawMarkers() {
-//     nameTags.forEach((rmlElement) => {
-//         for (let i = 0, n = alt.Player.all.length; i < n; i++)
-//         {
-//             console.log('test drawMarkers');
-//
-//             let player = alt.Player.all[i];
-//             if (!player.valid)
-//                 continue;
-//             if (player.scriptID === alt.Player.local.scriptID)
-//                 continue;
-//             const name = player.getSyncedMeta('playerName');
-//             if (!name)
-//                 continue;
-//             let dist = distance2d(player.pos, alt.Player.local.pos);
-//             if (dist > drawDistance)
-//                 continue;
-//
-//             const nativePos: alt.IVector3 = { ...native.getPedBoneCoords(player.scriptID, 12844, 0, 0, 0) };
-//             let pos = nativePos;
-//
-//             console.log('test drawMarkers sucess');
-//
-//             if (!native.isSphereVisible(pos.x, pos.y, pos.z, 0.0099999998)) {
-//                 if (!rmlElement.shown) return;
-//
-//                 rmlElement.addClass("hide");
-//                 rmlElement.shown = false;
-//             } else {
-//                 if (!rmlElement.shown) {
-//                     rmlElement.removeClass("hide");
-//                     rmlElement.shown = true;
-//                 }
-//
-//                 const {x: screenX, y: screenY} = alt.worldToScreen(pos.x, pos.y, pos.z + 0.75);
-//                 rmlElement.style["left"] = `${screenX}px`;
-//                 rmlElement.style["top"] = `${screenY}px`;
-//             }
-//         }
-//     });
-// }
-
 function drawMarkers() {
-    nameTags.forEach((rmlElement, entity) => {
-        const {x, y, z} = entity.pos;
+    const nativePos: alt.IVector3 = { ...native.getPedBoneCoords(player.scriptID, 12844, 0, 0, 0) };
+    let pos = nativePos;
 
-        if (!entity.valid) return;
-
-        // if (entity.scriptID === alt.Player.local.scriptID) return;
-
-        const name = entity.getSyncedMeta('playerName');
+    nameTags.forEach((rmlElement, player) => {
+        if (!player.valid) return;
+        // if (player.scriptID === alt.Player.local.scriptID) return;
+        const name = player.getSyncedMeta('playerName');
         if (!name) return;
-
-        let dist = distance2d(new alt.Vector3(x, y, z), alt.Player.local.pos);
+        let dist = distance2d(player.pos, alt.Player.local.pos);
         if (dist > drawDistance) return;
 
-        if (!native.isSphereVisible(x, y, z, 0.0099999998)) {
+        if (!native.isSphereVisible(pos.x, pos.y, pos.z, 0.0099999998)) {
             if (!rmlElement.shown) return;
+
             rmlElement.addClass("hide");
             rmlElement.shown = false;
         } else {
@@ -140,13 +85,9 @@ function drawMarkers() {
                 rmlElement.shown = true;
             }
 
-            const {x: screenX, y: screenY} = alt.worldToScreen(x, y, z + 0.75);
+            const {x: screenX, y: screenY} = alt.worldToScreen(pos.x, pos.y, pos.z + 0.75);
             rmlElement.style["left"] = `${screenX}px`;
             rmlElement.style["top"] = `${screenY}px`;
-
-            const fontSizeModificator = Math.min(entity.pos.distanceTo(alt.Player.local.pos) / 100, 1);
-            const fontSize = (1 - fontSizeModificator) * 50;
-            rmlElement.style["font-size"] = `${fontSize}dp`;
         }
     });
 }
