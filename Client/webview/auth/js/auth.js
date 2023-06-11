@@ -1,5 +1,4 @@
 let langPack = undefined;
-
 document.addEventListener('DOMContentLoaded', (event) => {
     if ('alt' in window) {
         console.log("alt加载完成");
