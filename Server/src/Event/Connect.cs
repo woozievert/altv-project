@@ -29,6 +29,8 @@ public class Connect : IScript
         // if (UserRepository.Login(player,username,password))
         // {
         
+        Logger.Info(player + " " + username + " " + password);
+        
         player.SetSyncedMetaData("playerName", username);
         
         player.Spawn(new Position(-1291, 83, 54), 500); // 生成 player

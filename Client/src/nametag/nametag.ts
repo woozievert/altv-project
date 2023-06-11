@@ -83,7 +83,7 @@ function drawMarkers() {
                 rmlElement.removeClass("hide");
                 rmlElement.shown = true;
             }
-            
+
             if (entity instanceof alt.Player) {
                 let pos = { ...native.getPedBoneCoords(entity.scriptID, 12844, 0, 0, 0) };
                 const {x: screenX, y: screenY} = alt.worldToScreen(pos.x, pos.y, pos.z + 0.75);
