@@ -2,17 +2,25 @@ using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using MainResource.Log;
+using Microsoft.Extensions.DependencyInjection;
+using src.Repository.IRepository;
 
 namespace src.Event;
 
 public class Connect : IScript
 {
-    // private readonly UserRepository UserRepository;
+    private readonly IUserRepository UserRepository;
 
-    // public Connect(UserRepository userRepository)
-    // {
-    //     UserRepository = userRepository;
-    // }
+    public Connect(IUserRepository userRepository)
+    {
+        UserRepository = userRepository;
+    }
+
+    public Connect()
+    {
+        UserRepository = Server.serviceProvider.GetService<IUserRepository>();
+    }
+
 
     [ScriptEvent(ScriptEventType.PlayerConnect)]
     public void OnPlayerConnect(IPlayer player, string reason)
@@ -26,18 +34,18 @@ public class Connect : IScript
     public void TryLogin(IPlayer player, string username, string password)
     {
         if (player == null) return;
-        // if (UserRepository.Login(player,username,password))
-        // {
-        Logger.Info(player + " " + username + " " + password);
-        
-        player.SetSyncedMetaData("playerName", username);
-        
-        player.Spawn(new Position(-1291, 83, 54), 500); // 生成 player
-        player.Model = 0xB8D69E3;
+        if (UserRepository.Login(player, username, password))
+        {
+            Logger.Info(player + " " + username + " " + password);
 
-        player.Emit("auth:client:close");
-    
-        player.Emit("client:Console", "登录成功 - 已生成");
-        // }
+            player.SetSyncedMetaData("playerName", username);
+
+            player.Spawn(new Position(-1291, 83, 54), 500); // 生成 player
+            player.Model = 0xB8D69E3;
+
+            player.Emit("auth:client:close");
+
+            player.Emit("client:Console", "登录成功 - 已生成");
+        }
     }
 }
