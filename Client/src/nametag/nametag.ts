@@ -11,6 +11,8 @@ const nameTags = new Map();
 let tickHandle: number = -1;
 
 alt.on("gameEntityCreate", (entity) => {
+    console.log('gameEntityCreate');
+
     const rmlElement = document.createElement("button");
     rmlElement.rmlId = entity.id.toString();
     rmlElement.addClass("nametag");
