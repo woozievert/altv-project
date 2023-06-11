@@ -12,10 +12,7 @@ const localPassword = alt.LocalStorage.get('password');
  */
 export let playerTempVar = {
     logged: false, // 默认为未登录
-    setLogged: function(state: boolean){ // 设置登录状态
-        this.logged = state;
-        if (this.logged) setPageState(authPage, false, false, true);
-    }
+    setLogged: function(state: boolean) { this.logged = state; }
 }
 
 // 显示并聚焦authPage页面，同时启用光标和关闭游戏控制。
@@ -29,7 +26,8 @@ function _showAuthPage() {
 
 // 关闭并取消聚焦authPage页面，同时关闭光标和启用游戏控制。
 alt.onServer('auth:client:close', _destroyAuthPage);
-function _destroyAuthPage() {
+function _destroyAuthPage(finishLogin: boolean = false) {
+    if (finishLogin) setPageState(authPage, false, false, true);
     playerTempVar.setLogged(true);
     //todo 需要添加一个参数，用以验证是否是登录完成，但暂时是给予了登录状态。并且更换名称为finishLogin
 }
