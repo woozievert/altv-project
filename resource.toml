@@ -8,4 +8,4 @@ client-files = [
     'Client/nametag/*'
 ]
 client-main = 'Client/dist/client.js'
-main = 'Server/MainResource/bin/Debug/net6.0/MainResource.dll'
+main = 'Server/MainResource/bin/Debug/net6.0/src.dll'
