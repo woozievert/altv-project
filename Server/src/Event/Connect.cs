@@ -23,10 +23,8 @@ public class Connect : IScript
     }
 
     [ClientEvent("auth:server:tryLogin")]
-    public void TryLogin(ushort scriptId, string username, string password)
+    public void TryLogin(IPlayer player, string username, string password)
     {
-        var player = Alt.GetEntityById(scriptId);
-        
         if (player == null) return;
         // if (UserRepository.Login(player,username,password))
         // {
