@@ -16,14 +16,27 @@ public class Connect : IScript
         player.Emit("auth:client:show");
     }
 
+    [ScriptEvent(ScriptEventType.PlayerDisconnect)]
+    public void OnPlayerDisconnect(IPlayer player)
+    {
+        Logger.Info("[断开] " + player.Name + " 离开了服务器");
+        player.Emit("nametag:client:disconnect", player.Id);
+    }
+
     [ClientEvent("auth:server:tryLogin")]
     public void TryLogin(IPlayer player, string username, string password)
     {
         if (player == null) return;
         // if (UserRepository.instance.Login(player, username, password))
         // {
+        player.SetSyncedMetaData("playerName", username);
+
         player.Spawn(new Vector3((float)-1291.71, (float)83.43, (float)54.89)); // 生成 player
         player.Model = 0xB8D69E3;
+
+        player.GetSyncedMetaData("playerName", out string playerName);
+        
+        player.Emit("nametag:client:setup", player.Id, playerName);
 
         player.Emit("auth:client:close");
 

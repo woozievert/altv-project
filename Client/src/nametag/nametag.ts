@@ -1,22 +1,24 @@
 import * as alt from "alt-client";
 import * as native from "natives";
-import {TextLabel} from "alt-client";
 // ---------------- Script ----------------
+
+let drawDistance = 20;
 
 alt.loadRmlFont("/Client/nametag/microsoft.ttf", "microsoft", false, true);
 const document = new alt.RmlDocument("/Client/nametag/index.rml");
 const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
 let tickHandle: number = -1;
-alt.on("spawned", () => {
+
+alt.onServer("nametag:client:setup", (playerID: number, playerName: string) => {
     const rmlElement = document.createElement("button");
-    rmlElement.rmlId = alt.Player.local.id.toString();
+    rmlElement.rmlId = playerID.toString();
+    rmlElement.innerRML = playerName;
     rmlElement.addClass("nametag");
     rmlElement.addClass("hide");
-    rmlElement.innerRML = `测试${alt.Player.local.id}号`;
-    console.log(`测试${alt.Player.local.id}号`);
 
-    nameTags.set(alt.Player.local, rmlElement);
+    let player = alt.Player.getByID(playerID);
+    nameTags.set(player, rmlElement);
     // @ts-ignore
     container.appendChild(rmlElement);
     rmlElement.on("click", printCoordinates);
@@ -25,9 +27,11 @@ alt.on("spawned", () => {
     tickHandle = alt.everyTick(drawMarkers);
 });
 
-alt.on("disconnect", () => {
-    const rmlElement = nameTags.get(alt.Player.local);
+alt.onServer("nametag:client:disconnect", (playerID: number) => {
+    let player = alt.Player.getByID(playerID);
+    const rmlElement = nameTags.get(player);
     if (rmlElement === undefined) return;
+
     // @ts-ignore
     container.removeChild(rmlElement);
     rmlElement.destroy();
@@ -60,23 +64,43 @@ function printCoordinates(rmlElement: alt.RmlElement) {
 }
 
 function drawMarkers() {
-    nameTags.forEach((rmlElement, player) => {
-        const {x, y, z} = player.pos;
+    for (let i = 0, n = alt.Player.all.length; i < n; i++)
+    {
+        let player = alt.Player.all[i];
+        if (!player.valid)
+            continue;
+        if (player.scriptID === alt.Player.local.scriptID)
+            continue;
+        const name = player.getSyncedMeta('playerName');
+        if (!name)
+            continue;
+        let dist = distance2d(player.pos, alt.Player.local.pos);
+        if (dist > drawDistance)
+            continue;
 
-        if (!native.isSphereVisible(x, y, z, 0.0099999998)) {
-            if (!rmlElement.shown) return;
+        const nativePos: alt.IVector3 = { ...native.getPedBoneCoords(player.scriptID, 12844, 0, 0, 0) };
+        let pos = nativePos;
 
-            rmlElement.addClass("hide");
-            rmlElement.shown = false;
-        } else {
-            if (!rmlElement.shown) {
-                rmlElement.removeClass("hide");
-                rmlElement.shown = true;
+        nameTags.forEach((rmlElement, player) => {
+            if (!native.isSphereVisible(pos.x, pos.y, pos.z, 0.0099999998)) {
+                if (!rmlElement.shown) return;
+
+                rmlElement.addClass("hide");
+                rmlElement.shown = false;
+            } else {
+                if (!rmlElement.shown) {
+                    rmlElement.removeClass("hide");
+                    rmlElement.shown = true;
+                }
+
+                const {x: screenX, y: screenY} = alt.worldToScreen(pos.x, pos.y, pos.z + 0.75);
+                rmlElement.style["left"] = `${screenX}px`;
+                rmlElement.style["top"] = `${screenY}px`;
             }
+        });
+    }
+}
 
-            const {x: screenX, y: screenY} = alt.worldToScreen(x, y, z + 0.5);
-            rmlElement.style["left"] = `${screenX}px`;
-            rmlElement.style["top"] = `${screenY}px`;
-        }
-    });
+function distance2d(vector1: alt.Vector3, vector2: alt.Vector3) {
+    return Math.sqrt(Math.pow(vector1.x - vector2.x, 2) + Math.pow(vector1.y - vector2.y, 2));
 }
