@@ -8,7 +8,7 @@ alt.loadRmlFont("/Client/nametag/microsoft.ttf", "microsoft", false, true);
 const document = new alt.RmlDocument("/Client/nametag/index.rml");
 const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
-let tickHandle: number = -1;
+let tickHandle: number;
 
 alt.onServer("nametag:client:setup", (playerID: number, playerName: string) => {
     const rmlElement = document.createElement("button");
@@ -18,15 +18,16 @@ alt.onServer("nametag:client:setup", (playerID: number, playerName: string) => {
     rmlElement.addClass("hide");
 
     let player: alt.Player | null = alt.Player.getByID(playerID);
-    // @ts-ignore
+    if (!player) return;
     if (!player.valid) return;
     nameTags.set(player, rmlElement);
     // @ts-ignore
     container.appendChild(rmlElement);
     rmlElement.on("click", printCoordinates);
-    if (tickHandle !== -1) return;
-    // @ts-ignore
-    tickHandle = alt.everyTick(drawMarkers(player));
+    if (tickHandle !== undefined) return;
+    tickHandle = alt.everyTick(() => {
+        drawMarkers(player);
+    });
 });
 
 alt.onServer("nametag:client:disconnect", (playerID: number) => {
@@ -38,9 +39,8 @@ alt.onServer("nametag:client:disconnect", (playerID: number) => {
     container.removeChild(rmlElement);
     rmlElement.destroy();
 
-    if (tickHandle === -1 || nameTags.size > 0) return;
+    if (tickHandle === undefined || nameTags.size > 0) return;
     alt.clearEveryTick(tickHandle);
-    tickHandle = -1;
 });
 
 alt.on("keyup", (key) => {
@@ -65,7 +65,9 @@ function printCoordinates(rmlElement: alt.RmlElement) {
     alt.log("Player Position", "X", player.pos.x, "Y", player.pos.y, "Z", player.pos.z);
 }
 
-function drawMarkers(player: alt.Player) {
+function drawMarkers(player: alt.Player | null) {
+    if (player == null) return;
+
     const nativePos: alt.IVector3 = { ...native.getPedBoneCoords(player.scriptID, 12844, 0, 0, 0) };
     let pos = nativePos;
 
