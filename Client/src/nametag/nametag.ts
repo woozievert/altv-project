@@ -17,13 +17,16 @@ alt.onServer("nametag:client:setup", (playerID: number, playerName: string) => {
     rmlElement.addClass("nametag");
     rmlElement.addClass("hide");
 
-    let player = alt.Player.getByID(playerID);
+    let player: alt.Player | null = alt.Player.getByID(playerID);
+    // @ts-ignore
+    if (!player.valid) return;
     nameTags.set(player, rmlElement);
     // @ts-ignore
     container.appendChild(rmlElement);
     rmlElement.on("click", printCoordinates);
     if (tickHandle !== -1) return;
-    tickHandle = alt.everyTick(drawMarkers);
+    // @ts-ignore
+    tickHandle = alt.everyTick(drawMarkers(player));
 });
 
 alt.onServer("nametag:client:disconnect", (playerID: number) => {
@@ -62,7 +65,7 @@ function printCoordinates(rmlElement: alt.RmlElement) {
     alt.log("Player Position", "X", player.pos.x, "Y", player.pos.y, "Z", player.pos.z);
 }
 
-function drawMarkers() {
+function drawMarkers(player: alt.Player) {
     const nativePos: alt.IVector3 = { ...native.getPedBoneCoords(player.scriptID, 12844, 0, 0, 0) };
     let pos = nativePos;
 
