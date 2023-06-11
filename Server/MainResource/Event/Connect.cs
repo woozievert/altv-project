@@ -16,13 +16,6 @@ public class Connect : IScript
         player.Emit("auth:client:show");
     }
 
-    [ScriptEvent(ScriptEventType.PlayerDisconnect)]
-    public void OnPlayerDisconnect(IPlayer player)
-    {
-        Logger.Info("[断开] " + player.Name + " 离开了服务器");
-        player.Emit("nametag:client:disconnect", player.Id);
-    }
-
     [ClientEvent("auth:server:tryLogin")]
     public void TryLogin(IPlayer player, string username, string password)
     {
