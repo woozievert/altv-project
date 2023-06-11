@@ -115,7 +115,7 @@ function drawMarkers() {
 
         if (!entity.valid) return;
 
-        if (entity.scriptID === alt.Player.local.scriptID) return;
+        // if (entity.scriptID === alt.Player.local.scriptID) return;
 
         const name = entity.getSyncedMeta('playerName');
         if (!name) return;
