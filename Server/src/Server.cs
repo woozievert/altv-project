@@ -8,17 +8,22 @@ namespace src;
 
 public class Server : Resource
 {
-    public override void OnStart()
+    // 静态管道实例
+    public static ServiceProvider serviceProvider;
+
+    public Server()
     {
         // 创建一个服务容器
-        // var services = new ServiceCollection();
+        var services = new ServiceCollection();
 
         // 注册一个服务
-        // services.AddDbContext<MainDbContext>();
-        // services.AddScoped<IUserRepository, UserRepository>();
-
+        services.AddDbContext<MainDbContext>();
+        services.AddScoped<IUserRepository, UserRepository>();
         // 解析一个服务
-        // var serviceProvider = services.BuildServiceProvider();
+        serviceProvider = services.BuildServiceProvider();
+    }
+    public override void OnStart()
+    {
         Alt.Log("依赖注入已完成");
         Alt.Log("服务已启动");
     }
