@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Repository.Repository
+namespace src.Repository.Tools
 {
     // Copyright (c) 2006 Damien Miller <djm@mindrot.org>
     // Copyright (c) 2007 Derek Slager

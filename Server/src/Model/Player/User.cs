@@ -24,4 +24,5 @@ public class User
     /// </summary>
     /// <value></value>
     public DateTime LastLoginTime { get; set; }
+
 }

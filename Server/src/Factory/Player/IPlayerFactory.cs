@@ -1,6 +1,6 @@
 ﻿using AltV.Net;
 
-namespace MainResource.Factory.Player;
+namespace src.Factory.Player;
 
 public class IPlayerFactory : IEntityFactory<IPlayer>
 {

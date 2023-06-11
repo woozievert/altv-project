@@ -1,4 +1,4 @@
-namespace Repository.Tools;
+namespace src.Repository.Tools;
 
 public static class Uid
 {

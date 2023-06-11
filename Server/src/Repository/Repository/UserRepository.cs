@@ -1,33 +1,23 @@
-using Model;
-using Repository.IRepository;
-using Repository.Tools;
-using System.Linq;
-using AltV.Net;
 using AltV.Net.Elements.Entities;
 using Model.Model.Player;
+using src.Model;
+using src.Repository.IRepository;
+using src.Repository.Tools;
 
-namespace Repository.Repository;
+namespace src.Repository.Repository;
 
 /// <summary>
 /// 仓储层
 /// </summary>
-public  class UserRepository : IUserRepository
+public class UserRepository : IUserRepository
 {
-    /// <summary>
-    /// 将仓储层实现为单例模式 调用接口
-    /// </summary>
-    public static readonly UserRepository instance = new();
+    
     private readonly MainDbContext _context;
 
-    public UserRepository(MainDbContext mainDbContext)
-    {
-        _context = mainDbContext;
-    }
-
-    public UserRepository()
-    {
-        
-    }
+public UserRepository(MainDbContext mainDbContext)
+{
+    _context = mainDbContext;
+}
 
     /// <summary>
     /// 登录接口
@@ -36,8 +26,9 @@ public  class UserRepository : IUserRepository
     /// <param name="username">用户名</param>
     /// <param name="password">密码</param>
     /// <returns></returns>
-    public bool Login(IPlayer player,string username, string password)
+    public bool Login(IPlayer player, string username, string password)
     {
+
         var user = _context.Users.FirstOrDefault(u => u.UserName == username);
         if (user != null)
         {
@@ -97,5 +88,5 @@ public  class UserRepository : IUserRepository
             return true;
         }
     }
-    
+
 }

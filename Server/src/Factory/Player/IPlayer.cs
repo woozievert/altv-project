@@ -1,6 +1,6 @@
 ﻿using AltV.Net;
 
-namespace MainResource.Factory.Player;
+namespace src.Factory.Player;
 
 /// <summary>
 /// 玩家工厂实体

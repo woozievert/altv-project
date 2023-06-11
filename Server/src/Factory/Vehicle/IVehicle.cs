@@ -1,7 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 
-namespace MainResource.Factory.Vehicle;
+namespace src.Factory.Vehicle;
 
 public class IVehicle : AltV.Net.Elements.Entities.Vehicle
 {

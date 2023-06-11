@@ -1,9 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Model.Model.Player;
-namespace Model;
+
+namespace src.Model;
 
 public class MainDbContext : DbContext
 {
+
+    public MainDbContext()
+    {
+    }
+
+    public MainDbContext(DbContextOptions<MainDbContext> options)
+        : base(options)
+    {
+    }
+
     public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
