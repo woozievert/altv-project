@@ -2,6 +2,8 @@ import * as alt from "alt-client";
 import * as native from "natives";
 
 const controlKey = 79;
+
+alt.loadRmlFont("/Client/nametag/microsoft.ttf", "microsoft", false, true);
 const document = new alt.RmlDocument("/Client/nametag/index.rml");
 const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
@@ -68,8 +70,6 @@ function printCoordinates(rmlElement: alt.RmlElement) {
 function drawMarkers() {
     nameTags.forEach((rmlElement, entity) => {
         const {x, y, z} = entity.pos;
-
-        console.log('drawMarkers start');
         if (distance2d(new alt.Vector3(entity.pos), alt.Player.local.pos) > 20)
             return;
 
@@ -78,13 +78,10 @@ function drawMarkers() {
 
             rmlElement.addClass("hide");
             rmlElement.shown = false;
-
-            console.log('drawMarkers hide');
         } else {
             if (!rmlElement.shown) {
                 rmlElement.removeClass("hide");
                 rmlElement.shown = true;
-                console.log('drawMarkers show');
             }
 
             const {x: screenX, y: screenY} = alt.worldToScreen(x, y, z + 2);
@@ -94,8 +91,6 @@ function drawMarkers() {
             const fontSizeModificator = Math.min(entity.pos.distanceTo(alt.Player.local.pos) / 100, 1);
             const fontSize = (1 - fontSizeModificator) * 50;
             rmlElement.style["font-size"] = `${fontSize}dp`;
-
-            console.log('drawMarkers works');
         }
     });
 }
