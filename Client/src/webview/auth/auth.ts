@@ -1,7 +1,6 @@
 import * as alt from "alt-client"
 import webViews from "../webviews"
 import setPageState from "../function";
-// import langPack from "../../shared/locale/main";
 
 const authPage = webViews.authPage;
 const localUsername = alt.LocalStorage.get('username');
