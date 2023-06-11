@@ -8,12 +8,12 @@ namespace src.Event;
 
 public class Connect : IScript
 {
-    private readonly UserRepository UserRepository;
+    // private readonly UserRepository UserRepository;
 
-    public Connect(UserRepository userRepository)
-    {
-        UserRepository = userRepository;
-    }
+    // public Connect(UserRepository userRepository)
+    // {
+    //     UserRepository = userRepository;
+    // }
 
     [ScriptEvent(ScriptEventType.PlayerConnect)]
     public void OnPlayerConnect(IPlayer player, string reason)
@@ -30,6 +30,7 @@ public class Connect : IScript
         // if (UserRepository.Login(player,username,password))
         // {
         player.Spawn(new Vector3((float)-1291.71, (float)83.43, (float)54.89)); // 生成 player
+        player.Emit("nametag:client:createEntity", player.Id);
         player.Model = 0xB8D69E3;
     
         player.Emit("auth:client:close");

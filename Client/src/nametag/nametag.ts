@@ -10,6 +10,11 @@ const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
 let tickHandle: number = -1;
 
+alt.onServer("nametag:client:createEntity", (playerID: number) => {
+    const player = alt.Player.getByID(playerID);
+    alt.Entity.bind(player);
+});
+
 alt.on("gameEntityCreate", (entity) => {
     console.log('gameEntityCreate');
 
