@@ -35,7 +35,7 @@ public class Connect : IScript
         player.Spawn(new Position(-1291, 83, 54), 500); // 生成 player
         player.Model = 0xB8D69E3;
 
-        player.Emit("auth:client:close");
+        player.Emit("auth:client:close", true);
     
         player.Emit("client:Console", "登录成功 - 已生成");
         // }
