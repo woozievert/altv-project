@@ -37,7 +37,7 @@ function _destroyAuthPage() {
 authPage.on('auth:client:tryLogin', _tryLogin);
 function _tryLogin(username: string, password: string) {
     console.log('_tryLogin:' + username + " - " + password)
-    alt.emitServer('auth:server:tryLogin', username.toString(), password.toString());
+    alt.emitServer('auth:server:tryLogin', username, password);
 }
 
 authPage.on('auth:client:saveLocalAuth', _saveLocalAuth);
