@@ -2,7 +2,6 @@ using System.Numerics;
 using AltV.Net;
 using AltV.Net.Elements.Entities;
 using MainResource.Log;
-using Repository.Repository;
 
 namespace MainResource.Event;
 
@@ -26,10 +25,6 @@ public class Connect : IScript
 
         player.Spawn(new Vector3((float)-1291.71, (float)83.43, (float)54.89)); // 生成 player
         player.Model = 0xB8D69E3;
-
-        player.GetSyncedMetaData("playerName", out string playerName);
-        
-        player.Emit("nametag:client:setup", player.Id, playerName);
 
         player.Emit("auth:client:close");
 

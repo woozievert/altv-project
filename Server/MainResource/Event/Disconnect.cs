@@ -10,6 +10,5 @@ public class Disconnect : IScript
     public void OnPlayerDisconnect(IPlayer player, string reason)
     {
         Logger.Info("[断开] " + player.Name + " 离开了服务器");
-        player.Emit("nametag:client:disconnect", player.Id);
     }
 }
