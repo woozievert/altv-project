@@ -28,8 +28,6 @@ public class Connect : IScript
         if (player == null) return;
         // if (UserRepository.Login(player,username,password))
         // {
-        
-
         Logger.Info(player + " " + username + " " + password);
         
         player.SetSyncedMetaData("playerName", username);
@@ -41,6 +39,5 @@ public class Connect : IScript
     
         player.Emit("client:Console", "登录成功 - 已生成");
         // }
-        
     }
 }
