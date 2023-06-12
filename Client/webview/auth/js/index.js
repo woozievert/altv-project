@@ -1,5 +1,6 @@
 const loginInputType = document.querySelector(".login-password-btn");
 const regInputType = document.querySelector(".reg-password-btn");
+const verInputType = document.querySelector(".ver-password-btn");
 const loginUser = document.querySelector('#usernameInput');
 const loginPassword = document.querySelector('#passwordInput');
 const loginButton = document.querySelector('.login-button');
@@ -10,7 +11,15 @@ const registerForm = document.querySelector("#reg-form"); // 注册窗口
 const formTitle = document.querySelector("#form-title"); // 窗口标题
 const regUser = document.querySelector('#regUsernameInput');
 const regPassword = document.querySelector('#regPasswordInput');
+const verPassword = document.querySelector('#verPasswordInput');
 const regEmail = document.querySelector('#regEmailInput');
 const registerButton = document.querySelector(".reg-button");
 const checkBox = document.querySelector(".save-info");
+const newsForm = document.querySelector(".news-form");
+const newsImg = document.querySelector(".news-img");
+const bigImg = document.querySelector(".big-image");
+const bigImgDiv = document.querySelector(".big-image-div")
+
+var html_dev = true;
+var current_page = 'login';
 

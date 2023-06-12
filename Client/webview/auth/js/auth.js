@@ -1,7 +1,10 @@
 let langPack = undefined;
+let who_in_window = 'alt';
+
 document.addEventListener('DOMContentLoaded', (event) => {
-    if ('alt' in window) {
-        console.log("alt加载完成");
+    if (html_dev) who_in_window = 'html_dev';
+    if (`${who_in_window}` in window) {
+        console.log(`${who_in_window}加载完成`);
 
         loginNotify('');
         regNotify('');
@@ -12,22 +15,35 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         regInputType.addEventListener("click",function(){
-            if(regPassword.type === "password") regPassword.type = "text";
+            if(regPassword.type === "passwoWrd") regPassword.type = "text";
             else regPassword.type = "password";
         });
 
+        verInputType.addEventListener("click",function(){
+            if(verPassword.type === "password") verPassword.type = "text";
+            else verPassword.type = "password";
+        });
+
         toggleReg.addEventListener("click", function() {
-            loginForm.style.display = "none";
-            registerForm.style.display = "block";
-            formTitle.textContent = "注册窗口";
-            toggleLogin.textContent = "返回登录";
+            if (current_page === 'login') {
+                current_page = 'register';
+
+                loginForm.style.display = "none";
+                registerForm.style.display = "block";
+                formTitle.textContent = "注册窗口";
+                toggleLogin.textContent = "返回登录";
+            }
         });
 
         toggleLogin.addEventListener("click", function() {
-            loginForm.style.display = "block";
-            registerForm.style.display = "none";
-            formTitle.textContent = "登录窗口";
-            toggleReg.textContent = "创建一个账号";
+            if (current_page === 'register') {
+                current_page = 'login';
+
+                loginForm.style.display = "block";
+                registerForm.style.display = "none";
+                formTitle.textContent = "登录窗口";
+                toggleReg.textContent = "创建一个账号";
+            }
         });
 
         loginButton.addEventListener("click", function() {
@@ -52,6 +68,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
             else alt.emit('auth:client:deleteLocalAuth');
+        });
+
+        newsImg.addEventListener('click', function() {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'none';
+            newsForm.style.display = 'none';
+            bigImg.setAttribute("src", newsImg.src);
+            bigImgDiv.style.display = 'block';
+        });
+
+        bigImg.addEventListener('click', function() {
+            if (current_page === 'login') loginForm.style.display = 'block';
+            else registerForm.style.display = 'block';
+
+            newsForm.style.display = 'block';
+            bigImg.setAttribute("src", '');
+            bigImgDiv.style.display = 'none';
         });
 
         // alt.on('auth:webview:importLangPack', importLangPack);

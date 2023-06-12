@@ -1,7 +1,6 @@
 *{
     margin: 0;
     padding: 0;
-    font-family: "Microsoft YaHei", sans-serif;
     box-sizing: border-box;
 }
 
@@ -10,23 +9,84 @@
 }
 
 body{
-    background-image: url(./images/bg.png);
-    background-size: 256px;
+    font-family: 'Noto Sans SC', sans-serif;
+    background-color: #222226;
+}
+
+.big-image-div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1080px;
+    height: 720px;
+    max-width: 1080px;
+    max-height: 720px;
+}
+
+.big-image-div img {
+    width: 100%;
+    height: 100%;
+}
+
+.news-div {
+    position: absolute;
+    top: 15%;
+    left: 3%;
+    width: 500px;
+    height: 650px;
+    display: grid;
+    justify-items: center;
+    align-items: flex-start;
+}
+
+.background {
     min-height: 100vh;
     display: grid;
     justify-items: center;
     align-items: center;
     grid-template-rows: auto 62px;
+    background-image: url("./images/header-bg-right.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-.login-form{
+.login-form, .reg-form{
     width: 100%;
     max-width: 500px;
 }
 
-.reg-form{
+.news-form{
     width: 100%;
-    max-width: 500px;
+    max-width: 450px;
+    max-height: 650px;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.news-container{
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    color: #4d4d4d;
+}
+
+.news-container .news-title, .news-img {
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+.news-container img {
+    max-width: 410px;
+    max-height: 300px;
+    cursor: pointer;
+}
+
+.news-container .news-subtitle {
+    display: grid;
+    justify-items: left;
+    align-items: center;
 }
 
 .logo{
@@ -87,7 +147,7 @@ body{
     padding-top: 12px;
 }
 
-.login-password-btn, .reg-password-btn{
+.login-password-btn, .reg-password-btn, .ver-password-btn, .reg-email-btn{
     position: absolute;
     right: 20px;
     top: 50%;
@@ -141,6 +201,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: 'Microsoft YaHei', sans-serif;
 }
 
 .link{
@@ -157,16 +218,16 @@ body{
     width: 100px;
     height: 38px;
     border: none;
-    background-image: linear-gradient(90deg,#f7931e,#fcaf17);
+    background-image: linear-gradient(90deg, #f7931e, #fcaf17);
     color: #fff;
     font-weight: 700;
     outline: none;
     cursor: pointer;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .forgot-signin-container input:hover{
-    background: #fcaf17;
+    background: #bbbbbb;
 }
 
 .bottom-container{
