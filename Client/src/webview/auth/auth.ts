@@ -8,7 +8,7 @@ const localPassword = alt.LocalStorage.get('password');
 
 /*
     在登录页面的临时登录状态，导出为验证是否登录使用。
- */
+*/
 export let playerTempVar = {
     logged: false, // 默认为未登录
     setLogged: function(state: boolean) { this.logged = state; }
