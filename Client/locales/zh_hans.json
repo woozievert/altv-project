@@ -1,8 +1,9 @@
 {
     "server.connect": "您好，{name}！欢迎您加入服务器！",
     "login.wrong_pass": "输入的用户名或密码有误!",
+    "login.success": "您已成功登录服务器！",
     "reg.already_exist": "输入的用户名已存在!",
-    "reg.finish": "您已成功注册, 现在可以登录了!",
+    "reg.finish": "您已成功注册, 现在可以登录了！",
     "reg.wrong_user": "用户名有误(4-16字符,可含字母，数字，下划线，减号)",
     "test.message": "这是一条测试消息。"
 }

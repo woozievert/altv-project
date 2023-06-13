@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (`${who_in_window}` in window) {
         console.log(`${who_in_window}加载完成`);
 
+        console.log(locale);
+
         loginNotify('');
         regNotify('');
 
@@ -15,7 +17,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
 
         regInputType.addEventListener("click",function(){
-            if(regPassword.type === "passwoWrd") regPassword.type = "text";
+            if(regPassword.type === "password") regPassword.type = "text";
             else regPassword.type = "password";
         });
 
@@ -49,6 +51,36 @@ document.addEventListener('DOMContentLoaded', (event) => {
         loginButton.addEventListener("click", function() {
             if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
                 alt.emit('auth:client:tryLogin', loginUser.value.toString(), loginPassword.value.toString());
+            }
+        });
+
+        regEmail.addEventListener("keyup", function () {
+            if (regEmail.value.toString() === '') regEmailType.style.display = 'none';
+            else regEmailType.style.display = 'block';
+
+            if (!isValidEmail(regEmail.value.toString())) {
+                regEmailType.style.display = 'block';
+                regNotify('邮箱格式有误！');
+            }
+            else {
+                console.log('合格')
+                regNotify('');
+                regEmailType.style.display = 'none';
+            }
+        });
+
+        regUser.addEventListener("keyup", function() {
+            if (!isValidUsername(regUser.value.toString())) regNotify('用户名有误(4-16字符,可含字母，数字，下划线，减号)');
+            else regNotify('');
+        });
+
+        verPassword.addEventListener("keyup", function() {
+            if (!isValidPassword(verPassword.value.toString())) regNotify('密码有误(6-20字符,包含至少1个大、小写字母、数字)');
+            else {
+                if (verPassword.value.toString() !== regPassword.value.toString()) {
+                    regNotify('两次密码不一致！');
+                }
+                else regNotify('');
             }
         });
 

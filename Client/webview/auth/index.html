@@ -4,10 +4,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     <link href="https://fonts.ews1.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
-    <div class="big-image-div" style="display: none"><img alt="big-image" class="big-image"></div>
+    <div class="big-image-div" style="display: none"><img src='' alt="big-image" class="big-image"></div>
     <div class="news-div">
         <div class="news-form">
             <div class="news-container">
@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div class="background">
+    <div class="main-div">
     <div class="login-form" id="login-form">
         <div class="logo"></div>
         <div class="container">
@@ -90,8 +90,8 @@
                 <div class="txtb">
                     <input type="text" id="regEmailInput" placeholder=" ">
                     <span class="placeholder">邮箱</span>
-                    <i class="reg-email-btn">
-                        <svg t="1686572643485" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2567" width="200" height="200"><path d="M512 0C229.248 0 0 229.248 0 512s229.248 512 512 512 512-229.248 512-512S794.752 0 512 0z" fill="#3F81FF" p-id="2568"></path><path d="M272 591.914667a80 80 0 1 1 0.042667-160 80 80 0 0 1-0.042667 160zM511.914667 591.914667a80.042667 80.042667 0 1 1 0.042666-160 80.042667 80.042667 0 0 1-0.042666 160zM752.085333 591.914667a80 80 0 1 1 0.042667-160 80 80 0 0 1-0.042667 160z" fill="#FFFFFF" p-id="2569"></path></svg>
+                    <i class="reg-email-btn" style="display: none">
+                        <svg t="1686572643485" class="icon" viewBox="0 0 1024 1024" height="16" width="16" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2567"><path d="M512 0C229.248 0 0 229.248 0 512s229.248 512 512 512 512-229.248 512-512S794.752 0 512 0z" fill="#999" p-id="2568"></path><path d="M272 591.914667a80 80 0 1 1 0.042667-160 80 80 0 0 1-0.042667 160zM511.914667 591.914667a80.042667 80.042667 0 1 1 0.042666-160 80.042667 80.042667 0 0 1-0.042666 160zM752.085333 591.914667a80 80 0 1 1 0.042667-160 80 80 0 0 1-0.042667 160z" fill="#FFFFFF" p-id="2569"></path></svg>
                     </i>
                 </div>
                 <div class="forgot-signin-container">
@@ -113,6 +113,7 @@
         &copy; 2023
     </div>
     </div>
+    <script type="application/json" src="../../locales/zh_hans.json" id="localeJson"></script>
     <script src="./js/notify.js"></script>
     <script src="./js/index.js"></script>
     <script src="./js/auth.js"></script>
