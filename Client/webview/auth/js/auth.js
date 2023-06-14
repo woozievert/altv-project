@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
                 hideElement(loginForm);
                 displayElement(registerForm);
-                formTitle.textContent = "注册窗口";
-                toggleLogin.textContent = "返回登录";
+                formTitle.textContent = locales['reg.text.title'];
+                toggleLogin.textContent = locales['reg.text.switch_login'];
             }
         });
 
@@ -49,8 +49,8 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
                 displayElement(loginForm);
                 hideElement(registerForm);
-                formTitle.textContent = "登录窗口";
-                toggleReg.textContent = "创建一个账号";
+                formTitle.textContent = locales['login.text.title'];
+                toggleReg.textContent = locales['login.link.register'];
             }
         });
 
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
             if (!isValidEmail(regEmail.value.toString())) {
                 displayElement(regEmailType);
-                regNotify('邮箱格式有误！');
+                regNotify(locales['reg.wrong_email']);
             } else {
                 regNotify('');
                 hideElement(regEmailType);
@@ -75,24 +75,24 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         });
 
         regUser.addEventListener("keyup", function () {
-            if (!isValidUsername(regUser.value.toString())) regNotify('用户名有误(4-16字符,可含字母，数字，下划线，减号)');
+            if (!isValidUsername(regUser.value.toString())) regNotify(locales['reg.wrong_user']);
             else regNotify('');
         });
 
         verPassword.addEventListener("keyup", function () {
-            if (!isValidPassword(verPassword.value.toString())) regNotify('密码有误(6-20字符,包含至少1个大、小写字母、数字)');
+            if (!isValidPassword(verPassword.value.toString())) regNotify(locales['login.error.wrong_pass']);
             else {
                 if (verPassword.value.toString() !== regPassword.value.toString()) {
-                    regNotify('两次密码不一致！');
+                    regNotify(locales['reg.different_pass']);
                 } else regNotify('');
             }
         });
 
         registerButton.addEventListener("click", function () {
             if (regUser.value.toString() != null && regPassword.value.toString() != null && regEmail.value.toString() != null) {
-                if (!isValidUsername(regUser.value.toString())) return regNotify('用户名有误(4-16字符,可含字母，数字，下划线，减号)');
-                else if (!isValidPassword(regPassword.value.toString())) return regNotify('密码有误(6-20字符,包含至少1个大、小写字母、数字)');
-                else if (!isValidEmail(regEmail.value.toString())) return regNotify('邮箱格式有误！');
+                if (!isValidUsername(regUser.value.toString())) return regNotify(locales['reg.wrong_user']);
+                else if (!isValidPassword(regPassword.value.toString())) return regNotify(locales['login.error.wrong_pass']);
+                else if (!isValidEmail(regEmail.value.toString())) return regNotify(locales['reg.wrong_email']);
                 alt.emit('auth:client:tryRegister', regUser.value.toString(), regPassword.value.toString(), regEmail.value.toString());
             }
         });
@@ -170,7 +170,7 @@ async function finishBuild() {
 }
 
 async function loadLocales() {
-    const response = await fetch('../../../locales/zh_hans.json');
+    const response = await fetch('../../../locales/zh_hant.json');
     return await response.json();
 }
 
