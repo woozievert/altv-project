@@ -22,8 +22,6 @@ body{
     height: 720px;
     max-width: 1080px;
     max-height: 720px;
-
-    animation: fadeOut 3s forwards;
 }
 
 .big-image-div img {
@@ -41,7 +39,6 @@ body{
     display: grid;
     justify-items: center;
     align-items: flex-start;
-    animation: fadeOut 3s forwards;
 }
 
 .main-div {
@@ -53,8 +50,6 @@ body{
     background-image: url("../images/header-bg-right.png");
     background-repeat: no-repeat;
     background-size: cover;
-
-    animation: fadeOut 3s forwards;
 }
 
 .login-form, .reg-form{
@@ -70,6 +65,8 @@ body{
     max-height: 650px;
     border-radius: 10px;
     overflow-y: auto;
+
+    animation: fadeOut 3s forwards;
 }
 
 .news-container{

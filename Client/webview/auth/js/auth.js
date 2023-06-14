@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         });
 
         loginButton.addEventListener("click", function () {
-            console.log('click')
             if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
                 alt.emit('auth:client:tryLogin', loginUser.value.toString(), loginPassword.value.toString());
             }
@@ -98,18 +97,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
             }
         });
 
-        checkBox.addEventListener("change", function () {
-            if (this.checked) {
-                if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
-                    alt.emit('auth:client:saveLocalAuth', loginUser.value.toString(), loginPassword.value.toString());
-                }
-            } else alt.emit('auth:client:deleteLocalAuth');
-        });
-
-        console.log(newsImg)
         newsImg.addEventListener('click', function () {
-            console.log('click')
-
             hideElement(loginForm);
             hideElement(registerForm);
             hideElement(newsForm);
@@ -120,10 +108,17 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         bigImg.addEventListener('click', function () {
             if (current_page === 'login') displayElement(loginForm);
             else displayElement(registerForm);
-
             displayElement(newsForm);
             bigImg.setAttribute("src", '');
             hideElement(bigImgDiv);
+        });
+
+        checkBox.addEventListener("change", function () {
+            if (this.checked) {
+                if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
+                    alt.emit('auth:client:saveLocalAuth', loginUser.value.toString(), loginPassword.value.toString());
+                }
+            } else alt.emit('auth:client:deleteLocalAuth');
         });
 
         async function initLocales() {
