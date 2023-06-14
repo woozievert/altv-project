@@ -2,8 +2,6 @@
 import './shared/locale/langService'
 // 日志
 import './log/handler'
-// 通知
-import './webview/notify'
 // 事件
 import './events/connect'
 import './events/disconnect'

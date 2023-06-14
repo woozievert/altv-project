@@ -1,7 +1,7 @@
 import * as alt from "alt-client"
 import webViews from "../webviews";
 
-const authPage = webViews.notifyPage;
+const notifyPage = webViews.notifyPage;
 
 export function info(text: string) {
     alt.emit('notify:webview:send', 'info', '提示', text);
