@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Model.Model.Player;
+using Model.Model.IPlayer;
 
 namespace src.Model;
 
