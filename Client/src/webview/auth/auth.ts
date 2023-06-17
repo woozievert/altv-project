@@ -64,7 +64,7 @@ function _wrongAuth() {
 
 authPage.on('auth:client:tryRegister', _tryRegister);
 function _tryRegister(username: string, password: string, email: string) {
-    alt.emitServer('auth:server:tryRegister', alt.Player.local, username, password, email);
+    alt.emitServer('auth:server:tryRegister', username, password, email);
 }
 
 alt.onServer('auth:client:alreadyExist', _alreadyExist);

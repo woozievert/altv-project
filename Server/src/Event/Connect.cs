@@ -53,4 +53,13 @@ public class Connect : IScript
             player.Emit("client:Console", "登录成功 - 已生成");
         }
     }
+
+    [ClientEvent("auth:server:tryRegister")]
+    public void TryRegister(TPlayer player, string username, string password, string email)
+    {
+        if (UserRepository.Register(player, username, password, email))
+        {
+            player.Emit("auth:client:alreadyExist");
+        }
+    }
 }

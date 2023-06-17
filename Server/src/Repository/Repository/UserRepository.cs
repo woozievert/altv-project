@@ -77,7 +77,7 @@ public class UserRepository : IUserRepository
         var user = _context.Users.FirstOrDefault(u => u.UserName == username);
         if (user != null)
         {
-            player.Emit("auth:client:wrongAuth");
+            player.Emit("auth:client:alreadyExist");
             // 用户已存在
             return false;
         }
