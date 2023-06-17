@@ -170,7 +170,7 @@ async function finishBuild() {
 }
 
 async function loadLocales() {
-    const response = await fetch('../../../locales/zh_hans.json');
+    const response = await fetch('/Client/locales/zh_hans.json');
     return await response.json();
 }
 
