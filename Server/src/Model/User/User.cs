@@ -1,4 +1,4 @@
-namespace Model.Model.Player;
+namespace Model.Model.IPlayer;
 
 /// <summary>
 /// 登录数据实体类

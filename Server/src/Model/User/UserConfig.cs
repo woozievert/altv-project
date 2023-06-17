@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Model.Model.Player;
+using Model.Model.IPlayer;
 
 namespace Model.Config.Player;
 
