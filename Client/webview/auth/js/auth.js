@@ -1,48 +1,116 @@
-let langPack = undefined;
-document.addEventListener('DOMContentLoaded', (event) => {
-    if ('alt' in window) {
-        console.log("alt加载完成");
+let who_in_window = 'alt';
+
+const localesData = loadLocales().catch(error => {
+    console.error('加载 json 失败:', error);
+});
+
+document.addEventListener('DOMContentLoaded', async (event) => {
+    if (html_dev) who_in_window = 'html_dev';
+    if (`${who_in_window}` in window) {
+        const locales = await localesData;
+        initLocales().catch(error => {
+            console.error('初始化语言失败:', error);
+        });
+
+        console.log(`${who_in_window}加载完成`);
 
         loginNotify('');
         regNotify('');
 
-        loginInputType.addEventListener("click",function(){
-            if(loginPassword.type === "password") loginPassword.type = "text";
+        loginInputType.addEventListener("click", function () {
+            if (loginPassword.type === "password") loginPassword.type = "text";
             else loginPassword.type = "password";
         });
 
-        regInputType.addEventListener("click",function(){
-            if(regPassword.type === "password") regPassword.type = "text";
+        regInputType.addEventListener("click", function () {
+            if (regPassword.type === "password") regPassword.type = "text";
             else regPassword.type = "password";
         });
 
-        toggleReg.addEventListener("click", function() {
-            loginForm.style.display = "none";
-            registerForm.style.display = "block";
-            formTitle.textContent = "注册窗口";
-            toggleLogin.textContent = "返回登录";
+        verInputType.addEventListener("click", function () {
+            if (verPassword.type === "password") verPassword.type = "text";
+            else verPassword.type = "password";
         });
 
-        toggleLogin.addEventListener("click", function() {
-            loginForm.style.display = "block";
-            registerForm.style.display = "none";
-            formTitle.textContent = "登录窗口";
-            toggleReg.textContent = "创建一个账号";
+        toggleReg.addEventListener("click", function () {
+            if (current_page === 'login') {
+                current_page = 'register';
+
+                hideElement(loginForm);
+                displayElement(registerForm);
+                formTitle.textContent = locales['reg.text.title'];
+                toggleLogin.textContent = locales['reg.text.switch_login'];
+            }
         });
 
-        loginButton.addEventListener("click", function() {
+        toggleLogin.addEventListener("click", function () {
+            if (current_page === 'register') {
+                current_page = 'login';
+
+                displayElement(loginForm);
+                hideElement(registerForm);
+                formTitle.textContent = locales['login.text.title'];
+                toggleReg.textContent = locales['login.link.register'];
+            }
+        });
+
+        loginButton.addEventListener("click", function () {
             if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
                 alt.emit('auth:client:tryLogin', loginUser.value.toString(), loginPassword.value.toString());
             }
         });
 
-        registerButton.addEventListener("click", function() {
+        await hideElement(regEmailType);
+        regEmail.addEventListener("keyup", function () {
+            if (regEmail.value.toString() === '') hideElement(regEmailType);
+            else displayElement(regEmailType);
+
+            if (!isValidEmail(regEmail.value.toString())) {
+                displayElement(regEmailType);
+                regNotify(locales['reg.wrong_email']);
+            } else {
+                regNotify('');
+                hideElement(regEmailType);
+            }
+        });
+
+        regUser.addEventListener("keyup", function () {
+            if (!isValidUsername(regUser.value.toString())) regNotify(locales['reg.wrong_user']);
+            else regNotify('');
+        });
+
+        verPassword.addEventListener("keyup", function () {
+            if (!isValidPassword(verPassword.value.toString())) regNotify(locales['login.error.wrong_pass']);
+            else {
+                if (verPassword.value.toString() !== regPassword.value.toString()) {
+                    regNotify(locales['reg.different_pass']);
+                } else regNotify('');
+            }
+        });
+
+        registerButton.addEventListener("click", function () {
             if (regUser.value.toString() != null && regPassword.value.toString() != null && regEmail.value.toString() != null) {
-                if (!isValidUsername(regUser.value.toString())) return regNotify('用户名有误(4-16字符,可含字母，数字，下划线，减号)');
-                else if (!isValidPassword(regPassword.value.toString())) return regNotify('密码有误(6-20字符,包含至少1个大、小写字母、数字)');
-                else if (!isValidEmail(regEmail.value.toString())) return regNotify('邮箱格式有误！');
+                if (!isValidUsername(regUser.value.toString())) return regNotify(locales['reg.wrong_user']);
+                else if (!isValidPassword(regPassword.value.toString())) return regNotify(locales['login.error.wrong_pass']);
+                else if (!isValidEmail(regEmail.value.toString())) return regNotify(locales['reg.wrong_email']);
                 alt.emit('auth:client:tryRegister', regUser.value.toString(), regPassword.value.toString(), regEmail.value.toString());
             }
+        });
+
+        newsImg.addEventListener('click', function () {
+            hideElement(loginForm);
+            hideElement(registerForm);
+            hideElement(newsForm);
+            bigImg.setAttribute("src", newsImg.src);
+            displayElement(bigImgDiv);
+        });
+
+        bigImg.addEventListener('click', function () {
+            if (current_page === 'login') displayElement(loginForm);
+            else displayElement(registerForm);
+            displayElement(newsForm);
+            bigImg.setAttribute("src", '');
+            hideElement(bigImgDiv);
         });
 
         checkBox.addEventListener("change", function () {
@@ -50,16 +118,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
                     alt.emit('auth:client:saveLocalAuth', loginUser.value.toString(), loginPassword.value.toString());
                 }
-            }
-            else alt.emit('auth:client:deleteLocalAuth');
+            } else alt.emit('auth:client:deleteLocalAuth');
         });
 
-        // alt.on('auth:webview:importLangPack', importLangPack);
-        // function importLangPack(data) {
-        //     console.log('已加载')
-        //     langPack = data;
-        //     console.log(langPack);
-        // }
+        async function initLocales() {
+            formTitle.textContent = locales['login.text.title'];
+            placeUser.textContent = locales['login.place.user'];
+            placePass.textContent = locales['login.place.pass'];
+            savePass.textContent = locales['login.input.save_pass'];
+            loginButton.value = locales['login.button.submit'];
+            otherLogin.textContent = locales['login.text.other'];
+            noAccount.textContent = locales['login.text.no_account'];
+            toggleReg.textContent = locales['login.link.register'];
+            loginForgetPass.textContent = locales['login.link.forget_pass'];
+
+            setTimeout(finishBuild, _getRandomTick());
+        }
 
         alt.on('auth:webview:getLocalAuth', _getLocalAuth);
         alt.on('auth:webview:wrongAuth', loginNotify);
@@ -67,6 +141,38 @@ document.addEventListener('DOMContentLoaded', (event) => {
         alt.on('auth:webview:finishReg', regNotify);
     }
 });
+
+function _getRandomTick() {
+    const min = 3;
+    const max = 7.5;
+    const decimalOptions = [0, 0.5];
+
+    const randomNumber = Math.random() * (max - min) + min;
+    const decimalPart = decimalOptions[Math.floor(Math.random() * decimalOptions.length)];
+
+    return (Math.floor(randomNumber) + decimalPart) * 1000;
+}
+
+async function displayElement(element) {
+    element.classList.remove('hidden');
+    element.visibility = '';
+}
+
+async function hideElement(element) {
+    element.classList.add('hidden');
+}
+
+async function finishBuild() {
+    await hideElement(loader);
+    await displayElement(copyright);
+    await displayElement(loginForm);
+    await displayElement(newsDiv);
+}
+
+async function loadLocales() {
+    const response = await fetch('../../../locales/zh_hant.json');
+    return await response.json();
+}
 
 function isValidEmail(email) {
     // 邮箱正则表达式
