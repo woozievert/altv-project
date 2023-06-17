@@ -41,16 +41,7 @@ public class Connect : IScript
 
         if (UserRepository.CheckPassword(username, password))
         {
-            Logger.Info(player + " " + username + " " + password);
             UserRepository.UserLogin(player, username);
-            player.SetSyncedMetaData("playerName", username);
-
-            player.Spawn(new Position(-1291, 83, 54), 500); // 生成 player
-            player.Model = 0xB8D69E3;
-
-            player.Emit("auth:client:close", true); // 替换为user.loginState or online
-
-            player.Emit("client:Console", "登录成功 - 已生成");
         }
     }
 
