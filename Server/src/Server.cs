@@ -1,8 +1,10 @@
 ﻿using AltV.Net;
 using Microsoft.Extensions.DependencyInjection;
+using src.Factory.TPlayer;
 using src.Model;
 using src.Repository.IRepository;
 using src.Repository.Repository;
+using IPlayer = AltV.Net.Elements.Entities.IPlayer;
 
 namespace src;
 
@@ -22,6 +24,7 @@ public class Server : Resource
         // 解析一个服务
         serviceProvider = services.BuildServiceProvider();
     }
+
     public override void OnStart()
     {
         Alt.Log("依赖注入已完成");
@@ -31,5 +34,10 @@ public class Server : Resource
     public override void OnStop()
     {
         Alt.Log("服务已停止");
+    }
+
+    public override IEntityFactory<IPlayer> GetPlayerFactory()
+    {
+        return new TPlayerFactory();
     }
 }

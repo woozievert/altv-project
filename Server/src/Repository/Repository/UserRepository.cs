@@ -1,5 +1,5 @@
 using AltV.Net.Elements.Entities;
-using Model.Model.Player;
+using Model.Model.IPlayer;
 using src.Model;
 using src.Repository.IRepository;
 using src.Repository.Tools;
@@ -11,49 +11,59 @@ namespace src.Repository.Repository;
 /// </summary>
 public class UserRepository : IUserRepository
 {
-    
     private readonly MainDbContext _context;
 
-public UserRepository(MainDbContext mainDbContext)
-{
-    _context = mainDbContext;
-}
+    public UserRepository(MainDbContext mainDbContext)
+    {
+        _context = mainDbContext;
+    }
 
     /// <summary>
-    /// 登录接口
+    /// 密码检查
     /// </summary>
-    /// <param name="player">IPlayer对象</param>
-    /// <param name="username">用户名</param>
-    /// <param name="password">密码</param>
+    /// <param name="username"></param>
+    /// <param name="inputPwd"></param>
     /// <returns></returns>
-    public bool Login(IPlayer player, string username, string password)
+    public bool CheckPassword(string username, string inputPwd)
     {
+        string pwd = _context.Users.Where(x => x.UserName == username).Select(x => x.Password).FirstOrDefault();
+        if (IsUserExist(username))
+        {
+            if (BCrypt.CheckPassword(inputPwd, pwd))
+            {
+                return true;
+            }
+        }
 
+        return false;
+    }
+
+    /// <summary>
+    /// 判断用户是否存在
+    /// </summary>
+    /// <param name="username"></param>
+    /// <returns></returns>
+    public bool IsUserExist(string username)
+    {
         var user = _context.Users.FirstOrDefault(u => u.UserName == username);
         if (user != null)
         {
-
-            if (BCrypt.CheckPassword(user.Password, password))
-            {
-                player.Emit("auth:client:close");
-                // 登录成功
-                return true;
-            }
-            else
-            {
-                player.Emit("auth:client:wrongAuth");
-                // 密码错误
-                return false;
-            }
+            return true;
         }
         else
         {
-            player.Emit("auth:client:wrongAuth");
-            // 用户不存在
             return false;
         }
-
     }
+
+    public void UserLogin(Factory.TPlayer.TPlayer player, string user)
+    {
+        player.PlayerId = _context.Users.Where(x => x.UserName == user).Select(x => x.Uid).FirstOrDefault();
+        player.PlayerName = _context.Users.Where(x => x.UserName == user).Select(x => x.UserName).FirstOrDefault();
+        player.IsLogin = true;
+        player.Emit("auth:client:loginSuccess");
+    }
+
     /// <summary>
     /// 注册接口
     /// </summary>
@@ -73,7 +83,6 @@ public UserRepository(MainDbContext mainDbContext)
         }
         else
         {
-
             var newUser = new User
             {
                 Uid = Uid.UidCreate(),
@@ -88,5 +97,4 @@ public UserRepository(MainDbContext mainDbContext)
             return true;
         }
     }
-
 }
