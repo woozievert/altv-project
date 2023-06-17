@@ -3,7 +3,7 @@ import * as native from "natives";
 
 const controlKey = 79;
 
-alt.loadRmlFont("/Client/nametag/microsoft.ttf", "microsoft", false, true);
+alt.loadRmlFont("file://C:/Windows/Fonts/msyh.ttc", "Microsoft YaHei", false, true);
 const document = new alt.RmlDocument("/Client/nametag/index.rml");
 const container = document.getElementByID("nametag-container");
 const nameTags = new Map();
