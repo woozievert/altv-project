@@ -79,7 +79,7 @@ body {
 	white-space: nowrap;
 	margin-top: 1vh;
 	position: relative;
-	animation: fadeOut 6.5s forwards;
+	animation: fadeOut 6.0s forwards;
 }
 
 .notify-title {

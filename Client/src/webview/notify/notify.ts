@@ -4,15 +4,15 @@ import webViews from "../webviews";
 const notifyPage = webViews.notifyPage;
 
 export function info(text: string) {
-    alt.emit('notify:webview:send', 'info', '提示', text);
+    notifyPage.emit('notify:webview:send', 'info', '提示', text);
 }
 
 export function green(text: string) {
-    alt.emit('notify:webview:send', 'good', '信息', text);
+    notifyPage.emit('notify:webview:send', 'good', '信息', text);
 }
 
 export function error(text: string) {
-    alt.emit('notify:webview:send', 'error', '错误', text);
+    notifyPage.emit('notify:webview:send', 'error', '错误', text);
 }
 
 // 通知系统客户端调用事件，准确来说web用: alt.emit('notify:server:send', 'info', '服务端来的消息，注意查收。');
