@@ -1,7 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Elements.Entities;
 
-namespace src.Factory.TPlayer;
+namespace Src.Factory.TPlayer;
 
 public class TPlayerFactory : IEntityFactory<IPlayer>
 {

@@ -1,4 +1,4 @@
-﻿namespace src.Factory.Vehicle;
+﻿namespace Src.Factory.Vehicle;
 
 public class IVehicleFactory
 {

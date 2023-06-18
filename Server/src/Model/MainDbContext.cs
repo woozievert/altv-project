@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Model.Model.IPlayer;
+using Src.Model.User;
 
-namespace src.Model;
+namespace Src.Model;
 
 public class MainDbContext : DbContext
 {
@@ -15,7 +15,7 @@ public class MainDbContext : DbContext
     {
     }
 
-    public DbSet<User> Users { get; set; }
+    public DbSet<User.User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

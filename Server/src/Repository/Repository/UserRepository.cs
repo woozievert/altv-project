@@ -1,11 +1,11 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
-using Model.Model.IPlayer;
-using src.Model;
-using src.Repository.IRepository;
-using src.Repository.Tools;
+using Src.Model;
+using Src.Model.User;
+using Src.Repository.IRepository;
+using Src.Repository.Tools;
 
-namespace src.Repository.Repository;
+namespace Src.Repository.Repository;
 
 /// <summary>
 /// 仓储层
@@ -62,10 +62,12 @@ public class UserRepository : IUserRepository
         player.PlayerId = _context.Users.Where(x => x.UserName == user).Select(x => x.Uid).FirstOrDefault();
         player.PlayerName = _context.Users.Where(x => x.UserName == user).Select(x => x.UserName).FirstOrDefault();
         player.IsLogin = true;
-        
+
         player.SetSyncedMetaData("playerName", player.PlayerName);
 
         player.Spawn(new Position(-1291, 83, 54), 500); // 生成 player
+        player.Position = new Position(-1291, 83, 54);
+        
         player.Model = 0xB8D69E3;
 
         player.Emit("client:Console", "登录成功 - 已生成");

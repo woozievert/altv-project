@@ -1,12 +1,12 @@
 using AltV.Net;
-using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
 using MainResource.Log;
 using Microsoft.Extensions.DependencyInjection;
-using src.Factory.TPlayer;
-using src.Repository.IRepository;
+using Src;
+using Src.Factory.TPlayer;
+using Src.Repository.IRepository;
 
-namespace src.Event;
+namespace Src.Event;
 
 public class Connect : IScript
 {

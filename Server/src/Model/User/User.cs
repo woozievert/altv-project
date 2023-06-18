@@ -1,4 +1,6 @@
-namespace Model.Model.IPlayer;
+using System.Net;
+
+namespace Src.Model.User;
 
 /// <summary>
 /// 登录数据实体类
@@ -24,5 +26,9 @@ public class User
     /// </summary>
     /// <value></value>
     public DateTime LastLoginTime { get; set; }
-
+    /// <summary>
+    /// 玩家上次登录IP
+    /// </summary>
+    /// <value></value>
+    public IPAddress LoginIp { get; set; }
 }

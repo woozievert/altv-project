@@ -2,7 +2,7 @@ using AltV.Net;
 using AltV.Net.Elements.Entities;
 using MainResource.Log;
 
-namespace src.Event;
+namespace Src.Event;
 
 public class Disconnect : IScript
 {

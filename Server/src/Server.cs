@@ -1,12 +1,12 @@
 ﻿using AltV.Net;
 using Microsoft.Extensions.DependencyInjection;
-using src.Factory.TPlayer;
-using src.Model;
-using src.Repository.IRepository;
-using src.Repository.Repository;
+using Src.Factory.TPlayer;
+using Src.Model;
+using Src.Repository.IRepository;
+using Src.Repository.Repository;
 using IPlayer = AltV.Net.Elements.Entities.IPlayer;
 
-namespace src;
+namespace Src;
 
 public class Server : Resource
 {

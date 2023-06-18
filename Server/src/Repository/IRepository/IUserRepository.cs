@@ -1,6 +1,6 @@
 using AltV.Net.Elements.Entities;
 
-namespace src.Repository.IRepository;
+namespace Src.Repository.IRepository;
 
 /// <summary>
 /// 仓储层接口

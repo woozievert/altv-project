@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Model.Model.IPlayer;
+using Src.Model.User;
+using Src.Model.User;
 
-namespace Model.Config.Player;
+namespace Src.Config.Player;
 
 public class UserConfig : IEntityTypeConfiguration<User>
 {

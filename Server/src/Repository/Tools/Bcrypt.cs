@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace src.Repository.Tools
+namespace Src.Repository.Tools
 {
     // Copyright (c) 2006 Damien Miller <djm@mindrot.org>
     // Copyright (c) 2007 Derek Slager
