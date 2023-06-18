@@ -30,5 +30,5 @@ public class User
     /// 玩家上次登录IP
     /// </summary>
     /// <value></value>
-    public IPAddress LoginIp { get; set; }
+    public string LoginIp { get; set; }
 }

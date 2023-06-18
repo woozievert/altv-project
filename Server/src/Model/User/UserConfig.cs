@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Src.Model.User;
-using Src.Model.User;
 
 namespace Src.Config.Player;
 
@@ -34,6 +33,9 @@ public class UserConfig : IEntityTypeConfiguration<User>
         builder.Property(e => e.RegisterTime)
         .IsRequired()
         .HasColumnType("datetime");
-
+        
+        builder.Property(e => e.LoginIp)
+            .IsRequired()
+            .HasMaxLength(39);
     }
 }
