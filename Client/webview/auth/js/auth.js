@@ -177,7 +177,7 @@ async function loadLocales() {
 
 function isValidEmail(email) {
     // 邮箱正则表达式
-    const emailRegex = /^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
