@@ -206,7 +206,6 @@ function _wrongAuth(msg) {
     displayElement(newsForm);
     displayElement(copyright);
     loginNotify(msg);
-    console.log('执行到了');
 }
 
 function _clearForm() {

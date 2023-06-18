@@ -43,6 +43,10 @@ public class Connect : IScript
         {
             UserRepository.UserLogin(player, username);
         }
+        else
+        {
+            player.Emit("auth:client:wrongAuth");
+        }
     }
 
     [ClientEvent("auth:server:tryRegister")]
