@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         });
 
         verPassword.addEventListener("keyup", function () {
-            if (!isValidPassword(verPassword.value.toString())) regNotify(locales['login.error.wrong_pass']);
+            if (!isValidPassword(verPassword.value.toString())) regNotify(locales['reg.wrong_pass']);
             else {
                 if (verPassword.value.toString() !== regPassword.value.toString()) {
                     regNotify(locales['reg.different_pass']);
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         registerButton.addEventListener("click", function () {
             if (regUser.value.toString() != null && regPassword.value.toString() != null && regEmail.value.toString() != null) {
                 if (!isValidUsername(regUser.value.toString())) return regNotify(locales['reg.wrong_user']);
-                else if (!isValidPassword(regPassword.value.toString())) return regNotify(locales['login.error.wrong_pass']);
+                else if (!isValidPassword(regPassword.value.toString())) return regNotify(locales['reg.wrong_pass']);
                 else if (!isValidEmail(regEmail.value.toString())) return regNotify(locales['reg.wrong_email']);
                 alt.emit('auth:client:tryRegister', regUser.value.toString(), regPassword.value.toString(), regEmail.value.toString());
             }
