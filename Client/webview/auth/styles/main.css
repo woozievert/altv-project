@@ -35,7 +35,6 @@ body{
     top: 15%;
     left: 3%;
     width: 500px;
-    max-width: 500px;
     height: 650px;
     display: grid;
     justify-items: center;
@@ -56,6 +55,7 @@ body{
 .login-form, .reg-form{
     width: 100%;
     max-width: 500px;
+
     animation: fadeOut 3s forwards;
 }
 
