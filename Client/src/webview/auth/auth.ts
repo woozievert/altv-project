@@ -59,7 +59,7 @@ function _deleteLocalAuth() {
 // 接收客户端错误密码事件
 alt.onServer('auth:client:wrongAuth', _wrongAuth);
 function _wrongAuth() {
-    alt.emit('auth:webview:wrongAuth', langPack('login.wrong_pass'));
+    authPage.emit('auth:webview:wrongAuth', langPack('login.wrong_pass'));
 }
 
 authPage.on('auth:client:tryRegister', _tryRegister);
@@ -69,10 +69,10 @@ function _tryRegister(username: string, password: string, email: string) {
 
 alt.onServer('auth:client:alreadyExist', _alreadyExist);
 function _alreadyExist() {
-    alt.emit('auth:webview:alreadyExist', langPack('reg.already_exist'));
+    authPage.emit('auth:webview:alreadyExist', langPack('reg.already_exist'));
 }
 
 alt.onServer('auth:client:finishReg', _finishReg);
 function _finishReg() {
-    alt.emit('auth:webview:finishReg', langPack('reg.finish'));
+    authPage.emit('auth:webview:finishReg', langPack('reg.finish'));
 }
