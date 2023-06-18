@@ -160,7 +160,6 @@ function _getRandomTick() {
 
 function displayElement(element) {
     element.classList.remove('hidden');
-    element.visibility = '';
 }
 
 function hideElement(element) {
@@ -207,6 +206,7 @@ function _wrongAuth(msg) {
     displayElement(newsForm);
     displayElement(copyright);
     loginNotify(msg);
+    console.log('执行到了');
 }
 
 function _clearForm() {
