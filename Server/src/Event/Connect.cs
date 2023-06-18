@@ -50,7 +50,7 @@ public class Connect : IScript
     {
         if (UserRepository.Register(player, username, password, email))
         {
-            player.Emit("auth:client:alreadyExist");
+            player.Emit("auth:client:finishReg");
         }
     }
 }
