@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Src.Model.User;
 
-namespace Src.Config.Player;
+namespace Src.Model.User;
 
 public class UserConfig : IEntityTypeConfiguration<User>
 {
