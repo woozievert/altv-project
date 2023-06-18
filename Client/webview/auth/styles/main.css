@@ -96,8 +96,10 @@ body{
 
 .logo{
     background-image: url(../images/logo.svg);
+    background-repeat: no-repeat;
     width: 290px;
-    height: 82px;
+    height: 78px;
+    max-height: 78px;
     margin: 40px auto;
 }
 
@@ -314,6 +316,14 @@ body{
     .sm-login a{
         flex: 1;
         max-width: 65px;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .logo{
+        width: 275px;
+        height: 75px;
+        margin: 16px auto;
     }
 }
 
