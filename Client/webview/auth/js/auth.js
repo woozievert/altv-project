@@ -206,7 +206,7 @@ async function _wrongAuth(msg) {
     await displayElement(loginForm);
     await displayElement(newsForm);
     await displayElement(copyright);
-    loginNotify(msg);
+    await loginNotify(msg);
 }
 
 function _clearForm() {
