@@ -139,6 +139,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         alt.on('auth:webview:wrongAuth', loginNotify);
         alt.on('auth:webview:alreadyExist', regNotify);
         alt.on('auth:webview:finishReg', regNotify);
+        alt.on('auth:webview:clearForm', _clearForm);
     }
 });
 
@@ -194,4 +195,8 @@ function _getLocalAuth(username, password) {
     loginUser.value = username;
     loginPassword.value = password;
     checkBox.checked = true;
+}
+
+function _clearForm() {
+    formData.reset();
 }

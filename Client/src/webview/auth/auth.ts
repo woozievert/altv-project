@@ -32,7 +32,10 @@ function _showAuthPage() {
 // 关闭并取消聚焦authPage页面，同时关闭光标和启用游戏控制。
 alt.onServer('auth:client:close', _destroyAuthPage);
 function _destroyAuthPage(finishLogin: boolean = false) {
-    if (finishLogin) setPageState(authPage, false, false, true);
+    if (finishLogin) {
+        setPageState(authPage, false, false, true);
+        authPage.emit('auth:webview:clearForm');
+    }
     playerTempVar.setLogged(true);
 }
 

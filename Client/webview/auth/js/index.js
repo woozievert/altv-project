@@ -31,6 +31,8 @@ const bigImg = document.querySelector(".big-image");
 const loader = document.querySelector('.loader');
 const copyright = document.querySelector('.copyright');
 
+const formData = document.querySelector('.form-data');
+
 var html_dev = false;
 var current_page = 'login';
 
