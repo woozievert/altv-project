@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
         loginButton.addEventListener("click", function () {
             if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
+                displayElement(loader);
                 hideElement(loginForm);
                 hideElement(newsForm);
                 hideElement(copyright);
@@ -201,6 +202,7 @@ function _getLocalAuth(username, password) {
 }
 
 async function _wrongAuth(msg) {
+    await hideElement(loader);
     await displayElement(loginForm);
     await displayElement(newsForm);
     await displayElement(copyright);
