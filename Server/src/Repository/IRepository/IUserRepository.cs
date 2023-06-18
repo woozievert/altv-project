@@ -7,7 +7,7 @@ namespace Src.Repository.IRepository;
 /// </summary>
 public interface IUserRepository
 {
-    public bool Register(IPlayer player, string username, string password, string email);
+    public bool Register(Factory.TPlayer.TPlayer player, string username, string password, string email);
 
     public bool CheckPassword(string username, string inputPwd);
 

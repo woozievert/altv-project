@@ -62,7 +62,7 @@ function _deleteLocalAuth() {
 // 接收客户端错误密码事件
 alt.onServer('auth:client:wrongAuth', _wrongAuth);
 function _wrongAuth() {
-    authPage.emit('auth:webview:wrongAuth', langPack('login.wrong_pass'));
+    authPage.emit('auth:webview:wrongAuth', langPack('login.error.wrong_pass'));
 }
 
 authPage.on('auth:client:tryRegister', _tryRegister);

@@ -1,5 +1,6 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using Src.Factory.TPlayer;
 using Src.Model;
 using Src.Model.User;
 using Src.Repository.IRepository;
@@ -57,7 +58,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public void UserLogin(Factory.TPlayer.TPlayer player, string user)
+    public void UserLogin(TPlayer player, string user)
     {
         player.PlayerId = _context.Users.Where(x => x.UserName == user).Select(x => x.Uid).FirstOrDefault();
         player.PlayerName = _context.Users.Where(x => x.UserName == user).Select(x => x.UserName).FirstOrDefault();
@@ -82,7 +83,7 @@ public class UserRepository : IUserRepository
     /// <param name="password">密码</param>
     /// <param name="email">邮箱</param>
     /// <returns></returns>
-    public bool Register(IPlayer player, string username, string password, string email)
+    public bool Register(TPlayer player, string username, string password, string email)
     {
         var user = _context.Users.FirstOrDefault(u => u.UserName == username);
         if (user != null)
@@ -99,7 +100,8 @@ public class UserRepository : IUserRepository
                 UserName = username,
                 Password = BCrypt.HashPassword(password, BCrypt.GenerateSalt()),
                 Email = email,
-                RegisterTime = DateTime.Now
+                RegisterTime = DateTime.Now,
+                LoginIp = "0.0.0.0"
             };
             _context.Users.Add(newUser);
             _context.SaveChanges();
