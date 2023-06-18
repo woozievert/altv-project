@@ -166,7 +166,7 @@ async function finishBuild() {
     await hideElement(loader);
     await displayElement(copyright);
     await displayElement(loginForm);
-    // await displayElement(newsDiv);
+    await displayElement(newsDiv);
 }
 
 async function loadLocales() {

@@ -324,6 +324,10 @@ body{
         height: 75px;
         margin: 16px auto;
     }
+
+    .news-div {
+        display: none;
+    }
 }
 
 .loader {
