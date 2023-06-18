@@ -33,8 +33,8 @@ function _showAuthPage() {
 alt.onServer('auth:client:close', _destroyAuthPage);
 function _destroyAuthPage(finishLogin: boolean = false) {
     if (finishLogin) {
-        setPageState(authPage, false, false, true);
         authPage.emit('auth:webview:clearForm');
+        setPageState(authPage, false, false, true);
     }
     playerTempVar.setLogged(true);
 }
