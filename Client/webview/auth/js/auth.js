@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         });
 
         loginButton.addEventListener("click", function () {
-            if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
+            if (loginUser.value !== null && loginUser.value !== undefined) {
                 displayElement(loader);
                 hideElement(loginForm);
                 hideElement(newsForm);
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
             }
         });
 
-        await hideElement(regEmailType);
+        hideElement(regEmailType);
         regEmail.addEventListener("keyup", function () {
             if (regEmail.value.toString() === '') hideElement(regEmailType);
             else displayElement(regEmailType);
@@ -158,20 +158,20 @@ function _getRandomTick() {
     return (Math.floor(randomNumber) + decimalPart) * 1000;
 }
 
-async function displayElement(element) {
+function displayElement(element) {
     element.classList.remove('hidden');
     element.visibility = '';
 }
 
-async function hideElement(element) {
+function hideElement(element) {
     element.classList.add('hidden');
 }
 
-async function finishBuild() {
-    await hideElement(loader);
-    await displayElement(copyright);
-    await displayElement(loginForm);
-    await displayElement(newsDiv);
+function finishBuild() {
+    hideElement(loader);
+    displayElement(copyright);
+    displayElement(loginForm);
+    displayElement(newsDiv);
 }
 
 async function loadLocales() {
@@ -201,12 +201,12 @@ function _getLocalAuth(username, password) {
     checkBox.checked = true;
 }
 
-async function _wrongAuth(msg) {
-    await hideElement(loader);
-    await displayElement(loginForm);
-    await displayElement(newsForm);
-    await displayElement(copyright);
-    await loginNotify(msg);
+function _wrongAuth(msg) {
+    hideElement(loader);
+    displayElement(loginForm);
+    displayElement(newsForm);
+    displayElement(copyright);
+    loginNotify(msg);
 }
 
 function _clearForm() {
