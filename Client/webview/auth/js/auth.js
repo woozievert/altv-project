@@ -56,6 +56,9 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
         loginButton.addEventListener("click", function () {
             if (loginUser.value.toString() != null && loginPassword.value.toString() != null) {
+                hideElement(loginForm);
+                hideElement(newsForm);
+                hideElement(copyright);
                 alt.emit('auth:client:tryLogin', loginUser.value.toString(), loginPassword.value.toString());
             }
         });
@@ -136,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async (event) => {
         }
 
         alt.on('auth:webview:getLocalAuth', _getLocalAuth);
-        alt.on('auth:webview:wrongAuth', loginNotify);
+        alt.on('auth:webview:wrongAuth', _wrongAuth);
         alt.on('auth:webview:alreadyExist', regNotify);
         alt.on('auth:webview:finishReg', regNotify);
         alt.on('auth:webview:clearForm', _clearForm);
@@ -197,6 +200,15 @@ function _getLocalAuth(username, password) {
     checkBox.checked = true;
 }
 
+async function _wrongAuth(msg) {
+    await displayElement(loginForm);
+    await displayElement(newsForm);
+    await displayElement(copyright);
+    loginNotify(msg);
+}
+
 function _clearForm() {
-    formData.reset();
+    if (formData) {
+        formData.reset();
+    }
 }
