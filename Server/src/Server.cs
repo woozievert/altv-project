@@ -29,6 +29,17 @@ public class Server : Resource
     {
         Alt.Log("依赖注入已完成");
         Alt.Log("服务已启动");
+        
+        Chat.Handle.RegisterCmd("test", TestCommand);
+    }
+
+    private static void TestCommand(TPlayer player, string[] strings)
+    {
+        if (strings != null)
+        {
+            Alt.Log("加参数:" + strings);
+        }
+        Alt.Log("测试指令");
     }
 
     public override void OnStop()
