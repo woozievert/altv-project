@@ -22,7 +22,7 @@ public abstract class Handle : IScript
     }
 
     [ClientEvent("chat:server:addMessage")]
-    public static void HandleMessage(TPlayer Player, string message)
+    public void HandleMessage(TPlayer Player, string message)
     {
         if (message.StartsWith("/"))
         {

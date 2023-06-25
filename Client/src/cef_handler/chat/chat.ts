@@ -33,7 +33,7 @@ chatPage.on("chat:webview:submitMessage", (text) => {
 });
 
 // 主要推送消息函数
-export function pushMessage(name: string, text: string) {
+export function pushMessage(name: any, text: string) {
     if (!chatLoaded) {
         // 稍后处理
         let buffer = { name, text };
@@ -45,7 +45,7 @@ export function pushMessage(name: string, text: string) {
 
 // 主要推送消息之单纯一行
 export function pushLine(text: string) {
-    pushMessage('null', text);
+    pushMessage(null, text);
 }
 
 alt.onServer("chat:client:addMessage", pushMessage);
