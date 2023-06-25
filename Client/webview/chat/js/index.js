@@ -96,6 +96,7 @@ window.addEventListener("load", () => {
   document.querySelector("#message").addEventListener("submit", (e) => {
     e.preventDefault();
 
+    console.log(msgInputLine.value)
     alt.emit("chat:webview:submitMessage", msgInputLine.value);
 
     saveBuffer();

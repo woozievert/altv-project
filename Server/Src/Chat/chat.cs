@@ -23,7 +23,9 @@ public abstract class Handle : IScript
 
     [ClientEvent("chat:server:addMessage")]
     public void HandleMessage(TPlayer Player, string message)
-    {
+    { 
+        Alt.Log("服务端收到:" + message);
+        if (Player == null) return;
         if (message.StartsWith("/"))
         {
             message = message.TrimStart('/');
