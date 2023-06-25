@@ -27,7 +27,7 @@ chatPage.on("chat:webview:loaded", () => {
 chatPage.on("chat:webview:submitMessage", (text) => {
     console.log('收到:' + text);
 
-    alt.emitServer("chat:server:addMessage", text);
+    alt.emitServer('chat:server:addMessage', text);
 
     chatOpened = false;
     alt.toggleGameControls(true);
