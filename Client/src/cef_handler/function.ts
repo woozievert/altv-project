@@ -5,6 +5,7 @@ import DEV_MODE from "../config";
 /*
     设置网页状态(可显示，关闭/操作光标，游戏控制)
 */
+
 export default function setPageState(page: alt.WebView, state: boolean, cursor: boolean, control: boolean) {
     if (DEV_MODE) {
         const debug_msg = 'page: ' + page + ' - state -> ' + state + ', cursor -> ' + cursor + ', control -> ' + control;
