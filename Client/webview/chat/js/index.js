@@ -62,10 +62,7 @@ function openChat(insertSlash) {
   clearTimeout(timeout);
 
   if (!chatOpened) {
-    const chatBox = document.querySelector(".chat-box");
-    const msgInputLine = document.querySelector(".msg-input input");
-
-    chatBox.classList.add("active");
+    document.querySelector(".chat-box").classList.add("active");
 
     if (insertSlash) {
       msgInputLine.value = "/";
@@ -91,7 +88,10 @@ function closeChat() {
 }
 
 window.addEventListener("load", () => {
-  const msgInputLine = document.querySelector(".msg-input input");
+  messagesBlock = document.querySelector(".messages");
+  msgListBlock = document.querySelector(".msg-list");
+  msgInputBlock = document.querySelector(".msg-input");
+  msgInputLine = document.querySelector(".msg-input input");
 
   document.querySelector("#message").addEventListener("submit", (e) => {
     e.preventDefault();
