@@ -33,13 +33,13 @@ export default class webView {
     }
 
     @withLogging
-    async emitSync(event: string, ...args: any[]){
+    async emitSync(event: string, ...args: any){
         if (!this.view) return;
         await this.view.emit(event, args);
     }
 
     @withLogging
-    emit(event: string, ...args: any[]){
+    emit(event: string, ...args: any){
         if (!this.view) return;
         this.view.emit(event, args);
     }
@@ -47,9 +47,9 @@ export default class webView {
     @withLogging
     async show(): Promise<boolean> {
         this.view = new alt.WebView(this.url);
-        this.focus();
-        this.gameCursor(this.cursor);
-        this.gameControl(this.control);
+        await this.focus();
+        await this.gameCursor(this.cursor);
+        await this.gameControl(this.control);
 
         console.log(`页面: ${this.name} - 光标: ${this.cursor} - 控制: ${this.control}`)
         this.active_state = true;
@@ -57,10 +57,11 @@ export default class webView {
     }
 
     @withLogging
-    focus() {
-        if (!this.view) return;
+    async focus(): Promise<boolean> {
+        if (!this.view) return false;
         this.focus_state = true;
         this.view.focus();
+        return true;
     }
     @withLogging
     async unfocus(): Promise<boolean> {
@@ -80,15 +81,17 @@ export default class webView {
     }
 
     @withLogging
-    gameCursor(state: boolean) {
-        if (!this.view) return;
+    async gameCursor(state: boolean): Promise<boolean> {
+        if (!this.view) return false;
         alt.showCursor(state);
+        return true;
     }
 
     @withLogging
-    gameControl(state: boolean) {
-        if (!this.view) return;
+    async gameControl(state: boolean): Promise<boolean> {
+        if (!this.view) return false;
         alt.toggleGameControls(state);
+        return true;
     }
 }
 
