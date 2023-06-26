@@ -34,8 +34,8 @@ export default class webView {
         if (!this.view) return false;
         this.view = new alt.WebView(this.url);
         await this.focus();
-        alt.showCursor(this.cursorable);
-        alt.toggleGameControls(this.controlable);
+        await this.cursor(this.cursorable);
+        await this.gameControl(this.controlable);
         this.active_state = true;
         return true;
     }
@@ -61,6 +61,7 @@ export default class webView {
         if (!isPageDestroy) return false;
         this.view.unfocus();
         this.view.destroy();
+        this.active_state = false;
         return true;
     }
 

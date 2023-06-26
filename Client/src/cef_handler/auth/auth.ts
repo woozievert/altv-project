@@ -3,7 +3,7 @@ import langPack from "../../shared/locale/langService";
 import * as notify from "../notify/notify";
 import webView from "../model";
 
-const authPage: webView = new webView('登录注册页面', 'http://resource/Client/webview/auth/index.html', false, false, false);
+const authPage: webView = new webView('登录注册页面', 'http://resource/Client/webview/auth/index.html', true, true, true);
 
 const localUsername = alt.LocalStorage.get('username');
 const localPassword = alt.LocalStorage.get('password');
