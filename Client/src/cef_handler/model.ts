@@ -33,15 +33,15 @@ export default class webView {
     }
 
     @withLogging
-    async emitSync(event: string, ...args: any){
+    async emitSync(event: string, ...args: any[]){
         if (!this.view) return;
-        await this.view.emit(event, args);
+        await this.view.emit(event, ...args);
     }
 
     @withLogging
-    emit(event: string, ...args: any){
+    emit(event: string, ...args: any[]){
         if (!this.view) return;
-        this.view.emit(event, args);
+        this.view.emit(event, ...args);
     }
 
     @withLogging

@@ -16,7 +16,7 @@ async function init(){
     await chatPage.on("chat:webview:loaded", handleLoaded);
     await chatPage.on("chat:webview:submitMessage", handleSubmit);
 
-    pushLine("<b>已连接alt:V项目</b>");
+    await pushLine("<b>已连接alt:V项目</b>");
 }
 
 async function addMessage(name: string, text: string) {
