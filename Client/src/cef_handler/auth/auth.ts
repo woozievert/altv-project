@@ -28,6 +28,8 @@ async function _showAuthPage() {
     if (!result) return;
     if (!authPage.page) return;
     await authPage.gameCursor(true);
+
+    console.log('control:' + alt.gameControlsEnabled());
     if (!alt.gameControlsEnabled())
     {
         await authPage.gameControl(true);
@@ -63,6 +65,7 @@ async function _destroyAuthPage(finishLogin: boolean = false) {
     if (finishLogin) {
         await authPage.emitSync('auth:webview:clearForm');
         await authPage.destroy(true);
+        console.log('control:' + alt.gameControlsEnabled());
     }
     await playerTempVar.setLogged(true);
 }
