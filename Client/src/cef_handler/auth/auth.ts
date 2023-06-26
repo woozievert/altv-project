@@ -15,9 +15,9 @@ const infoNotify = notify.green; // 简写
 
 export let playerTempVar = {
     logged: false, // 默认为未登录
-    setLogged: function(state: boolean) {
+    setLogged: async function (state: boolean) {
         this.logged = state;
-        infoNotify(langPack('login.success'));
+        await infoNotify(langPack('login.success'));
     }
 }
 
@@ -59,7 +59,7 @@ async function _destroyAuthPage(finishLogin: boolean = false) {
         await authPage.emitSync('auth:webview:clearForm');
         await authPage.destroy(true);
     }
-    playerTempVar.setLogged(true);
+    await playerTempVar.setLogged(true);
 }
 
 // 接收客户端错误密码事件

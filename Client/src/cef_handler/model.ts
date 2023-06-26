@@ -49,7 +49,6 @@ export default class webView {
 
     @withLogging
     async show(): Promise<boolean> {
-        if (!this.view) return false;
         this.view = new alt.WebView(this.url);
         await this.focus();
         await this.cursor(this.cursorable);
