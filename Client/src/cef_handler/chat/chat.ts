@@ -13,23 +13,24 @@ async function init(){
     const result = await chatPage.show();
     if (!result) return;
     if (!chatPage.page) return;
-    chatPage.page.on("chat:webview:loaded", handleLoaded);
-    chatPage.page.on("chat:webview:submitMessage", handleSubmit);
+    await chatPage.on("chat:webview:loaded", handleLoaded);
+    await chatPage.on("chat:webview:loaded", handleLoaded);
+    await chatPage.on("chat:webview:submitMessage", handleSubmit);
 }
 
-function addMessage(name: string, text: string) {
+async function addMessage(name: string, text: string) {
     if (!chatPage.page) return;
     if (name) {
-        chatPage.page.emit("chat:webview:addMessage", name, text);
+        await chatPage.emitSync("chat:webview:addMessage", name, text);
     } else {
-        chatPage.page.emit("chat:webview:addString", text);
+        await chatPage.emitSync("chat:webview:addString", text);
     }
 }
 
-function handleLoaded() {
+async function handleLoaded() {
     // 处理buffer的消息
     for (const msg of chatBuffer) {
-        addMessage(msg.name, msg.text);
+        await addMessage(msg.name, msg.text);
     }
 
     chatLoaded = true;
@@ -69,17 +70,17 @@ alt.on("keyup", async (key: alt.KeyCode) => {
     if (chatLoaded) {
         if (!chatOpened && key === 0x54 && alt.gameControlsEnabled()) {
             chatOpened = true;
-            chatPage.page.emit("chat:webview:open", false); // boolean 参数是 是否带斜杠开始
+            await chatPage.emitSync("chat:webview:open", false); // boolean 参数是 是否带斜杠开始
             await chatPage.gameControl(false);
             await chatPage.focus();
         } else if (!chatOpened && key === 0xbf && alt.gameControlsEnabled()) {
             chatOpened = true;
-            chatPage.page.emit("chat:webview:open", true);
+            await chatPage.emitSync("chat:webview:open", true);
             await chatPage.gameControl(false);
             await chatPage.focus();
         } else if (chatOpened && key == 0x1b) {
             chatOpened = false;
-            chatPage.page.emit("chat:webview:close");
+            await chatPage.emitSync("chat:webview:close");
             await chatPage.gameControl(true);
             await chatPage.unfocus();
         }

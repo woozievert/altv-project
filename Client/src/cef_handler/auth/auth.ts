@@ -28,16 +28,15 @@ async function _showAuthPage() {
     if (!result) return;
     if (!authPage.page) return;
     if (localUsername != null && localPassword != null) {
-        authPage.page.emit('auth:webview:getLocalAuth', localUsername, localPassword);
+        await authPage.emitSync('auth:webview:getLocalAuth', localUsername, localPassword);
     }
-    authPage.page.on('auth:client:tryLogin', _tryLogin);
-    authPage.page.on('auth:client:saveLocalAuth', _saveLocalAuth);
-    authPage.page.on('auth:client:deleteLocalAuth', _deleteLocalAuth);
-    authPage.page.on('auth:client:tryRegister', _tryRegister);
+    await authPage.on('auth:client:tryLogin', _tryLogin);
+    await authPage.on('auth:client:saveLocalAuth', _saveLocalAuth);
+    await authPage.on('auth:client:deleteLocalAuth', _deleteLocalAuth);
+    await authPage.on('auth:client:tryRegister', _tryRegister);
 }
 
 function _tryLogin(username: string, password: string) {
-    console.log('_tryLogin:' + username + " - " + password)
     alt.emitServer('auth:server:tryLogin', username, password);
 }
 
@@ -57,7 +56,7 @@ alt.onServer('auth:client:close', _destroyAuthPage);
 async function _destroyAuthPage(finishLogin: boolean = false) {
     if (!authPage.page) return;
     if (finishLogin) {
-        authPage.page.emit('auth:webview:clearForm');
+        await authPage.emitSync('auth:webview:clearForm');
         await authPage.destroy(true);
     }
     playerTempVar.setLogged(true);
@@ -65,9 +64,9 @@ async function _destroyAuthPage(finishLogin: boolean = false) {
 
 // 接收客户端错误密码事件
 alt.onServer('auth:client:wrongAuth', _wrongAuth);
-function _wrongAuth() {
+async function _wrongAuth() {
     if (!authPage.page) return;
-    authPage.page.emit('auth:webview:wrongAuth', langPack('login.error.wrong_pass'));
+    await authPage.emitSync('auth:webview:wrongAuth', langPack('login.error.wrong_pass'));
 }
 
 function _tryRegister(username: string, password: string, email: string) {
@@ -75,13 +74,13 @@ function _tryRegister(username: string, password: string, email: string) {
 }
 
 alt.onServer('auth:client:alreadyExist', _alreadyExist);
-function _alreadyExist() {
+async function _alreadyExist() {
     if (!authPage.page) return;
-    authPage.page.emit('auth:webview:alreadyExist', langPack('reg.already_exist'));
+    await authPage.emitSync('auth:webview:alreadyExist', langPack('reg.already_exist'));
 }
 
 alt.onServer('auth:client:finishReg', _finishReg);
-function _finishReg() {
+async function _finishReg() {
     if (!authPage.page) return;
-    authPage.page.emit('auth:webview:finishReg', langPack('reg.finish'));
+    await authPage.emitSync('auth:webview:finishReg', langPack('reg.finish'));
 }

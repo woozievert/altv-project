@@ -30,6 +30,24 @@ export default class webView {
     }
 
     @withLogging
+    async on(event: string, func: any) {
+        if (!this.view) return;
+        this.view.on(event, func);
+    }
+
+    @withLogging
+    async emitSync(event: string, ...args: any[]){
+        if (!this.view) return;
+        await this.view.emit(event, args);
+    }
+
+    @withLogging
+    emit(event: string, ...args: any[]){
+        if (!this.view) return;
+        this.view.emit(event, args);
+    }
+
+    @withLogging
     async show(): Promise<boolean> {
         if (!this.view) return false;
         this.view = new alt.WebView(this.url);
