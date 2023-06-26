@@ -71,7 +71,7 @@ export default class webView {
         this.active_state = false;
 
         await this.gameCursor(false);
-        await this.gameControl(true);
+        await this.gameControl(false);
         return true;
     }
 
