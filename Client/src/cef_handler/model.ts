@@ -50,6 +50,8 @@ export default class webView {
         await this.focus();
         await this.gameCursor(this.cursor);
         await this.gameControl(this.control);
+
+        console.log(`页面: ${this.name} - 光标: ${this.cursor} - 控制: ${this.control}`)
         this.active_state = true;
         return true;
     }
