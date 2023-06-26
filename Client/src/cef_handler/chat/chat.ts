@@ -14,6 +14,12 @@ async function init(){
     const result = await chatPage.show();
     if (!result) return;
     if (!chatPage.page) return;
+    await chatPage.gameCursor(false);
+    if (!alt.gameControlsEnabled())
+    {
+        await chatPage.gameControl(true);
+    }
+
     await chatPage.on("chat:webview:loaded", handleLoaded);
     await chatPage.on("chat:webview:submitMessage", handleSubmit);
 

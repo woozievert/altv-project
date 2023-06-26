@@ -28,6 +28,10 @@ async function _showAuthPage() {
     if (!result) return;
     if (!authPage.page) return;
     await authPage.gameCursor(true);
+    if (!alt.gameControlsEnabled())
+    {
+        await authPage.gameControl(true);
+    }
     if (localUsername != null && localPassword != null) {
         await authPage.emitSync('auth:webview:getLocalAuth', localUsername, localPassword);
     }
