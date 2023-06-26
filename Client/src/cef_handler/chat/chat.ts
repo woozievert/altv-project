@@ -1,5 +1,6 @@
 import * as alt from "alt-client";
 import webView from "../model";
+import {authPage} from "../auth/auth";
 
 const chatPage = new webView('聊天框', 'http://resource/Client/webview/chat/index.html');
 
@@ -68,7 +69,7 @@ export async function pushLine(text: string) {
 
 alt.on("keyup", async (key: alt.KeyCode) => {
     if (!chatPage.page) return;
-    if (chatLoaded) {
+    if (chatLoaded && !authPage.active) {
         if (!chatOpened && key === 0x54 && alt.gameControlsEnabled()) {
             chatOpened = true;
             await chatPage.emitSync("chat:webview:open", false); // boolean 参数是 是否带斜杠开始
