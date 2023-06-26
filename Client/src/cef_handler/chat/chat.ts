@@ -1,7 +1,7 @@
 import * as alt from "alt-client";
 import webView from "../model";
 
-const chatPage = new webView('聊天框', 'http://resource/Client/webview/chat/index.html', true, true, false);
+const chatPage = new webView('聊天框', 'http://resource/Client/webview/chat/index.html', false, false);
 
 let chatBuffer: { name: string; text: string; }[] = [];
 let chatLoaded: boolean = false;
@@ -16,6 +16,8 @@ async function init(){
     await chatPage.on("chat:webview:loaded", handleLoaded);
     await chatPage.on("chat:webview:loaded", handleLoaded);
     await chatPage.on("chat:webview:submitMessage", handleSubmit);
+
+    pushLine("<b>已连接alt:V项目</b>");
 }
 
 async function addMessage(name: string, text: string) {
@@ -86,5 +88,3 @@ alt.on("keyup", async (key: alt.KeyCode) => {
         }
     }
 });
-
-pushLine("<b>已连接alt:V项目</b>");
