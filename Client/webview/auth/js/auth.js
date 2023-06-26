@@ -195,6 +195,7 @@ function isValidPassword(password) {
 }
 
 function _getLocalAuth(username, password) {
+    console.log(`用户名：${username}, 密码: ${password}`);
     loginUser.value = username;
     loginPassword.value = password;
     checkBox.checked = true;

@@ -29,7 +29,6 @@ async function _showAuthPage() {
     if (!authPage.page) return;
     if (localUsername != null && localPassword != null) {
         await authPage.emitSync('auth:webview:getLocalAuth', localUsername, localPassword);
-        console.log(localUsername + localPassword);
     }
     await authPage.on('auth:client:tryLogin', _tryLogin);
     await authPage.on('auth:client:saveLocalAuth', _saveLocalAuth);
