@@ -14,7 +14,6 @@ async function init(){
     if (!result) return;
     if (!chatPage.page) return;
     await chatPage.on("chat:webview:loaded", handleLoaded);
-    await chatPage.on("chat:webview:loaded", handleLoaded);
     await chatPage.on("chat:webview:submitMessage", handleSubmit);
 
     pushLine("<b>已连接alt:V项目</b>");
@@ -52,19 +51,19 @@ async function handleSubmit(text: string) {
 
 alt.onServer("chat:client:addMessage", pushMessage);
 // 主要推送消息函数
-export function pushMessage(name: any, text: string) {
+export async function pushMessage(name: any, text: string) {
     if (!chatLoaded) {
         // 稍后处理
         let buffer = { name, text };
         chatBuffer.push(buffer);
     } else {
-        addMessage(name, text);
+        await addMessage(name, text);
     }
 }
 
 // 主要推送消息之单纯一行
-export function pushLine(text: string) {
-    pushMessage(null, text);
+export async function pushLine(text: string) {
+    await pushMessage(null, text);
 }
 
 alt.on("keyup", async (key: alt.KeyCode) => {
