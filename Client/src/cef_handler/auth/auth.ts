@@ -3,7 +3,7 @@ import langPack from "../../shared/locale/langService";
 import * as notify from "../notify/notify";
 import webView from "../model";
 
-const authPage: webView = new webView('登录注册页面', 'http://resource/Client/webview/auth/index.html', true, true);
+const authPage: webView = new webView('登录注册页面', 'http://resource/Client/webview/auth/index.html');
 
 const localUsername = alt.LocalStorage.get('username');
 const localPassword = alt.LocalStorage.get('password');
@@ -27,6 +27,8 @@ async function _showAuthPage() {
     const result = await authPage.show();
     if (!result) return;
     if (!authPage.page) return;
+    await authPage.gameCursor(true);
+    await authPage.gameControl(false);
     if (localUsername != null && localPassword != null) {
         await authPage.emitSync('auth:webview:getLocalAuth', localUsername, localPassword);
     }

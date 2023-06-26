@@ -1,7 +1,7 @@
 import * as alt from "alt-client";
 import webView from "../model";
 
-const chatPage = new webView('聊天框', 'http://resource/Client/webview/chat/index.html', false, false);
+const chatPage = new webView('聊天框', 'http://resource/Client/webview/chat/index.html');
 
 let chatBuffer: { name: string; text: string; }[] = [];
 let chatLoaded: boolean = false;

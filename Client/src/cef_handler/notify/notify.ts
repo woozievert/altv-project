@@ -1,7 +1,7 @@
 import * as alt from "alt-client"
 import webView from "../model";
 
-const notifyPage = new webView('消息通知', 'http://resource/Client/webview/notify/index.html', false, false);
+const notifyPage = new webView('消息通知', 'http://resource/Client/webview/notify/index.html');
 
 alt.onServer('notify:client:init', init);
 async function init(){
