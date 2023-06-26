@@ -1,11 +1,4 @@
-import * as alt from "alt-client"
-const hans_filePath = '/Client/locales/zh_hans.json';
-const hant_filePath = '/Client/locales/zh_hant.json';
-let playerLang = 'zh-CN';
-
-const isFileExist = alt.File.exists(hans_filePath);
-let locales = JSON.parse(alt.File.read(hans_filePath));
-if (isFileExist) locales = JSON.parse(alt.File.read(hans_filePath));
+import {isFileExist, locales, playerLang} from "./readJson";
 
 export default function langPack(lang: string): string {
     if (playerLang == 'zh-CN')
