@@ -6,15 +6,15 @@ export default class webView {
     private view: alt.WebView | undefined;
     private readonly url: string;
     private readonly name: string;
-    private readonly cursorable: boolean;
-    private readonly controlable: boolean;
+    private readonly cursor: boolean;
+    private readonly control: boolean;
     private active_state: boolean;
     private focus_state: boolean;
     constructor(name: string, url: string, cursor: boolean, control: boolean) {
         this.url = url;
         this.name = name;
-        this.cursorable = cursor;
-        this.controlable = control;
+        this.cursor = cursor;
+        this.control = control;
         this.active_state = false;
         this.focus_state = false;
     }
@@ -48,8 +48,8 @@ export default class webView {
     async show(): Promise<boolean> {
         this.view = new alt.WebView(this.url);
         await this.focus();
-        await this.cursor(this.cursorable);
-        await this.gameControl(this.controlable);
+        await this.gameCursor(this.cursor);
+        await this.gameControl(this.control);
         this.active_state = true;
         return true;
     }
@@ -79,9 +79,8 @@ export default class webView {
     }
 
     @withLogging
-    async cursor(state: boolean): Promise<boolean> {
+    async gameCursor(state: boolean): Promise<boolean> {
         if (!this.view) return false;
-        if (!this.cursorable) return false;
         alt.showCursor(state);
         return true;
     }
@@ -89,7 +88,6 @@ export default class webView {
     @withLogging
     async gameControl(state: boolean): Promise<boolean> {
         if (!this.view) return false;
-        if (!this.controlable) return false;
         alt.toggleGameControls(state);
         return true;
     }
