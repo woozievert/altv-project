@@ -1,14 +1,8 @@
-// 语言文件
-import './shared/locale/langService'
 // 日志
 import './log/handler'
 // 事件
 import './events/connect'
-import './events/disconnect'
-import './events/onStart'
 // 网页
-import './cef_handler/webviews'
-import './cef_handler/function'
 import './cef_handler/index'
 // 名称标签
 import './nametag/nametag'

@@ -73,16 +73,14 @@ public class UserRepository : IUserRepository
 
         player.Emit("client:Console", "登录成功 - 已生成");
         player.Emit("auth:client:close", player.IsLogin);
+
+        player.Emit("chat:client:init"); // 初始化聊天框
         
-        Chat.Handle.RegisterCmd("test", TestCommand);
+        Chat.Handler.RegisterCmd("test", TestCommand);
     }
     
     private static void TestCommand(TPlayer player, string[] strings)
     {
-        if (strings != null)
-        {
-            player.Emit("client:Console", "加参数:" + strings);
-        }
         player.Emit("client:Console", "收到测试");
     }
 

@@ -3,7 +3,7 @@ using Src.Factory.TPlayer;
 
 namespace Src.Chat;
 
-public class Handle : IScript
+public class Handler : IScript
 {
     private static Dictionary<string, Action<TPlayer, string[]>> CmdHandlers = new Dictionary<string, Action<TPlayer, string[]>>();
     private static Dictionary<TPlayer, bool> MutedPlayers = new Dictionary<TPlayer, bool>();

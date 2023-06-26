@@ -1,39 +1,53 @@
 import * as alt from "alt-client";
-import webViews from "../webviews";
+import webView from "../model";
 
-const chatPage = webViews.chatPage;
+const chatPage = new webView('聊天框', 'http://resource/Client/webview/chat/index.html', true, true, false);
 
 let chatBuffer: { name: string; text: string; }[] = [];
 let chatLoaded: boolean = false;
 let chatOpened: boolean = false;
 
+alt.onServer('chat:client:init', init);
+
+async function init(){
+    const result = await chatPage.show();
+    if (!result) return;
+    if (!chatPage.page) return;
+    chatPage.page.on("chat:webview:loaded", handleLoaded);
+    chatPage.page.on("chat:webview:submitMessage", handleSubmit);
+}
+
 function addMessage(name: string, text: string) {
+    if (!chatPage.page) return;
     if (name) {
-        chatPage.emit("chat:webview:addMessage", name, text);
+        chatPage.page.emit("chat:webview:addMessage", name, text);
     } else {
-        chatPage.emit("chat:webview:addString", text);
+        chatPage.page.emit("chat:webview:addString", text);
     }
 }
 
-chatPage.on("chat:webview:loaded", () => {
+function handleLoaded() {
     // 处理buffer的消息
     for (const msg of chatBuffer) {
         addMessage(msg.name, msg.text);
     }
 
     chatLoaded = true;
-});
+}
 
-chatPage.on("chat:webview:submitMessage", (text) => {
-    console.log('收到:' + text);
-
+async function handleSubmit(text: string) {
+    if (!chatPage.page) return;
     alt.emitServer('chat:server:addMessage', text);
 
     chatOpened = false;
-    alt.toggleGameControls(true);
-    chatPage.unfocus();
-});
+    const result1 = await chatPage.unfocus();
+    const result2 = await chatPage.gameControl(true);
+    if (!result1 || !result2) {
+        // error
+    }
+}
 
+alt.onServer("chat:client:addMessage", pushMessage);
 // 主要推送消息函数
 export function pushMessage(name: any, text: string) {
     if (!chatLoaded) {
@@ -50,25 +64,24 @@ export function pushLine(text: string) {
     pushMessage(null, text);
 }
 
-alt.onServer("chat:client:addMessage", pushMessage);
-
-alt.on("keyup", (key: alt.KeyCode) => {
+alt.on("keyup", async (key: alt.KeyCode) => {
+    if (!chatPage.page) return;
     if (chatLoaded) {
         if (!chatOpened && key === 0x54 && alt.gameControlsEnabled()) {
             chatOpened = true;
-            chatPage.emit("chat:webview:open", false); // boolean 参数是 是否带斜杠开始
-            alt.toggleGameControls(false);
-            chatPage.focus();
+            chatPage.page.emit("chat:webview:open", false); // boolean 参数是 是否带斜杠开始
+            await chatPage.gameControl(false);
+            await chatPage.focus();
         } else if (!chatOpened && key === 0xbf && alt.gameControlsEnabled()) {
             chatOpened = true;
-            chatPage.emit("chat:webview:open", true);
-            alt.toggleGameControls(false);
-            chatPage.focus();
+            chatPage.page.emit("chat:webview:open", true);
+            await chatPage.gameControl(false);
+            await chatPage.focus();
         } else if (chatOpened && key == 0x1b) {
             chatOpened = false;
-            chatPage.emit("chat:webview:close");
-            alt.toggleGameControls(true);
-            chatPage.unfocus();
+            chatPage.page.emit("chat:webview:close");
+            await chatPage.gameControl(true);
+            await chatPage.unfocus();
         }
     }
 });

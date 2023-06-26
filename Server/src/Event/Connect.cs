@@ -27,6 +27,7 @@ public class Connect : IScript
         Logger.Info("[连接] " + player.Name + " 连接了服务器");
         player.Emit("TestClientside", player.Name);
         player.Emit("auth:client:show");
+        player.Emit("notify:client:init");
     }
 
     [ClientEvent("auth:server:tryLogin")]

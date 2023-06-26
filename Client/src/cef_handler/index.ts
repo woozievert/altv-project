@@ -1,3 +1,5 @@
+// CEF 控制器
+import './model'
 // 聊天框
 import './chat/chat'
 // 通知
