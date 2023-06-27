@@ -23,9 +23,10 @@ export default class webView {
     }
 
     @withLogging
-    async on(event: string, func: any) {
-        if (!this.view) return;
+    async on(event: string, func: any): Promise<boolean> {
+        if (!this.view) return false;
         this.view.on(event, func);
+        return true;
     }
 
     @withLogging
@@ -45,6 +46,12 @@ export default class webView {
         this.view = new alt.WebView(this.url);
         await this.focus();
         this.active_state = true;
+        return true;
+    }
+
+    @withLogging
+    async showWithoutFocus(): Promise<boolean> {
+        this.view = new alt.WebView(this.url);
         return true;
     }
 

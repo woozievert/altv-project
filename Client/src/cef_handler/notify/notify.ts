@@ -5,7 +5,7 @@ const notifyPage = new webView('消息通知', 'http://resource/Client/webview/n
 
 alt.onServer('notify:client:init', init);
 async function init(){
-    const result = await notifyPage.show();
+    const result = await notifyPage.showWithoutFocus();
     if (!result) return;
     if (!notifyPage.page) return;
 }
