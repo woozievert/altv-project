@@ -1,7 +1,5 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
-using Src.Model;
-using Src.Repository.Tools;
 using AltV.Net.Elements.Entities;
 
 namespace Src.Factory.TPlayer;
@@ -13,7 +11,10 @@ public class TPlayer : Player
 {
     public TPlayer(ICore core, IntPtr nativePointer, ushort id) : base(core, nativePointer, id)
     {
+        PlayerId = id;
         IsLogin = false;
+        PlayerName = "无效名称";
+        Dimension = 0;
     }
 
     public int PlayerId { get; set; }
@@ -22,6 +23,6 @@ public class TPlayer : Player
 
     public new Position Position { get; set; }
 
-    public int World { get; set; }
+    public int Dimension { get; set; }
 
 }

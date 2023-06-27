@@ -9,10 +9,11 @@ public abstract class Server : IScript
 {
     public static async void SetWeather()
     {
+        Alt.Log("[天气]开始设置服务器天气...");
         await Timer();
         if (await GetWeather(true))
         {
-            Alt.Log("[天气] 服务器天气初始化获取完成");
+            Alt.Log("[天气]服务器天气初始化获取完成");
         }
     }
     
@@ -48,39 +49,44 @@ public abstract class Server : IScript
         string WeatherAPI = $"https://api.qqsuu.cn/api/dm-hqtiqnqi?city={apiCity}&type={apiType}&apiKey={apiKey}";
         try
         {
+            Alt.Log("进入try");
             HttpResponseMessage response = await weatherClient.GetAsync(WeatherAPI);
             response.EnsureSuccessStatusCode(); // 确保请求成功
             string responseBody = await response.Content.ReadAsStringAsync();
             Alt.Log(responseBody);
-            if (responseBody != null)
-            {
-                var WeatherObj = JObject.Parse(responseBody);
-                Weather.Condition = GetNativeWeather(WeatherObj["weather"].Value<string>());
-                Weather.CurrentTemperature = WeatherObj["reral"].Value<double>();
-                Weather.HighestTemperature = WeatherObj["highest"].Value<double>();
-                Weather.LowestTemperature = WeatherObj["lowest"].Value<double>();
-                Weather.Wind = WeatherObj["wind"].Value<string>();
-                Weather.Tips = WeatherObj["tips"].Value<string>();
+            Alt.Log("进入正常");
+            var WeatherObj = JObject.Parse(responseBody);
+            Weather.Condition = GetNativeWeather(WeatherObj["weather"].Value<string>());
+            Weather.CurrentTemperature = WeatherObj["reral"].Value<double>();
+            Weather.HighestTemperature = WeatherObj["highest"].Value<double>();
+            Weather.LowestTemperature = WeatherObj["lowest"].Value<double>();
+            Weather.Wind = WeatherObj["wind"].Value<string>();
+            Weather.Tips = WeatherObj["tips"].Value<string>();
                 
-                if (!isFirst)
+            if (!isFirst)
+            {
+                foreach (TPlayer player in Alt.GetAllPlayers())
                 {
-                    foreach (TPlayer player in Alt.GetAllPlayers())
+                    if (player.IsLogin)
                     {
-                        if (player.IsLogin)
+                        SyncPlayerWeather(player);
+                        if (GetNativeWeatherId(GetNativeWeather(Weather.Condition)) != 9999)
                         {
-                            SyncPlayerWeather(player);
+                            player.SetWeather(GetNativeWeatherId(GetNativeWeather(Weather.Condition)));
+                            player.SetDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                         }
                     }
                 }
-                
-                Alt.Log("[天气] 服务器天气更新完成");
-                return true;
+                Alt.Log("[天气]服务器天气更新完成并试图同步至所有玩家");
             }
-            return false;
+                
+            Alt.Log("[天气]服务器天气更新完成");
+            return true;
         }
         catch (Exception ex)
         {
-            Alt.LogError("[天气] 获取天气API错误：" + ex.Message);
+            Alt.Log("进入catch");
+            Alt.LogError("[天气]获取天气API错误：" + ex.Message);
             return false;
         }
     }
@@ -99,7 +105,7 @@ public abstract class Server : IScript
         
         await tcs.Task;
 
-        Alt.Log("[天气] 开始获取并更新服务器天气");
+        Alt.Log("[天气]开始获取并更新服务器天气");
         await GetWeather(false);
     }
 
@@ -130,5 +136,25 @@ public abstract class Server : IScript
             return "THUNDER";
         }
         return "null";
+    }
+
+    private static uint GetNativeWeatherId(string weatherType)
+    {
+        if (weatherType == "EXTRASUNNY") return 0;
+        if (weatherType == "CLEAR") return 1;
+        if (weatherType == "CLOUDS") return 2;
+        if (weatherType == "SMOG") return 3;
+        if (weatherType == "FOGGY") return 4;
+        if (weatherType == "OVERCAST") return 5;
+        if (weatherType == "RAIN") return 6;
+        if (weatherType == "THUNDER") return 7;
+        if (weatherType == "LIGHTRAIN") return 8;
+        if (weatherType == "SMOGGYLIGHTRAIN") return 9;
+        if (weatherType == "VERYLIGHTSNOW") return 10;
+        if (weatherType == "WINDYLIGHTSNOW") return 11;
+        if (weatherType == "LIGHTSNOW") return 12;
+        if (weatherType == "CHRISTMAS") return 13;
+        if (weatherType == "HALLOWEEN") return 14;
+        return 9999;
     }
 }
