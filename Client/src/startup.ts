@@ -10,3 +10,5 @@ import './cef_handler/index'
 import './nametag/nametag'
 // 自由飞行
 import './noclip/noclip'
+// 天气&时间
+import './weather/weather'
