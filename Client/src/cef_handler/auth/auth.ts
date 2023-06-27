@@ -27,13 +27,16 @@ async function _showAuthPage() {
     const result = await authPage.show();
     if (!result) return;
     if (!authPage.page) return;
-    await authPage.gameCursor(true);
+    setTimeout(async function (){
+        await authPage.gameCursor(true);
+        if (!alt.gameControlsEnabled())
+        {
+            await authPage.gameControl(true);
+            console.log('control 2:' + alt.gameControlsEnabled());
+        }
+    }, 4000);
 
     console.log('control:' + alt.gameControlsEnabled());
-    if (!alt.gameControlsEnabled())
-    {
-        await authPage.gameControl(true);
-    }
     if (localUsername != null && localPassword != null) {
         await authPage.emitSync('auth:webview:getLocalAuth', localUsername, localPassword);
     }
@@ -64,8 +67,9 @@ async function _destroyAuthPage(finishLogin: boolean = false) {
     if (!authPage.page) return;
     if (finishLogin) {
         await authPage.emitSync('auth:webview:clearForm');
-        await authPage.destroy(true);
-        console.log('control:' + alt.gameControlsEnabled());
+        if (await authPage.destroy(true)) {
+            console.log('control:' + alt.gameControlsEnabled());
+        }
     }
     await playerTempVar.setLogged(true);
 }

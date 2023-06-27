@@ -69,7 +69,6 @@ export default class webView {
         this.view.unfocus();
         this.view.destroy();
         this.active_state = false;
-
         await this.gameCursor(false);
         await this.gameControl(false);
         return true;
