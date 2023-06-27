@@ -1,7 +1,7 @@
 import * as alt from "alt-client";
 import * as native from "natives";
 
-const controlKey = 79;
+const controlKey = 112;
 
 const document = new alt.RmlDocument("/Client/nametag/index.rml");
 const container = document.getElementByID("nametag-container");

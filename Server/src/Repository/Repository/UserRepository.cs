@@ -77,11 +77,18 @@ public class UserRepository : IUserRepository
         player.Emit("chat:client:init"); // 初始化聊天框
         
         Chat.Handler.RegisterCmd("test", TestCommand);
+        
+        Chat.Handler.RegisterCmd("noclip", ToggleNoClip);
     }
     
     private static void TestCommand(TPlayer player, string[] strings)
     {
-        player.Emit("client:Console", "收到测试");
+        player.Emit("client:Console", strings);
+    }
+
+    private static void ToggleNoClip(TPlayer player, string[] strings)
+    {
+        player.Emit("noclip:client:toggle", true);
     }
 
     /// <summary>
