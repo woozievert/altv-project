@@ -1,4 +1,4 @@
-using AltV.Net.Elements.Entities;
+using Src.Factory.TPlayer;
 
 namespace Src.Repository.IRepository;
 
@@ -7,11 +7,11 @@ namespace Src.Repository.IRepository;
 /// </summary>
 public interface IUserRepository
 {
-    public bool Register(Factory.TPlayer.TPlayer player, string username, string password, string email);
+    public bool Register(TPlayer player, string username, string password, string email);
 
     public bool CheckPassword(string username, string inputPwd);
 
     public bool IsUserExist(string username);
 
-    public void UserLogin(Factory.TPlayer.TPlayer player, string user);
+    public void UserLogin(TPlayer player, string user);
 }

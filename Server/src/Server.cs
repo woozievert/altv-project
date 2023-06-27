@@ -29,6 +29,7 @@ public class Server : Resource
     {
         Alt.Log("依赖注入已完成");
         Alt.Log("服务已启动");
+        Weather.Server.SetWeather();
     }
 
     public override void OnStop()

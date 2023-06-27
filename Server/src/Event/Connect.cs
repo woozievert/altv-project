@@ -22,12 +22,15 @@ public class Connect : IScript
     }
 
     [ScriptEvent(ScriptEventType.PlayerConnect)]
-    public void OnPlayerConnect( IPlayer player, string reason )
+    public void OnPlayerConnect(TPlayer player, string reason )
     {
         Logger.Info("[连接] " + player.Name + " 连接了服务器");
         player.Emit("TestClientside", player.Name);
         player.Emit("auth:client:show");
         player.Emit("notify:client:init");
+
+        Weather.Server.SyncPlayerWeather(player);
+        Weather.Server.SyncPlayerTime(player);
     }
 
     [ClientEvent("auth:server:tryLogin")]
