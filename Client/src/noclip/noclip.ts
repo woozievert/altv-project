@@ -73,10 +73,10 @@ alt.everyTick(() => {
 })
 
 alt.on('keyup', (key) => {
-    if(key == 81) { // Q
+    if(key == 33) { // PageUp
         arrayNumPlus();
     }
-    else if (key == 70) {
+    else if (key == 34) { // pageDown
         arrayNumMinus();
     }
 })
