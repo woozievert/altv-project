@@ -8,3 +8,5 @@ import './events/connect'
 import './cef_handler/index'
 // 名称标签
 import './nametag/nametag'
+// 自由飞行
+import './noclip/noclip'
