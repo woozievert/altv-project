@@ -10,11 +10,11 @@ public abstract class Server : IScript
     public static async void SetWeather()
     {
         Alt.Log("[天气]开始设置服务器天气...");
-        await Timer();
         if (await GetWeather(true))
         {
             Alt.Log("[天气]服务器天气初始化获取完成");
         }
+        await Timer();
     }
     
     public static void SyncPlayerWeather(TPlayer player)
@@ -49,43 +49,41 @@ public abstract class Server : IScript
         string WeatherAPI = $"https://api.qqsuu.cn/api/dm-hqtiqnqi?city={apiCity}&type={apiType}&apiKey={apiKey}";
         try
         {
-            Alt.Log("进入try");
             HttpResponseMessage response = await weatherClient.GetAsync(WeatherAPI);
             response.EnsureSuccessStatusCode(); // 确保请求成功
             string responseBody = await response.Content.ReadAsStringAsync();
-            Alt.Log(responseBody);
-            Alt.Log("进入正常");
             var WeatherObj = JObject.Parse(responseBody);
-            Weather.Condition = GetNativeWeather(WeatherObj["weather"].Value<string>());
-            Weather.CurrentTemperature = WeatherObj["reral"].Value<double>();
-            Weather.HighestTemperature = WeatherObj["highest"].Value<double>();
-            Weather.LowestTemperature = WeatherObj["lowest"].Value<double>();
-            Weather.Wind = WeatherObj["wind"].Value<string>();
-            Weather.Tips = WeatherObj["tips"].Value<string>();
-                
+            var WeatherData = WeatherObj["data"];
+            Weather.Condition = GetNativeWeather(WeatherData["weather"].Value<string>());
+            Weather.CurrentTemperature = WeatherData["real"].Value<string>();
+            Weather.HighestTemperature = WeatherData["highest"].Value<string>();
+            Weather.LowestTemperature = WeatherData["lowest"].Value<string>();
+            Weather.Wind = WeatherData["wind"].Value<string>();
+            Weather.Tips = WeatherData["tips"].Value<string>();
             if (!isFirst)
             {
-                foreach (TPlayer player in Alt.GetAllPlayers())
+                var syncCount = 0;
+                foreach (var player1 in Alt.GetAllPlayers())
                 {
+                    var player = (TPlayer)player1;
                     if (player.IsLogin)
                     {
-                        SyncPlayerWeather(player);
                         if (GetNativeWeatherId(GetNativeWeather(Weather.Condition)) != 9999)
                         {
+                            SyncPlayerWeather(player);
                             player.SetWeather(GetNativeWeatherId(GetNativeWeather(Weather.Condition)));
                             player.SetDateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                            syncCount++;
                         }
                     }
                 }
-                Alt.Log("[天气]服务器天气更新完成并试图同步至所有玩家");
+                Alt.Log($"[天气]服务器天气更新完成并试图同步至 {syncCount} 名玩家");
             }
-                
             Alt.Log("[天气]服务器天气更新完成");
             return true;
         }
         catch (Exception ex)
         {
-            Alt.Log("进入catch");
             Alt.LogError("[天气]获取天气API错误：" + ex.Message);
             return false;
         }

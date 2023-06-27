@@ -29,7 +29,7 @@ function setServerWeather(weather: string, time: number) {
 alt.onServer('weather:client:time', setServerTime);
 function setServerTime(hour: number, minute: number, second: number, msperminute: number) {
     console.log(`收到时间${hour}:${minute}:${second}`);
-    
+
     let oldTime = {
         hour: native.getClockHours(),
         minute: native.getClockMinutes(),
