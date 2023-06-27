@@ -34,7 +34,6 @@ async function handleLoaded() {
     for (const msg of chatBuffer) {
         await addMessage(msg.name, msg.text);
     }
-
     chatLoaded = true;
 }
 

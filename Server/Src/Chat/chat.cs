@@ -54,7 +54,14 @@ public class Handler : IScript
             {
                 Alt.Log("[chat:msg] " + player.Name + ": " + message);
 
-                player.Emit("chat:client:addMessage", player.Name, message.Replace("<", "&lt;").Replace("'", "&#39").Replace("\"", "&#34"));
+                foreach (var p in Alt.GetAllPlayers())
+                {
+                    if (player.IsLogin) // 所有登录玩家就可以看到
+                    {
+                        var target = (TPlayer)p;
+                        target.Emit("chat:client:addMessage", player.Name, message.Replace("<", "&lt;").Replace("'", "&#39").Replace("\"", "&#34"));
+                    }
+                }
             }
         }
     }
