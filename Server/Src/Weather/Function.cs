@@ -5,7 +5,7 @@ using Timer = System.Timers.Timer;
 
 namespace Src.Weather;
 
-public abstract class Server
+public abstract class Server : IScript
 {
     public static async void SetWeather()
     {
@@ -50,8 +50,8 @@ public abstract class Server
         {
             HttpResponseMessage response = await weatherClient.GetAsync(WeatherAPI);
             response.EnsureSuccessStatusCode(); // 确保请求成功
-
             string responseBody = await response.Content.ReadAsStringAsync();
+            Alt.Log(responseBody);
             if (responseBody != null)
             {
                 var WeatherObj = JObject.Parse(responseBody);

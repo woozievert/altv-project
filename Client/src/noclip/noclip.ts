@@ -94,12 +94,12 @@ function startNoClip() {
 
     if (noClipState) {
         if (player.vehicle) native.setVehicleGravity(noClipEntity, false)
-        native.setEntityAlpha(noClipEntity, 0, true);
+        native.setEntityInvincible(noClipEntity, true);
         native.freezeEntityPosition(noClipEntity, true)
         native.setEntityCollision(noClipEntity, false, false)
     } else {
         native.freezeEntityPosition(noClipEntity, false)
-        native.setEntityAlpha(noClipEntity, 255, true);
+        native.setEntityInvincible(noClipEntity, false);
         native.setEntityCollision(noClipEntity, true, true)
         if (player.vehicle) {
             native.setVehicleGravity(noClipEntity, true)
