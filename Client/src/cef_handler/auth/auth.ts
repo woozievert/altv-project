@@ -29,21 +29,18 @@ async function _showAuthPage() {
     if (!authPage.page) return;
     setTimeout(async function (){
         await authPage.gameCursor(true);
-        if (!alt.gameControlsEnabled())
+        if (await authPage.gameControl(true))
         {
-            await authPage.gameControl(true);
-            console.log('control 2:' + alt.gameControlsEnabled());
+            console.log('control:' + alt.gameControlsEnabled());
+            if (localUsername != null && localPassword != null) {
+                await authPage.emitSync('auth:webview:getLocalAuth', localUsername, localPassword);
+            }
+            await authPage.on('auth:client:tryLogin', _tryLogin);
+            await authPage.on('auth:client:saveLocalAuth', _saveLocalAuth);
+            await authPage.on('auth:client:deleteLocalAuth', _deleteLocalAuth);
+            await authPage.on('auth:client:tryRegister', _tryRegister);
         }
     }, 4000);
-
-    console.log('control:' + alt.gameControlsEnabled());
-    if (localUsername != null && localPassword != null) {
-        await authPage.emitSync('auth:webview:getLocalAuth', localUsername, localPassword);
-    }
-    await authPage.on('auth:client:tryLogin', _tryLogin);
-    await authPage.on('auth:client:saveLocalAuth', _saveLocalAuth);
-    await authPage.on('auth:client:deleteLocalAuth', _deleteLocalAuth);
-    await authPage.on('auth:client:tryRegister', _tryRegister);
 }
 
 function _tryLogin(username: string, password: string) {
