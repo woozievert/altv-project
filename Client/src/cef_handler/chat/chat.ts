@@ -11,25 +11,12 @@ let chatOpened: boolean = false;
 alt.onServer('chat:client:init', init);
 
 async function init(){
-    const result = await chatPage.show();
+    const result = await chatPage.showWithoutFocus();
     if (!result) return;
     if (!chatPage.page) return;
-    await chatPage.gameCursor(false);
-    if (!alt.gameControlsEnabled())
-    {
-        await chatPage.gameControl(true);
-    }
-
-    setTimeout(async function (){
-        await chatPage.gameCursor(false);
-        if (await chatPage.gameControl(true))
-        {
-            console.log('control:' + alt.gameControlsEnabled());
-            await chatPage.on("chat:webview:loaded", handleLoaded);
-            await chatPage.on("chat:webview:submitMessage", handleSubmit);
-            await pushLine("<b>已连接alt:V项目</b>");
-        }
-    }, 2000);
+    await chatPage.on("chat:webview:loaded", handleLoaded);
+    await chatPage.on("chat:webview:submitMessage", handleSubmit);
+    await pushLine("<b>已连接alt:V项目</b>");
 }
 
 async function addMessage(name: string, text: string) {
@@ -55,11 +42,8 @@ async function handleSubmit(text: string) {
     alt.emitServer('chat:server:addMessage', text);
 
     chatOpened = false;
-    const result1 = await chatPage.unfocus();
-    const result2 = await chatPage.gameControl(true);
-    if (!result1 || !result2) {
-        // error
-    }
+    await chatPage.gameControl(true);
+    await chatPage.unfocus();
 }
 
 alt.onServer("chat:client:addMessage", pushMessage);
