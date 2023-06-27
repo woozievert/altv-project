@@ -44,14 +44,15 @@ export default class webView {
     @withLogging
     async show(): Promise<boolean> {
         this.view = new alt.WebView(this.url);
-        await this.focus();
         this.active_state = true;
         return true;
     }
 
     @withLogging
-    async showWithoutFocus(): Promise<boolean> {
+    async showWithFocus(): Promise<boolean> {
         this.view = new alt.WebView(this.url);
+        await this.focus();
+        this.active_state = true;
         return true;
     }
 

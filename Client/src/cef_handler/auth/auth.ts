@@ -24,7 +24,7 @@ export let playerTempVar = {
 // 显示并聚焦authPage页面，同时启用光标和关闭游戏控制。
 alt.onServer('auth:client:show', _showAuthPage);
 async function _showAuthPage() {
-    const result = await authPage.show();
+    const result = await authPage.showWithFocus();
     if (!result) return;
     if (!authPage.page) return;
     setTimeout(async function (){

@@ -11,9 +11,10 @@ let chatOpened: boolean = false;
 alt.onServer('chat:client:init', init);
 
 async function init(){
-    const result = await chatPage.showWithoutFocus();
+    const result = await chatPage.show();
     if (!result) return;
     if (!chatPage.page) return;
+    await chatPage.gameCursor(true);
     await chatPage.on("chat:webview:loaded", handleLoaded);
     await chatPage.on("chat:webview:submitMessage", handleSubmit);
     await pushLine("<b>已连接alt:V项目</b>");
