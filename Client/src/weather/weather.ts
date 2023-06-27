@@ -42,3 +42,9 @@ function setServerTime(hour: number, minute: number, second: number, msperminute
         alt.setMsPerGameMinute(msperminute);
     }
 }
+
+alt.onServer('weather:client:testcheck', testCheck);
+function testCheck() {
+    console.log(`时间: ${native.getClockHours()}:${native.getClockMinutes()}:${native.getClockSeconds()}`);
+    console.log(`天气: ${native.getCurrWeatherState()}`);
+}

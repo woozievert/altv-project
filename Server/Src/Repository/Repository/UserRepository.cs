@@ -79,6 +79,8 @@ public class UserRepository : IUserRepository
         Chat.Handler.RegisterCmd("test", TestCommand);
         
         Chat.Handler.RegisterCmd("noclip", ToggleNoClip);
+
+        Chat.Handler.RegisterCmd("check", CheckTime);
     }
     
     private static void TestCommand(TPlayer player, string[] strings)
@@ -89,6 +91,11 @@ public class UserRepository : IUserRepository
     private static void ToggleNoClip(TPlayer player, string[] strings)
     {
         player.Emit("noclip:client:toggle", true);
+    }
+    
+    private static void CheckTime(TPlayer player, string[] strings)
+    {
+        player.Emit("weather:client:testcheck");
     }
 
     /// <summary>
