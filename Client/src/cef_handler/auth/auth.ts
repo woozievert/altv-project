@@ -40,7 +40,7 @@ async function _showAuthPage() {
             await authPage.on('auth:client:deleteLocalAuth', _deleteLocalAuth);
             await authPage.on('auth:client:tryRegister', _tryRegister);
         }
-    }, 4000);
+    }, 5000);
 }
 
 function _tryLogin(username: string, password: string) {

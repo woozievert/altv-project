@@ -20,10 +20,16 @@ async function init(){
         await chatPage.gameControl(true);
     }
 
-    await chatPage.on("chat:webview:loaded", handleLoaded);
-    await chatPage.on("chat:webview:submitMessage", handleSubmit);
-
-    await pushLine("<b>已连接alt:V项目</b>");
+    setTimeout(async function (){
+        await chatPage.gameCursor(false);
+        if (await chatPage.gameControl(true))
+        {
+            console.log('control:' + alt.gameControlsEnabled());
+            await chatPage.on("chat:webview:loaded", handleLoaded);
+            await chatPage.on("chat:webview:submitMessage", handleSubmit);
+            await pushLine("<b>已连接alt:V项目</b>");
+        }
+    }, 2000);
 }
 
 async function addMessage(name: string, text: string) {
