@@ -10,7 +10,7 @@ async function _showCharCreator() {
     if (!creatorPage.page) return;
     setTimeout(async function (){
         await creatorPage.gameCursor(true);
-        if (await creatorPage.gameControl(false))
+        if (await creatorPage.gameControl(true))
         {
             //
         }
