@@ -76,6 +76,8 @@ public class UserRepository : IUserRepository
 
         player.Emit("chat:client:init"); // 初始化聊天框
         
+        player.Emit("charCreator:client:show"); // 显示创建角色页面
+        
         Chat.Handler.RegisterCmd("test", TestCommand);
         
         Chat.Handler.RegisterCmd("noclip", ToggleNoClip);

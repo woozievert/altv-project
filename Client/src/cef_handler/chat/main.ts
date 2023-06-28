@@ -1,6 +1,6 @@
 import * as alt from "alt-client";
 import webView from "../model";
-import {authPage} from "../auth/auth";
+import {authPage} from "../auth/main";
 
 const chatPage = new webView('聊天框', 'http://resource/Client/webview/chat/index.html');
 
@@ -9,7 +9,6 @@ let chatLoaded: boolean = false;
 let chatOpened: boolean = false;
 
 alt.onServer('chat:client:init', init);
-
 async function init(){
     const result = await chatPage.show();
     if (!result) return;

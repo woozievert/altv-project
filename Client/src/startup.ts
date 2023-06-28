@@ -7,8 +7,8 @@ import './events/connect'
 // 网页
 import './cef_handler/index'
 // 名称标签
-import './nametag/nametag'
+import './nametag/main'
 // 自由飞行
-import './noclip/noclip'
+import './noclip/main'
 // 天气&时间
-import './weather/weather'
+import './weather/main'

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>角色创建页面</title>
+</head>
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    .options-container {
+        position: relative;
+        height: 100vh; /* 使用100vh表示100%视口高度 */
+    }
+
+
+    .top-left {
+        position: absolute;
+        top: 5px; /* 与顶部的距离 */
+        left: 5px; /* 与左侧的距离 */
+    }
+
+    .bottom-left {
+        position: absolute;
+        bottom: 5px; /* 与底部的距离 */
+        left: 10px; /* 与左侧的距离 */
+    }
+
+    .bottom-right {
+        position: absolute;
+        bottom: 5px; /* 与底部的距离 */
+        right: 5px; /* 与右侧的距离 */
+    }
+
+    .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button {
+        transition: transform 0.2s;
+    }
+
+    .button:hover {
+        opacity: 0.8;
+    }
+
+    .button:active {
+        opacity: 0.5;
+        transform: scale(0.8); /* 缩小图片 */
+    }
+
+    .center-image {
+        position: absolute;
+        top: 10px;
+        left: 30px;
+    }
+
+    .input-container {
+        position: absolute;
+        bottom: 425px;
+        width: 300px;
+        background-color: rgba(34, 34, 38, 80%);
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        border-radius: 2px;
+    }
+
+    .input-inbox {
+        position: absolute;
+        right: 4px;
+        width: 310px;
+        height: 35px;
+        border: 1px solid rgba(255, 255, 255, 60%);
+        border-radius: 2px;
+
+        pointer-events: none;
+    }
+
+    .input-label {
+        color: white;
+        font-family: AaWuHunTi, sans-serif;
+        font-size: 18px;
+    }
+
+    .input-field {
+        flex-grow: 1;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        font-family: AaWuHunTi, sans-serif;
+        font-size: 18px;
+        text-align: center;
+    }
+</style>
+
+<body>
+
+<div class="options-container">
+    <div class="top-left">
+        <img src="./images/返回.svg" alt="返回" class="button">
+    </div>
+    <div class="bottom-left">
+        <img src="./images/导入.svg" alt="导入捏脸数据" class="port-img button">
+        <img src="./images/导出.svg" alt="导出捏脸数据" class="port-img button">
+    </div>
+    <div class="bottom-right">
+        <img src="./images/切换时间.svg" alt="切换时间" class="button">
+        <img src="./images/套装.svg" alt="套装" class="button center-image">
+        <img src="./images/动作.svg" alt="动作" class="button">
+        <img src="./images/创建角色.svg" alt="创建角色" class="button" onclick="submitCharacterInfo();">
+    </div>
+    <div class="center">
+        <div class="input-container">
+            <div class="input-inbox"></div>
+            <label for="name-input" class="input-label">昵称</label>
+            <div>
+                <input id="name-input" type="text" class="input-field" placeholder="在此输入您的昵称">
+            </div>
+        </div>
+<!--        <img src="./images/套装.svg" alt="套装" class="button">-->
+    </div>
+</div>
+
+<script src="./js/index.js"></script>
+</body>
+</html>
