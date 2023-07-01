@@ -5,13 +5,13 @@ namespace Src.Chat;
 
 public class Handler : IScript
 {
-    private static Dictionary<string, Action<TPlayer, string[]>> CmdHandlers = new Dictionary<string, Action<TPlayer, string[]>>();
-    private static Dictionary<TPlayer, bool> MutedPlayers = new Dictionary<TPlayer, bool>();
+    private static Dictionary<string, Action<TPlayer, string[]>> _cmdHandlers = new Dictionary<string, Action<TPlayer, string[]>>();
+    private static Dictionary<TPlayer, bool> _mutedPlayers = new Dictionary<TPlayer, bool>();
     
     private static void InvokeCmd(TPlayer player, string cmd, string[] args)
     {
         cmd = cmd.ToLower();
-        if (CmdHandlers.TryGetValue(cmd, out var callback))
+        if (_cmdHandlers.TryGetValue(cmd, out var callback))
         {
             callback.Invoke(player, args);
         }
@@ -42,7 +42,7 @@ public class Handler : IScript
         }
         else
         {
-            if (MutedPlayers.ContainsKey(player) && MutedPlayers[player])
+            if (_mutedPlayers.ContainsKey(player) && _mutedPlayers[player])
             {
                 SendPlayerMessage(player, "{FF0000} 您正在被禁言中.");
                 return;
@@ -75,18 +75,18 @@ public class Handler : IScript
     {
         cmd = cmd.ToLower();
 
-        if (CmdHandlers.ContainsKey(cmd))
+        if (_cmdHandlers.ContainsKey(cmd))
         {
             Alt.LogError($"注册的指令 /{cmd} 已存在");
         }
         else
         {
-            CmdHandlers.Add(cmd, callback);
+            _cmdHandlers.Add(cmd, callback);
         }
     }
 
     private static void MutePlayer(TPlayer player, bool state)
     {
-        MutedPlayers[player] = state;
+        _mutedPlayers[player] = state;
     }
 }

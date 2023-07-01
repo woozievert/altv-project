@@ -45,8 +45,12 @@ async function _showAuthPage() {
     }, 5000);
 }
 
-function _tryLogin(username: string, password: string) {
+async function _tryLogin(username: string, password: string) {
     alt.emitServer('auth:server:tryLogin', username, password);
+}
+
+async function _tryRegister(username: string, password: string, email: string) {
+    alt.emitServer('auth:server:tryRegister', username, password, email);
 }
 
 function _saveLocalAuth(username: string, password: string) {
@@ -78,10 +82,6 @@ alt.onServer('auth:client:wrongAuth', _wrongAuth);
 async function _wrongAuth() {
     if (!authPage.page) return;
     await authPage.emitSync('auth:webview:wrongAuth', langPack('login.error.wrong_pass'));
-}
-
-function _tryRegister(username: string, password: string, email: string) {
-    alt.emitServer('auth:server:tryRegister', username, password, email);
 }
 
 alt.onServer('auth:client:alreadyExist', _alreadyExist);
