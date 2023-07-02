@@ -339,7 +339,6 @@ async function _showAuthPage() {
     return;
   if (!authPage.page)
     return;
-  const markerTest = new alt7.Marker(alt7.MarkerType.MarkerNum1, new alt7.Vector3(alt7.Player.local.pos), alt7.RGBA.red);
   setTimeout(async function() {
     await authPage.gameCursor(true);
     if (await authPage.gameControl(true)) {
