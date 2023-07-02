@@ -1,6 +1,7 @@
 ﻿using AltV.Net;
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using Src.Enum.Admin;
 
 namespace Src.Factory.TPlayer;
 
@@ -20,6 +21,8 @@ public class TPlayer : Player
     public int PlayerId { get; set; }
     public string PlayerName { get; set; }
     public bool IsLogin { get; set; }
+
+    public Admin IsAdmin { get; set; }
 
     public new Position Position { get; set; }
 

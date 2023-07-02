@@ -1,5 +1,6 @@
 using AltV.Net.Data;
 using AltV.Net.Elements.Entities;
+using Src.Enum.Admin;
 using Src.Factory.TPlayer;
 using Src.Model;
 using Src.Model.User;
@@ -60,8 +61,11 @@ public class UserRepository : IUserRepository
 
     public void UserLogin(TPlayer player, string user)
     {
-        player.PlayerId = _context.Users.Where(x => x.UserName == user).Select(x => x.Uid).FirstOrDefault();
-        player.PlayerName = _context.Users.Where(x => x.UserName == user).Select(x => x.UserName).FirstOrDefault();
+        var userEntity = _context.Users.Where(x => x.UserName == user); 
+        
+        player.PlayerId = userEntity.Select(x => x.Uid).FirstOrDefault();
+        player.PlayerName = userEntity.Select(x => x.UserName).FirstOrDefault();
+        player.IsAdmin = userEntity.FirstOrDefault().AdminLevel;
         player.IsLogin = true;
 
         player.SetSyncedMetaData("playerName", player.PlayerName);
@@ -126,7 +130,8 @@ public class UserRepository : IUserRepository
                 Password = BCrypt.HashPassword(password, BCrypt.GenerateSalt()),
                 Email = email,
                 RegisterTime = DateTime.Now,
-                LoginIp = "0.0.0.0"
+                LoginIp = "0.0.0.0",
+                AdminLevel = Admin.Noth
             };
             _context.Users.Add(newUser);
             _context.SaveChanges();
