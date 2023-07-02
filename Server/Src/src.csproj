@@ -9,6 +9,7 @@
 
   <ItemGroup>
         <PackageReference Include="AltV.Net" Version="14.0.2" />
+        <PackageReference Include="AltV.Net.CApi" Version="14.0.2" />
         <PackageReference Include="AltV.Net.Resources.Chat.Api" Version="14.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
