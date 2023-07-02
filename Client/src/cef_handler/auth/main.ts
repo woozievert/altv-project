@@ -2,7 +2,6 @@ import * as alt from "alt-client"
 import langPack from "../../shared/locale/langService";
 import * as notify from "../notify/main";
 import webView from "../model";
-import {Vector3} from "alt-shared";
 
 export const authPage: webView = new webView('登录注册页面', 'http://resource/Client/webview/auth/index.html');
 
