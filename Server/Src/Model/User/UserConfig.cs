@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Src.Enum.Admin;
 
 namespace Src.Model.User;
 
@@ -36,5 +37,10 @@ public class UserConfig : IEntityTypeConfiguration<User>
         builder.Property(e => e.LoginIp)
             .IsRequired()
             .HasMaxLength(39);
+
+        builder.Property(e => e.AdminLevel)
+            .IsRequired()
+            .HasDefaultValue(Admin.Noth)
+            .HasConversion<int>();
     }
 }

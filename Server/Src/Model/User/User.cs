@@ -1,4 +1,5 @@
 using System.Net;
+using Src.Enum.Admin;
 
 namespace Src.Model.User;
 
@@ -31,4 +32,8 @@ public class User
     /// </summary>
     /// <value></value>
     public string LoginIp { get; set; }
+    /// <summary>
+    /// 是否是管理员
+    /// </summary>
+    public Admin AdminLevel { get; set; }
 }
