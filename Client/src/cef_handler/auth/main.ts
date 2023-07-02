@@ -29,7 +29,7 @@ async function _showAuthPage() {
     if (!authPage.page) return;
     setTimeout(async function (){
         await authPage.gameCursor(true);
-        if (await authPage.gameControl(true))
+        if (await authPage.gameControl(false))
         {
             console.log('control:' + alt.gameControlsEnabled());
             if (localUsername != null && localPassword != null) {
