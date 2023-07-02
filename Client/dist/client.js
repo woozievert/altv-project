@@ -341,7 +341,7 @@ async function _showAuthPage() {
     return;
   setTimeout(async function() {
     await authPage.gameCursor(true);
-    if (await authPage.gameControl(true)) {
+    if (await authPage.gameControl(false)) {
       console.log("control:" + alt7.gameControlsEnabled());
       if (localUsername != null && localPassword != null) {
         await authPage.emitSync("auth:webview:getLocalAuth", localUsername, localPassword);
