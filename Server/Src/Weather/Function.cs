@@ -44,7 +44,7 @@ public abstract class Server : IScript
     {
         const string apiKey = "b1326b24a9c9df417789f872f9e9f294";
         const string apiCity = "上海市";
-        const int apiType = 1; // 实时
+        const int apiType = 1; // 实时.
         using HttpClient weatherClient = new HttpClient();
         string WeatherAPI = $"https://api.qqsuu.cn/api/dm-hqtiqnqi?city={apiCity}&type={apiType}&apiKey={apiKey}";
         try

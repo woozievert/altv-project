@@ -2,7 +2,6 @@ import * as alt from "alt-client"
 import langPack from "../../shared/locale/langService";
 import * as notify from "../notify/main";
 import webView from "../model";
-import {Vector3} from "alt-shared";
 
 export const authPage: webView = new webView('登录注册页面', 'http://resource/Client/webview/auth/index.html');
 
@@ -28,10 +27,9 @@ async function _showAuthPage() {
     const result = await authPage.showWithFocus();
     if (!result) return;
     if (!authPage.page) return;
-    const markerTest = new alt.Marker(alt.MarkerType.MarkerNum1, new alt.Vector3(alt.Player.local.pos), alt.RGBA.red);
     setTimeout(async function (){
         await authPage.gameCursor(true);
-        if (await authPage.gameControl(true))
+        if (await authPage.gameControl(false))
         {
             console.log('control:' + alt.gameControlsEnabled());
             if (localUsername != null && localPassword != null) {
@@ -45,8 +43,12 @@ async function _showAuthPage() {
     }, 5000);
 }
 
-function _tryLogin(username: string, password: string) {
+async function _tryLogin(username: string, password: string) {
     alt.emitServer('auth:server:tryLogin', username, password);
+}
+
+async function _tryRegister(username: string, password: string, email: string) {
+    alt.emitServer('auth:server:tryRegister', username, password, email);
 }
 
 function _saveLocalAuth(username: string, password: string) {
@@ -78,10 +80,6 @@ alt.onServer('auth:client:wrongAuth', _wrongAuth);
 async function _wrongAuth() {
     if (!authPage.page) return;
     await authPage.emitSync('auth:webview:wrongAuth', langPack('login.error.wrong_pass'));
-}
-
-function _tryRegister(username: string, password: string, email: string) {
-    alt.emitServer('auth:server:tryRegister', username, password, email);
 }
 
 alt.onServer('auth:client:alreadyExist', _alreadyExist);
