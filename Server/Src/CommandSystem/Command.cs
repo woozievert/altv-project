@@ -13,13 +13,15 @@ namespace Src.CommandSystem {
         public bool GreedyArg { get; }
         public string Name { get; }
         public Admin AdminLevel { get; }
-        public Command(string name ,  bool greedyArg , string[] aliases ,Admin adminlevel) {
+        public string Describe { get; }
+        public Command(string name ,  bool greedyArg , string[] aliases ,Admin adminlevel,string describe) {
 
             Name = name;
             GreedyArg = greedyArg;
             Aliases = aliases;
             AdminLevel = adminlevel;
-            
+            Describe = describe;
+                       
         }
 
     }
