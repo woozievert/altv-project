@@ -58,7 +58,7 @@ function _saveLocalAuth(username: string, password: string) {
 }
 
 function _deleteLocalAuth() {
-    alt.LocalStorage.delete("username"); // 设置本地存储键值
+    alt.LocalStorage.delete("username"); // 删除本地存储键值
     alt.LocalStorage.delete("password");
     alt.LocalStorage.save(); // 保存本地存储
 }

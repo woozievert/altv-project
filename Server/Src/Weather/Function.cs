@@ -42,7 +42,7 @@ public abstract class Server : IScript
     
     private static async Task<bool> GetWeather(bool isFirst)
     {
-        const string apiKey = "b1326b24a9c9df417789f872f9e9f294";
+        const string apiKey = "9ce970683b9c28a93abd45815b2afead";
         const string apiCity = "上海市";
         const int apiType = 1; // 实时.
         using HttpClient weatherClient = new HttpClient();
