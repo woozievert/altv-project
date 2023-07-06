@@ -5,6 +5,7 @@ namespace Src.Chat;
 
 public class Handler : IScript
 {
+    
     private static Dictionary<string, Action<TPlayer, string[]>> _cmdHandlers = new Dictionary<string, Action<TPlayer, string[]>>();
     private static Dictionary<TPlayer, bool> _mutedPlayers = new Dictionary<TPlayer, bool>();
     
